@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#4ecdc4">
+    <title>Chemistry Lab Games - Interactive Learning</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icon-192x192.png">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <i class="fas fa-flask"></i>
+                <h1>Chemistry Lab Games</h1>
+            </div>
+            <div class="player-info" id="playerInfo" style="display: none;">
+                <span>Welcome, <span id="playerName"></span>!</span>
+                <button id="logoutBtn" class="btn-secondary">Logout</button>
+            </div>
+        </header>
+
+        <!-- Player Registration Modal -->
+        <div id="playerModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2><i class="fas fa-user-plus"></i> Player Registration</h2>
+                </div>
+                <div class="modal-body">
+                    <form id="playerForm">
+                        <div class="form-group">
+                            <label for="playerNameInput">Enter your name:</label>
+                            <input type="text" id="playerNameInput" placeholder="Your name" required>
+                        </div>
+                        <button type="submit" class="btn-primary" id="submitBtn">
+                            <span id="submitText">Start Playing</span>
+                            <div id="loadingSpinner" class="loading-spinner" style="display: none;"></div>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Menu -->
+        <main id="mainMenu" class="main-menu" style="display: none;">
+            <div class="welcome-section">
+                <h2>Welcome to Chemistry Lab Games!</h2>
+                <p>Test your knowledge of medical laboratory tests and procedures</p>
+            </div>
+
+            <div class="games-grid">
+                <div class="game-card" data-game="sample-matching">
+                    <div class="game-icon">
+                        <i class="fas fa-vials"></i>
+                    </div>
+                    <h3>Sample & Test Matching</h3>
+                    <p>Drag test tubes to their corresponding lab tests</p>
+                    <div class="game-stats">
+                        <span class="best-score">Best: <span id="sampleMatchingBest">0</span></span>
+                        <span class="best-time">Time: <span id="sampleMatchingTime">--:--</span></span>
+                    </div>
+                </div>
+
+                <div class="game-card" data-game="correct-range">
+                    <div class="game-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <h3>Correct Range</h3>
+                    <p>Determine if test results are normal, high, or low</p>
+                    <div class="game-stats">
+                        <span class="best-score">Best: <span id="correctRangeBest">0</span></span>
+                        <span class="best-time">Time: <span id="correctRangeTime">--:--</span></span>
+                    </div>
+                </div>
+
+                <div class="game-card" data-game="quick-quiz">
+                    <div class="game-icon">
+                        <i class="fas fa-question-circle"></i>
+                    </div>
+                    <h3>Quick Quiz</h3>
+                    <p>Answer questions about organs and laboratory tests</p>
+                    <div class="game-stats">
+                        <span class="best-score">Best: <span id="quickQuizBest">0</span></span>
+                        <span class="best-time">Time: <span id="quickQuizTime">--:--</span></span>
+                    </div>
+                </div>
+
+                <div class="game-card" data-game="guess-test">
+                    <div class="game-icon">
+                        <i class="fas fa-user-md"></i>
+                    </div>
+                    <h3>Guess the Test</h3>
+                    <p>Identify which test to order based on patient symptoms</p>
+                    <div class="game-stats">
+                        <span class="best-score">Best: <span id="guessTestBest">0</span></span>
+                        <span class="best-time">Time: <span id="guessTestTime">--:--</span></span>
+                    </div>
+                </div>
+
+                <div class="game-card" data-game="medical-puzzle">
+                    <div class="game-icon">
+                        <i class="fas fa-heartbeat"></i>
+                    </div>
+                    <h3>Medical Puzzle</h3>
+                    <p>Assemble organ puzzles and match with tests</p>
+                    <div class="game-stats">
+                        <span class="best-score">Best: <span id="medicalPuzzleBest">0</span></span>
+                        <span class="best-time">Time: <span id="medicalPuzzleTime">--:--</span></span>
+                    </div>
+                </div>
+
+                <div class="game-card" data-game="lab-journey">
+                    <div class="game-icon">
+                        <i class="fas fa-flask"></i>
+                    </div>
+                    <h3>Lab Journey</h3>
+                    <p>Learn about laboratory workflow and procedures</p>
+                    <div class="game-stats">
+                        <span class="best-score">Best: <span id="labJourneyBest">0</span></span>
+                        <span class="best-time">Time: <span id="labJourneyTime">--:--</span></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="leaderboard-section">
+                <h3><i class="fas fa-trophy"></i> Leaderboards</h3>
+                <div class="leaderboard-tabs">
+                    <button class="tab-btn active" data-tab="sample-matching">Sample Matching</button>
+                    <button class="tab-btn" data-tab="correct-range">Correct Range</button>
+                    <button class="tab-btn" data-tab="quick-quiz">Quick Quiz</button>
+                    <button class="tab-btn" data-tab="guess-test">Guess Test</button>
+                    <button class="tab-btn" data-tab="medical-puzzle">Medical Puzzle</button>
+                    <button class="tab-btn" data-tab="lab-journey">Lab Journey</button>
+                </div>
+                <div class="leaderboard-content">
+                    <div id="leaderboard-sample-matching" class="leaderboard active">
+                        <div class="leaderboard-list"></div>
+                    </div>
+                    <div id="leaderboard-correct-range" class="leaderboard">
+                        <div class="leaderboard-list"></div>
+                    </div>
+                    <div id="leaderboard-quick-quiz" class="leaderboard">
+                        <div class="leaderboard-list"></div>
+                    </div>
+                    <div id="leaderboard-guess-test" class="leaderboard">
+                        <div class="leaderboard-list"></div>
+                    </div>
+                    <div id="leaderboard-medical-puzzle" class="leaderboard">
+                        <div class="leaderboard-list"></div>
+                    </div>
+                    <div id="leaderboard-lab-journey" class="leaderboard">
+                        <div class="leaderboard-list"></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Game Screen -->
+        <div id="gameScreen" class="game-screen" style="display: none;">
+            <div class="game-header">
+                <button id="backToMenu" class="btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Back to Menu
+                </button>
+                <div class="game-title">
+                    <h2 id="currentGameTitle"></h2>
+                </div>
+                <div class="game-stats">
+                    <span>Score: <span id="currentScore">0</span></span>
+                    <span>Time: <span id="currentTime">00:00</span></span>
+                    <span>Time Left: <span id="timeLeft">03:00</span></span>
+                </div>
+            </div>
+
+            <div class="game-content">
+                <div id="questionContainer" class="question-container">
+                    <!-- Questions will be dynamically loaded here -->
+                </div>
+                
+                <!-- Drag and Drop Area -->
+                <div id="dragDropArea" class="drag-drop-area" style="display: none;">
+                    <div class="drag-items">
+                        <div class="drag-item" draggable="true" data-test="glucose">
+                            <i class="fas fa-vial"></i>
+                            <span>Glucose Test</span>
+                        </div>
+                        <div class="drag-item" draggable="true" data-test="cholesterol">
+                            <i class="fas fa-vial"></i>
+                            <span>Cholesterol Test</span>
+                        </div>
+                        <div class="drag-item" draggable="true" data-test="alt">
+                            <i class="fas fa-vial"></i>
+                            <span>ALT Test</span>
+                        </div>
+                    </div>
+                    <div class="drop-zones">
+                        <div class="drop-zone" data-organ="liver">
+                            <div class="organ-3d">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <span>Liver</span>
+                        </div>
+                        <div class="drop-zone" data-organ="heart">
+                            <div class="organ-3d">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <span>Heart</span>
+                        </div>
+                        <div class="drop-zone" data-organ="pancreas">
+                            <div class="organ-3d">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <span>Pancreas</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Puzzle Area -->
+                <div id="puzzleArea" class="puzzle-area" style="display: none;">
+                    <div class="puzzle-container">
+                        <div class="puzzle-pieces">
+                            <!-- Puzzle pieces will be dynamically generated -->
+                        </div>
+                        <div class="puzzle-board">
+                            <!-- Puzzle board will be dynamically generated -->
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="resultContainer" class="result-container" style="display: none;">
+                    <div class="result-content">
+                        <h3>Game Complete!</h3>
+                        <div class="final-stats">
+                            <div class="stat">
+                                <span class="stat-label">Final Score:</span>
+                                <span class="stat-value" id="finalScore">0</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-label">Time Taken:</span>
+                                <span class="stat-value" id="finalTime">00:00</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-label">Accuracy:</span>
+                                <span class="stat-value" id="finalAccuracy">0%</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-label">Classification:</span>
+                                <span class="stat-value" id="classification">Beginner</span>
+                            </div>
+                        </div>
+                        <div class="result-actions">
+                            <button id="playAgain" class="btn-primary">Play Again</button>
+                            <button id="backToMenuFromGame" class="btn-secondary">Back to Menu</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
