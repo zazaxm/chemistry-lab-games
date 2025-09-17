@@ -791,12 +791,12 @@ class GameManager {
         const gameData = GAME_DATA[this.currentGame];
         const question = gameData.questions[this.currentQuestionIndex];
         
-        // Use puzzle pieces from question data or default
+        // Create puzzle pieces with proper styling
         const pieces = question.puzzlePieces || ['🧩', '🧩', '🧩', '🧩', '🧩', '🧩', '🧩', '🧩', '🧩'];
         
         puzzlePieces.innerHTML = pieces.map((piece, index) => `
-            <div class="puzzle-piece" draggable="true" data-piece="${index}" style="display: flex;">
-                ${piece}
+            <div class="puzzle-piece" draggable="true" data-piece="${index}">
+                <span class="puzzle-emoji">${piece}</span>
             </div>
         `).join('');
         
@@ -1136,7 +1136,7 @@ class GameManager {
             </div>
         `;
         
-        // Initialize puzzle
+        // Initialize puzzle with proper styling
         this.initializePuzzle();
     }
 
