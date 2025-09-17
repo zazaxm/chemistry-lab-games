@@ -451,12 +451,18 @@ class GameManager {
             this.logout();
         });
 
-        // Game selection
+        // Game selection - improved for mobile devices
         document.querySelectorAll('.game-card').forEach(card => {
-            card.addEventListener('click', () => {
+            // Add both click and touch events for better mobile support
+            const handleGameSelection = (e) => {
+                e.preventDefault();
+                e.stopPropagation();
                 const gameType = card.dataset.game;
                 this.startGame(gameType);
-            });
+            };
+            
+            card.addEventListener('click', handleGameSelection);
+            card.addEventListener('touchend', handleGameSelection);
         });
 
         // Back to menu buttons
@@ -621,6 +627,11 @@ class GameManager {
         dragItems.forEach(item => {
             item.addEventListener('dragstart', this.handleDragStart.bind(this));
             item.addEventListener('dragend', this.handleDragEnd.bind(this));
+            
+            // Add touch support for mobile devices
+            item.addEventListener('touchstart', this.handleTouchStart.bind(this));
+            item.addEventListener('touchmove', this.handleTouchMove.bind(this));
+            item.addEventListener('touchend', this.handleTouchEnd.bind(this));
         });
 
         dropZones.forEach(zone => {
@@ -628,6 +639,10 @@ class GameManager {
             zone.addEventListener('drop', this.handleDrop.bind(this));
             zone.addEventListener('dragenter', this.handleDragEnter.bind(this));
             zone.addEventListener('dragleave', this.handleDragLeave.bind(this));
+            
+            // Add touch support for drop zones
+            zone.addEventListener('touchstart', this.handleDropZoneTouchStart.bind(this));
+            zone.addEventListener('touchend', this.handleDropZoneTouchEnd.bind(this));
         });
     }
 
@@ -690,6 +705,81 @@ class GameManager {
         return correctMatches[organ] && correctMatches[organ].includes(test);
     }
 
+    // Touch event handlers for mobile drag and drop
+    handleTouchStart(e) {
+        e.preventDefault();
+        this.touchStartX = e.touches[0].clientX;
+        this.touchStartY = e.touches[0].clientY;
+        this.touchElement = e.target;
+        this.touchElement.classList.add('dragging');
+    }
+
+    handleTouchMove(e) {
+        e.preventDefault();
+        if (!this.touchElement) return;
+        
+        const touchX = e.touches[0].clientX;
+        const touchY = e.touches[0].clientY;
+        
+        // Move the element with touch
+        this.touchElement.style.position = 'fixed';
+        this.touchElement.style.left = (touchX - 50) + 'px';
+        this.touchElement.style.top = (touchY - 50) + 'px';
+        this.touchElement.style.zIndex = '1000';
+        this.touchElement.style.pointerEvents = 'none';
+    }
+
+    handleTouchEnd(e) {
+        e.preventDefault();
+        if (!this.touchElement) return;
+        
+        const touchX = e.changedTouches[0].clientX;
+        const touchY = e.changedTouches[0].clientY;
+        
+        // Find the drop zone under the touch point
+        const elementBelow = document.elementFromPoint(touchX, touchY);
+        const dropZone = elementBelow ? elementBelow.closest('.drop-zone') : null;
+        
+        if (dropZone) {
+            const testType = this.touchElement.dataset.test;
+            const organType = dropZone.dataset.organ;
+            
+            const isCorrect = this.checkOrganTestMatch(organType, testType);
+            
+            if (isCorrect) {
+                dropZone.classList.add('correct');
+                this.score++;
+                this.showFeedback('Correct!', 'success');
+            } else {
+                dropZone.classList.add('incorrect');
+                this.showFeedback('Incorrect!', 'error');
+            }
+            
+            // Move to next question after a delay
+            setTimeout(() => {
+                this.nextQuestion();
+            }, 1500);
+        }
+        
+        // Reset element position
+        this.touchElement.style.position = '';
+        this.touchElement.style.left = '';
+        this.touchElement.style.top = '';
+        this.touchElement.style.zIndex = '';
+        this.touchElement.style.pointerEvents = '';
+        this.touchElement.classList.remove('dragging');
+        
+        this.touchElement = null;
+    }
+
+    handleDropZoneTouchStart(e) {
+        e.preventDefault();
+    }
+
+    handleDropZoneTouchEnd(e) {
+        e.preventDefault();
+    }
+
     // Puzzle functionality
     initializePuzzle() {
         this.createPuzzlePieces();
@@ -715,6 +805,11 @@ class GameManager {
         puzzlePiecesElements.forEach(piece => {
             piece.addEventListener('dragstart', this.handlePuzzleDragStart.bind(this));
             piece.addEventListener('dragend', this.handlePuzzleDragEnd.bind(this));
+            
+            // Add touch support for puzzle pieces
+            piece.addEventListener('touchstart', this.handlePuzzleTouchStart.bind(this));
+            piece.addEventListener('touchmove', this.handlePuzzleTouchMove.bind(this));
+            piece.addEventListener('touchend', this.handlePuzzleTouchEnd.bind(this));
         });
     }
 
@@ -828,6 +923,91 @@ class GameManager {
         const filledSlots = document.querySelectorAll('.puzzle-slot.filled');
         const totalSlots = document.querySelectorAll('.puzzle-slot').length;
         return filledSlots.length === totalSlots;
+    }
+
+    // Touch event handlers for puzzle
+    handlePuzzleTouchStart(e) {
+        e.preventDefault();
+        this.puzzleTouchStartX = e.touches[0].clientX;
+        this.puzzleTouchStartY = e.touches[0].clientY;
+        this.puzzleTouchElement = e.target;
+        this.puzzleTouchElement.classList.add('dragging');
+    }
+
+    handlePuzzleTouchMove(e) {
+        e.preventDefault();
+        if (!this.puzzleTouchElement) return;
+        
+        const touchX = e.touches[0].clientX;
+        const touchY = e.touches[0].clientY;
+        
+        // Move the puzzle piece with touch
+        this.puzzleTouchElement.style.position = 'fixed';
+        this.puzzleTouchElement.style.left = (touchX - 25) + 'px';
+        this.puzzleTouchElement.style.top = (touchY - 25) + 'px';
+        this.puzzleTouchElement.style.zIndex = '1000';
+        this.puzzleTouchElement.style.pointerEvents = 'none';
+    }
+
+    handlePuzzleTouchEnd(e) {
+        e.preventDefault();
+        if (!this.puzzleTouchElement) return;
+        
+        const touchX = e.changedTouches[0].clientX;
+        const touchY = e.changedTouches[0].clientY;
+        
+        // Find the puzzle slot under the touch point
+        const elementBelow = document.elementFromPoint(touchX, touchY);
+        const puzzleSlot = elementBelow ? elementBelow.closest('.puzzle-slot') : null;
+        
+        if (puzzleSlot && !puzzleSlot.classList.contains('filled')) {
+            const pieceIndex = this.puzzleTouchElement.dataset.piece;
+            const slotIndex = puzzleSlot.dataset.slot;
+            
+            // Check if the piece is in the correct position
+            const isCorrect = pieceIndex === slotIndex;
+            
+            if (isCorrect) {
+                puzzleSlot.classList.add('correct');
+                puzzleSlot.innerHTML = '🧩';
+                puzzleSlot.classList.add('filled');
+                this.score++;
+                this.showFeedback('Correct!', 'success');
+                
+                // Hide the dragged piece
+                this.puzzleTouchElement.style.display = 'none';
+            } else {
+                puzzleSlot.classList.add('incorrect');
+                this.showFeedback('Incorrect!', 'error');
+                
+                // Reset the slot after a delay
+                setTimeout(() => {
+                    puzzleSlot.classList.remove('incorrect');
+                }, 1000);
+            }
+            
+            // Check if puzzle is complete
+            if (this.isPuzzleComplete()) {
+                const gameData = GAME_DATA[this.currentGame];
+                const question = gameData.questions[this.currentQuestionIndex];
+                setTimeout(() => {
+                    this.showFeedback(`🎉 Puzzle Complete! ${question.organ}: ${question.relatedTest}`, 'success');
+                    setTimeout(() => {
+                        this.nextQuestion();
+                    }, 3000);
+                }, 1500);
+            }
+        }
+        
+        // Reset puzzle piece position
+        this.puzzleTouchElement.style.position = '';
+        this.puzzleTouchElement.style.left = '';
+        this.puzzleTouchElement.style.top = '';
+        this.puzzleTouchElement.style.zIndex = '';
+        this.puzzleTouchElement.style.pointerEvents = '';
+        this.puzzleTouchElement.classList.remove('dragging');
+        
+        this.puzzleTouchElement = null;
     }
 
     showFeedback(message, type) {
@@ -1243,11 +1423,37 @@ document.addEventListener('keydown', (e) => {
 
 // Add touch support for mobile devices
 document.addEventListener('touchstart', (e) => {
-    // Prevent double-tap zoom on game cards
-    if (e.target.closest('.game-card')) {
+    // Prevent double-tap zoom on game cards and other interactive elements
+    if (e.target.closest('.game-card') || e.target.closest('.option') || e.target.closest('.btn-primary') || e.target.closest('.btn-secondary')) {
         e.preventDefault();
     }
 }, { passive: false });
+
+// Add touch support for options in questions
+document.addEventListener('DOMContentLoaded', () => {
+    // Add touch event listeners to options when they are created
+    const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+            mutation.addedNodes.forEach((node) => {
+                if (node.nodeType === 1) { // Element node
+                    const options = node.querySelectorAll ? node.querySelectorAll('.option') : [];
+                    options.forEach(option => {
+                        option.addEventListener('touchend', (e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            option.click();
+                        });
+                    });
+                }
+            });
+        });
+    });
+    
+    observer.observe(document.body, {
+        childList: true,
+        subtree: true
+    });
+});
 
 // Add service worker for offline functionality (optional)
 if ('serviceWorker' in navigator) {
