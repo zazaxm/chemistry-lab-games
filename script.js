@@ -281,12 +281,89 @@ const GAME_DATA = {
         title: 'Medical Puzzle',
         questions: [
             {
-                type: 'puzzle',
-                question: 'Assemble the organ puzzle to reveal the related test',
-                puzzlePieces: ['🧩', '🧩', '🧩', '🧩', '🧩', '🧩', '🧩', '🧩', '🧩'],
-                correctOrder: [0, 1, 2, 3, 4, 5, 6, 7, 8],
-                organ: 'Liver',
-                relatedTest: 'ALT, AST, Bilirubin'
+                type: 'organ-test-matching',
+                question: 'Match the organ with its primary laboratory test',
+                organ: {
+                    name: 'Liver',
+                    image: '🫀',
+                    description: 'This organ processes nutrients and filters toxins'
+                },
+                testOptions: [
+                    { id: 'alt', name: 'ALT (Alanine Aminotransferase)', correct: true },
+                    { id: 'glucose', name: 'Glucose', correct: false },
+                    { id: 'creatinine', name: 'Creatinine', correct: false },
+                    { id: 'tsh', name: 'TSH (Thyroid Stimulating Hormone)', correct: false }
+                ],
+                correctAnswer: 'alt',
+                explanation: 'ALT is the primary test for liver function as it indicates liver cell damage.'
+            },
+            {
+                type: 'organ-test-matching',
+                question: 'Match the organ with its primary laboratory test',
+                organ: {
+                    name: 'Kidney',
+                    image: '🫘',
+                    description: 'This organ filters waste from blood and produces urine'
+                },
+                testOptions: [
+                    { id: 'alt', name: 'ALT', correct: false },
+                    { id: 'creatinine', name: 'Creatinine', correct: true },
+                    { id: 'glucose', name: 'Glucose', correct: false },
+                    { id: 'cholesterol', name: 'Cholesterol', correct: false }
+                ],
+                correctAnswer: 'creatinine',
+                explanation: 'Creatinine is the primary test for kidney function as it measures filtration rate.'
+            },
+            {
+                type: 'organ-test-matching',
+                question: 'Match the organ with its primary laboratory test',
+                organ: {
+                    name: 'Pancreas',
+                    image: '🫁',
+                    description: 'This organ produces insulin and digestive enzymes'
+                },
+                testOptions: [
+                    { id: 'glucose', name: 'Glucose', correct: true },
+                    { id: 'alt', name: 'ALT', correct: false },
+                    { id: 'creatinine', name: 'Creatinine', correct: false },
+                    { id: 'tsh', name: 'TSH', correct: false }
+                ],
+                correctAnswer: 'glucose',
+                explanation: 'Glucose levels indicate pancreatic function, especially insulin production.'
+            },
+            {
+                type: 'organ-test-matching',
+                question: 'Match the organ with its primary laboratory test',
+                organ: {
+                    name: 'Thyroid',
+                    image: '🧠',
+                    description: 'This organ controls metabolism and energy levels'
+                },
+                testOptions: [
+                    { id: 'tsh', name: 'TSH (Thyroid Stimulating Hormone)', correct: true },
+                    { id: 'glucose', name: 'Glucose', correct: false },
+                    { id: 'alt', name: 'ALT', correct: false },
+                    { id: 'creatinine', name: 'Creatinine', correct: false }
+                ],
+                correctAnswer: 'tsh',
+                explanation: 'TSH is the primary test for thyroid function and hormone regulation.'
+            },
+            {
+                type: 'organ-test-matching',
+                question: 'Match the organ with its primary laboratory test',
+                organ: {
+                    name: 'Heart',
+                    image: '❤️',
+                    description: 'This organ pumps blood throughout the body'
+                },
+                testOptions: [
+                    { id: 'cholesterol', name: 'Cholesterol', correct: true },
+                    { id: 'glucose', name: 'Glucose', correct: false },
+                    { id: 'alt', name: 'ALT', correct: false },
+                    { id: 'creatinine', name: 'Creatinine', correct: false }
+                ],
+                correctAnswer: 'cholesterol',
+                explanation: 'Cholesterol levels are crucial for heart health and cardiovascular risk assessment.'
             },
             {
                 question: "Which organ is tested using ALT and AST?",
@@ -1042,6 +1119,8 @@ class GameManager {
             this.showDragDropQuestion(question, progress);
         } else if (question.type === 'puzzle') {
             this.showPuzzleQuestion(question, progress);
+        } else if (question.type === 'organ-test-matching') {
+            this.showOrganTestMatchingQuestion(question, progress);
         } else {
             this.showMultipleChoiceQuestion(question, progress);
         }
@@ -1138,6 +1217,100 @@ class GameManager {
         
         // Initialize puzzle with proper styling
         this.initializePuzzle();
+    }
+
+    showOrganTestMatchingQuestion(question, progress) {
+        document.getElementById('questionContainer').style.display = 'block';
+        
+        const questionHTML = `
+            <div class="question bounce-in">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: ${progress}%"></div>
+                </div>
+                <h3>Question ${this.currentQuestionIndex + 1} of ${GAME_DATA[this.currentGame].questions.length}</h3>
+                <div class="question-content">
+                    <div class="question-text slide-in-right">${question.question}</div>
+                    <div class="organ-display">
+                        <div class="organ-image-large">
+                            <span class="organ-emoji">${question.organ.image}</span>
+                        </div>
+                        <div class="organ-info">
+                            <h4>${question.organ.name}</h4>
+                            <p>${question.organ.description}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="test-options">
+                    ${question.testOptions.map((option, index) => `
+                        <div class="test-option slide-in-right" data-test-id="${option.id}" style="animation-delay: ${index * 0.1}s">
+                            <div class="test-icon">
+                                <i class="fas fa-vial"></i>
+                            </div>
+                            <div class="test-name">${option.name}</div>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+        `;
+        document.getElementById('questionContainer').innerHTML = questionHTML;
+
+        // Add click and touch listeners to test options
+        document.querySelectorAll('.test-option').forEach(option => {
+            const handleTestSelection = (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                this.selectTestOption(option.dataset.testId, question);
+            };
+            
+            option.addEventListener('click', handleTestSelection);
+            option.addEventListener('touchend', handleTestSelection);
+        });
+    }
+
+    selectTestOption(selectedTestId, question) {
+        // Disable all test options
+        document.querySelectorAll('.test-option').forEach(option => {
+            option.style.pointerEvents = 'none';
+        });
+
+        // Mark correct and incorrect answers
+        document.querySelectorAll('.test-option').forEach(option => {
+            const testId = option.dataset.testId;
+            const testData = question.testOptions.find(test => test.id === testId);
+            
+            if (testData.correct) {
+                option.classList.add('correct');
+            } else if (testId === selectedTestId) {
+                option.classList.add('incorrect');
+            }
+        });
+
+        // Check if answer is correct
+        if (selectedTestId === question.correctAnswer) {
+            this.score += 10;
+            document.getElementById('currentScore').textContent = this.score;
+        }
+
+        // Show explanation
+        setTimeout(() => {
+            const explanationHTML = `
+                <div class="explanation slide-up">
+                    <h4>Explanation:</h4>
+                    <p>${question.explanation}</p>
+                </div>
+            `;
+            document.querySelector('.question').insertAdjacentHTML('beforeend', explanationHTML);
+
+            // Show next button
+            const nextButton = document.createElement('button');
+            nextButton.className = 'btn-primary';
+            nextButton.innerHTML = this.currentQuestionIndex < GAME_DATA[this.currentGame].questions.length - 1 ? 'Next Question' : 'Finish Game';
+            nextButton.style.marginTop = '20px';
+            nextButton.addEventListener('click', () => {
+                this.nextQuestion();
+            });
+            document.querySelector('.question').appendChild(nextButton);
+        }, 1500);
     }
 
     selectAnswer(selectedIndex) {
