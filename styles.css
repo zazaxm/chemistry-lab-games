@@ -938,6 +938,46 @@ body {
         justify-content: center;
     }
     
+    .game-card {
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        user-select: none;
+        min-height: 120px;
+    }
+    
+    .game-card:active {
+        transform: scale(0.98);
+        transition: transform 0.1s ease;
+    }
+    
+    .option {
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        user-select: none;
+    }
+    
+    .option:active {
+        transform: scale(0.98);
+        transition: transform 0.1s ease;
+    }
+    
+    .btn-primary, .btn-secondary {
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        user-select: none;
+    }
+    
+    .btn-primary:active, .btn-secondary:active {
+        transform: scale(0.98);
+        transition: transform 0.1s ease;
+    }
+    
     .leaderboard-tabs {
         justify-content: center;
     }
