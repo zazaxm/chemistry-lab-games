@@ -1420,6 +1420,15 @@ body {
     -webkit-tap-highlight-color: transparent;
     touch-action: manipulation;
     border: 2px solid rgba(255, 255, 255, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.puzzle-emoji {
+    font-size: 1.8rem;
+    display: block;
+    z-index: 2;
+    position: relative;
 }
 
 .puzzle-piece:hover {
@@ -1469,6 +1478,11 @@ body {
     color: rgba(255, 255, 255, 0.5);
     font-size: 1.5rem;
     font-weight: bold;
+    z-index: 1;
+}
+
+.puzzle-slot.filled::before {
+    display: none;
 }
 
 .puzzle-slot.drag-over {
