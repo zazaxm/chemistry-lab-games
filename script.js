@@ -523,8 +523,19 @@ class GameManager {
             this.registerPlayer();
         });
         
-        // Add touch support for submit button
-        document.getElementById('submitBtn').addEventListener('touchend', (e) => {
+        // Add comprehensive touch support for submit button
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+        }, { passive: false });
+        
+        submitBtn.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            this.registerPlayer();
+        }, { passive: false });
+        
+        submitBtn.addEventListener('click', (e) => {
             e.preventDefault();
             e.stopPropagation();
             this.registerPlayer();
@@ -1625,6 +1636,13 @@ document.addEventListener('touchstart', (e) => {
     }
 }, { passive: false });
 
+// Special handling for submit button
+document.addEventListener('touchstart', (e) => {
+    if (e.target.id === 'submitBtn' || e.target.closest('#submitBtn')) {
+        e.preventDefault();
+    }
+}, { passive: false });
+
 // Add touch support for options in questions
 document.addEventListener('DOMContentLoaded', () => {
     // Add touch event listeners to options when they are created
@@ -1670,6 +1688,16 @@ document.addEventListener('DOMContentLoaded', () => {
                             button.click();
                         });
                     });
+                    
+                    // Special handling for submit button
+                    const submitBtn = node.querySelector ? node.querySelector('#submitBtn') : null;
+                    if (submitBtn) {
+                        submitBtn.addEventListener('touchend', (e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            submitBtn.click();
+                        });
+                    }
                 }
             });
         });
