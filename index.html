@@ -24,6 +24,7 @@
             </div>
             <div class="player-info" id="playerInfo" style="display: none;">
                 <span>Welcome, <span id="playerName"></span>!</span>
+                <button id="adminBtn" class="btn-admin" style="display: none;">Admin Panel</button>
                 <button id="logoutBtn" class="btn-secondary">Logout</button>
             </div>
         </header>
@@ -40,11 +41,62 @@
                             <label for="playerNameInput">Enter your name:</label>
                             <input type="text" id="playerNameInput" placeholder="Your name" required>
                         </div>
-                        <button type="submit" class="btn-primary" id="submitBtn">
+                        <button type="submit" class="btn-primary" id="submitBtn" style="touch-action: manipulation; -webkit-tap-highlight-color: transparent;">
                             <span id="submitText">Start Playing</span>
                             <div id="loadingSpinner" class="loading-spinner" style="display: none;"></div>
                         </button>
                     </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Admin Panel Modal -->
+        <div id="adminModal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2><i class="fas fa-cog"></i> Admin Panel</h2>
+                    <button id="closeAdminModal" class="close-btn">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="admin-section">
+                        <h3>Data Management</h3>
+                        <div class="admin-actions">
+                            <button id="clearAllData" class="btn-danger">
+                                <i class="fas fa-trash"></i> Clear All Data
+                            </button>
+                            <button id="exportData" class="btn-secondary">
+                                <i class="fas fa-download"></i> Export Data
+                            </button>
+                            <button id="importData" class="btn-secondary">
+                                <i class="fas fa-upload"></i> Import Data
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="admin-section">
+                        <h3>Statistics</h3>
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <span class="stat-label">Total Players:</span>
+                                <span class="stat-value" id="totalPlayers">0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Total Games Played:</span>
+                                <span class="stat-value" id="totalGames">0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Data Size:</span>
+                                <span class="stat-value" id="dataSize">0 KB</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="admin-section">
+                        <h3>Leaderboard Data</h3>
+                        <div class="leaderboard-preview">
+                            <div id="adminLeaderboardList"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
