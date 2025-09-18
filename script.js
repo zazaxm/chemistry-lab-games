@@ -1306,9 +1306,17 @@ class GameManager {
             nextButton.className = 'btn-primary';
             nextButton.innerHTML = this.currentQuestionIndex < GAME_DATA[this.currentGame].questions.length - 1 ? 'Next Question' : 'Finish Game';
             nextButton.style.marginTop = '20px';
-            nextButton.addEventListener('click', () => {
+            
+            // Add both click and touch events for mobile support
+            const handleNextButton = (e) => {
+                e.preventDefault();
+                e.stopPropagation();
                 this.nextQuestion();
-            });
+            };
+            
+            nextButton.addEventListener('click', handleNextButton);
+            nextButton.addEventListener('touchend', handleNextButton);
+            
             document.querySelector('.question').appendChild(nextButton);
         }, 1500);
     }
@@ -1352,9 +1360,17 @@ class GameManager {
             nextButton.className = 'btn-primary';
             nextButton.innerHTML = this.currentQuestionIndex < gameData.questions.length - 1 ? 'Next Question' : 'Finish Game';
             nextButton.style.marginTop = '20px';
-            nextButton.addEventListener('click', () => {
+            
+            // Add both click and touch events for mobile support
+            const handleNextButton = (e) => {
+                e.preventDefault();
+                e.stopPropagation();
                 this.nextQuestion();
-            });
+            };
+            
+            nextButton.addEventListener('click', handleNextButton);
+            nextButton.addEventListener('touchend', handleNextButton);
+            
             document.querySelector('.question').appendChild(nextButton);
         }, 1500);
     }
@@ -1615,6 +1631,26 @@ document.addEventListener('DOMContentLoaded', () => {
                             e.preventDefault();
                             e.stopPropagation();
                             option.click();
+                        });
+                    });
+                    
+                    // Add touch support for test options
+                    const testOptions = node.querySelectorAll ? node.querySelectorAll('.test-option') : [];
+                    testOptions.forEach(option => {
+                        option.addEventListener('touchend', (e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            option.click();
+                        });
+                    });
+                    
+                    // Add touch support for buttons
+                    const buttons = node.querySelectorAll ? node.querySelectorAll('.btn-primary, .btn-secondary') : [];
+                    buttons.forEach(button => {
+                        button.addEventListener('touchend', (e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            button.click();
                         });
                     });
                 }
