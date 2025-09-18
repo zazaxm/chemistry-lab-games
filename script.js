@@ -522,6 +522,13 @@ class GameManager {
             e.preventDefault();
             this.registerPlayer();
         });
+        
+        // Add touch support for submit button
+        document.getElementById('submitBtn').addEventListener('touchend', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            this.registerPlayer();
+        });
 
         // Logout
         document.getElementById('logoutBtn').addEventListener('click', () => {
@@ -1613,7 +1620,7 @@ document.addEventListener('keydown', (e) => {
 // Add touch support for mobile devices
 document.addEventListener('touchstart', (e) => {
     // Prevent double-tap zoom on game cards and other interactive elements
-    if (e.target.closest('.game-card') || e.target.closest('.option') || e.target.closest('.btn-primary') || e.target.closest('.btn-secondary')) {
+    if (e.target.closest('.game-card') || e.target.closest('.option') || e.target.closest('.btn-primary') || e.target.closest('.btn-secondary') || e.target.closest('.modal-content button') || e.target.closest('.test-option')) {
         e.preventDefault();
     }
 }, { passive: false });
@@ -1647,6 +1654,16 @@ document.addEventListener('DOMContentLoaded', () => {
                     // Add touch support for buttons
                     const buttons = node.querySelectorAll ? node.querySelectorAll('.btn-primary, .btn-secondary') : [];
                     buttons.forEach(button => {
+                        button.addEventListener('touchend', (e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            button.click();
+                        });
+                    });
+                    
+                    // Add touch support for modal buttons
+                    const modalButtons = node.querySelectorAll ? node.querySelectorAll('.modal-content button') : [];
+                    modalButtons.forEach(button => {
                         button.addEventListener('touchend', (e) => {
                             e.preventDefault();
                             e.stopPropagation();
