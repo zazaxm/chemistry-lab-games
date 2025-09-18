@@ -978,6 +978,20 @@ body {
         transition: transform 0.1s ease;
     }
     
+    .test-option {
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        user-select: none;
+        min-height: 60px;
+    }
+    
+    .test-option:active {
+        transform: scale(0.98);
+        transition: transform 0.1s ease;
+    }
+    
     .leaderboard-tabs {
         justify-content: center;
     }
