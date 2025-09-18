@@ -580,6 +580,27 @@ class GameManager {
                 this.switchLeaderboardTab(btn.dataset.tab);
             });
         });
+
+        // Admin panel
+        document.getElementById('adminBtn').addEventListener('click', () => {
+            this.showAdminPanel();
+        });
+
+        document.getElementById('closeAdminModal').addEventListener('click', () => {
+            this.hideAdminPanel();
+        });
+
+        document.getElementById('clearAllData').addEventListener('click', () => {
+            this.clearAllData();
+        });
+
+        document.getElementById('exportData').addEventListener('click', () => {
+            this.exportData();
+        });
+
+        document.getElementById('importData').addEventListener('click', () => {
+            this.importData();
+        });
     }
 
     showPlayerModal() {
@@ -617,6 +638,11 @@ class GameManager {
             document.getElementById('mainMenu').style.display = 'block';
             document.getElementById('playerInfo').style.display = 'flex';
             
+            // Show admin button for specific admin users
+            if (this.isAdminUser(playerName)) {
+                document.getElementById('adminBtn').style.display = 'inline-block';
+            }
+            
             this.updateLeaderboards();
             this.updateBestScores();
             
@@ -625,6 +651,12 @@ class GameManager {
             submitText.style.display = 'inline';
             loadingSpinner.style.display = 'none';
         }, 1500);
+    }
+
+    isAdminUser(playerName) {
+        // Define admin users - you can change these names
+        const adminUsers = ['admin', 'administrator', 'developer', 'owner'];
+        return adminUsers.includes(playerName.toLowerCase());
     }
 
     logout() {
@@ -1601,6 +1633,154 @@ class GameManager {
             board.classList.remove('active');
         });
         document.getElementById(`leaderboard-${tabName}`).classList.add('active');
+    }
+
+    // Admin Panel Functions
+    showAdminPanel() {
+        document.getElementById('adminModal').style.display = 'flex';
+        this.updateAdminStats();
+        this.updateAdminLeaderboard();
+    }
+
+    hideAdminPanel() {
+        document.getElementById('adminModal').style.display = 'none';
+    }
+
+    updateAdminStats() {
+        const leaderboards = this.leaderboards;
+        let totalPlayers = 0;
+        let totalGames = 0;
+        const playerSet = new Set();
+
+        Object.keys(leaderboards).forEach(gameType => {
+            const gameData = leaderboards[gameType] || [];
+            totalGames += gameData.length;
+            gameData.forEach(entry => {
+                playerSet.add(entry.player);
+            });
+        });
+
+        totalPlayers = playerSet.size;
+
+        // Calculate data size
+        const dataString = JSON.stringify(leaderboards);
+        const dataSize = Math.round(dataString.length / 1024 * 100) / 100;
+
+        document.getElementById('totalPlayers').textContent = totalPlayers;
+        document.getElementById('totalGames').textContent = totalGames;
+        document.getElementById('dataSize').textContent = `${dataSize} KB`;
+    }
+
+    updateAdminLeaderboard() {
+        const leaderboardList = document.getElementById('adminLeaderboardList');
+        let html = '';
+
+        Object.keys(this.leaderboards).forEach(gameType => {
+            const gameData = this.leaderboards[gameType] || [];
+            if (gameData.length > 0) {
+                html += `<h4>${GAME_DATA[gameType].title}</h4>`;
+                gameData.forEach((entry, index) => {
+                    const minutes = Math.floor(entry.time / 60000);
+                    const seconds = Math.floor((entry.time % 60000) / 1000);
+                    const timeString = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                    
+                    html += `
+                        <div class="leaderboard-item">
+                            <strong>#${index + 1}</strong> ${entry.player} - 
+                            ${entry.score} pts (${timeString}) - 
+                            ${entry.accuracy || 0}% - 
+                            ${entry.classification || 'Beginner'}
+                        </div>
+                    `;
+                });
+                html += '<br>';
+            }
+        });
+
+        if (html === '') {
+            html = '<p>No data available</p>';
+        }
+
+        leaderboardList.innerHTML = html;
+    }
+
+    clearAllData() {
+        if (confirm('Are you sure you want to clear ALL data? This action cannot be undone!')) {
+            if (confirm('This will delete all leaderboards and player data. Are you absolutely sure?')) {
+                // Clear all localStorage data
+                localStorage.removeItem('chemistryGameLeaderboards');
+                
+                // Reset leaderboards
+                this.leaderboards = {};
+                
+                // Update displays
+                this.updateLeaderboards();
+                this.updateBestScores();
+                this.updateAdminStats();
+                this.updateAdminLeaderboard();
+                
+                alert('All data has been cleared successfully!');
+            }
+        }
+    }
+
+    exportData() {
+        const data = {
+            leaderboards: this.leaderboards,
+            exportDate: new Date().toISOString(),
+            version: '1.0'
+        };
+
+        const dataString = JSON.stringify(data, null, 2);
+        const blob = new Blob([dataString], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `chemistry-game-data-${new Date().toISOString().split('T')[0]}.json`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        
+        alert('Data exported successfully!');
+    }
+
+    importData() {
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.accept = '.json';
+        
+        input.onchange = (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    try {
+                        const data = JSON.parse(e.target.result);
+                        if (data.leaderboards) {
+                            this.leaderboards = data.leaderboards;
+                            this.saveLeaderboards();
+                            
+                            // Update displays
+                            this.updateLeaderboards();
+                            this.updateBestScores();
+                            this.updateAdminStats();
+                            this.updateAdminLeaderboard();
+                            
+                            alert('Data imported successfully!');
+                        } else {
+                            alert('Invalid data format!');
+                        }
+                    } catch (error) {
+                        alert('Error importing data: ' + error.message);
+                    }
+                };
+                reader.readAsText(file);
+            }
+        };
+        
+        input.click();
     }
 }
 
