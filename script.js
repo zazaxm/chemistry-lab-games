@@ -635,16 +635,25 @@ class GameManager {
             this.registerPlayer();
         });
         
-        // Add comprehensive touch support for submit button
+        // Enhanced touch support for submit button
         const submitBtn = document.getElementById('submitBtn');
+        
+        // Prevent default touch behaviors
         submitBtn.addEventListener('touchstart', (e) => {
             e.preventDefault();
+            submitBtn.style.transform = 'scale(0.95)';
         }, { passive: false });
         
         submitBtn.addEventListener('touchend', (e) => {
             e.preventDefault();
             e.stopPropagation();
+            submitBtn.style.transform = 'scale(1)';
             this.registerPlayer();
+        }, { passive: false });
+        
+        submitBtn.addEventListener('touchcancel', (e) => {
+            e.preventDefault();
+            submitBtn.style.transform = 'scale(1)';
         }, { passive: false });
         
         submitBtn.addEventListener('click', (e) => {
@@ -658,18 +667,34 @@ class GameManager {
             this.logout();
         });
 
-        // Game selection - improved for mobile devices
+        // Enhanced game selection for mobile devices
         document.querySelectorAll('.game-card').forEach(card => {
-            // Add both click and touch events for better mobile support
-            const handleGameSelection = (e) => {
+            // Add visual feedback for touch
+            card.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                card.style.transform = 'scale(0.95)';
+                card.style.transition = 'transform 0.1s ease';
+            }, { passive: false });
+            
+            card.addEventListener('touchend', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                card.style.transform = 'scale(1)';
+                const gameType = card.dataset.game;
+                this.startGame(gameType);
+            }, { passive: false });
+            
+            card.addEventListener('touchcancel', (e) => {
+                e.preventDefault();
+                card.style.transform = 'scale(1)';
+            }, { passive: false });
+            
+            card.addEventListener('click', (e) => {
                 e.preventDefault();
                 e.stopPropagation();
                 const gameType = card.dataset.game;
                 this.startGame(gameType);
-            };
-            
-            card.addEventListener('click', handleGameSelection);
-            card.addEventListener('touchend', handleGameSelection);
+            });
         });
 
         // Back to menu buttons
@@ -714,12 +739,55 @@ class GameManager {
             this.showRandomWheel();
         });
 
-        // Random wheel events
-        document.getElementById('spinButton').addEventListener('click', () => {
+        // Enhanced random wheel events for mobile
+        const spinButton = document.getElementById('spinButton');
+        const startSelectedGameBtn = document.getElementById('startSelectedGame');
+        
+        // Spin button with touch support
+        spinButton.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            spinButton.style.transform = 'scale(0.9)';
+        }, { passive: false });
+        
+        spinButton.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            spinButton.style.transform = 'scale(1)';
+            this.spinWheel();
+        }, { passive: false });
+        
+        spinButton.addEventListener('touchcancel', (e) => {
+            e.preventDefault();
+            spinButton.style.transform = 'scale(1)';
+        }, { passive: false });
+        
+        spinButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
             this.spinWheel();
         });
-
-        document.getElementById('startSelectedGame').addEventListener('click', () => {
+        
+        // Start selected game button with touch support
+        startSelectedGameBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            startSelectedGameBtn.style.transform = 'scale(0.95)';
+        }, { passive: false });
+        
+        startSelectedGameBtn.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            startSelectedGameBtn.style.transform = 'scale(1)';
+            this.startSelectedRandomGame();
+        }, { passive: false });
+        
+        startSelectedGameBtn.addEventListener('touchcancel', (e) => {
+            e.preventDefault();
+            startSelectedGameBtn.style.transform = 'scale(1)';
+        }, { passive: false });
+        
+        startSelectedGameBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
             this.startSelectedRandomGame();
         });
     }
