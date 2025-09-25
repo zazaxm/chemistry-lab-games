@@ -1,2250 +1,2957 @@
-// Game Data and Configuration
-const GAME_DATA = {
-    'sample-matching': {
-        title: 'Sample & Test Matching',
-        questions: [
-            {
-                type: 'drag-drop',
-                question: 'Drag the test tubes to their corresponding organs',
-                dragItems: [
-                    { id: 'alt', name: 'ALT Test' },
-                    { id: 'ast', name: 'AST Test' },
-                    { id: 'bilirubin', name: 'Bilirubin Test' }
-                ],
-                dropZones: [
-                    { id: 'liver', name: 'Liver', icon: 'fas fa-heart' },
-                    { id: 'heart', name: 'Heart', icon: 'fas fa-heart' },
-                    { id: 'pancreas', name: 'Pancreas', icon: 'fas fa-heart' }
-                ],
-                correctMatches: {
-                    'liver': ['alt', 'ast', 'bilirubin']
-                }
-            },
-            {
-                question: "Which sample is usually used for Glucose test?",
-                options: ["Serum", "Whole blood", "Urine", "Plasma"],
-                correct: 0,
-                explanation: "Because glucose is measured in the liquid part of the blood after clotting."
-            },
-            {
-                question: "Which sample is required for HbA1c test?",
-                options: ["Serum", "Whole blood", "Urine", "Plasma"],
-                correct: 1,
-                explanation: "Because HbA1c measures glucose bound to red blood cells."
-            },
-            {
-                question: "Which sample is used for Creatinine?",
-                options: ["Serum only", "Urine only", "Serum or Urine", "Plasma only"],
-                correct: 2,
-                explanation: "Because creatinine reflects kidney filtration measured in blood or urine."
-            },
-            {
-                question: "Which sample is used for Liver enzymes (ALT/AST)?",
-                options: ["Serum", "Whole blood", "Urine", "Plasma"],
-                correct: 0,
-                explanation: "Because liver enzymes are released into the bloodstream."
-            },
-            {
-                question: "Which sample is used for Cholesterol test?",
-                options: ["Serum", "Whole blood", "Urine", "Plasma"],
-                correct: 0,
-                explanation: "Because cholesterol is measured in the lipid fraction of serum."
-            },
-            {
-                question: "Which sample is used for Bilirubin?",
-                options: ["Serum", "Whole blood", "Urine", "Plasma"],
-                correct: 0,
-                explanation: "Because bilirubin is transported in blood bound to albumin."
-            },
-            {
-                question: "Which sample is used for Total Protein?",
-                options: ["Serum only", "Plasma only", "Serum or Plasma", "Whole blood"],
-                correct: 2,
-                explanation: "Because proteins are present in blood fluid."
-            },
-            {
-                question: "Which sample is used for Urea test?",
-                options: ["Serum", "Whole blood", "Urine", "Plasma"],
-                correct: 0,
-                explanation: "Because urea is a waste product filtered by kidneys into blood."
-            },
-            {
-                question: "Which sample is used for Calcium test?",
-                options: ["Serum", "Whole blood", "Urine", "Plasma"],
-                correct: 0,
-                explanation: "Because calcium circulates in blood bound to proteins or free."
-            },
-            {
-                question: "Which sample is used for Thyroid hormone (TSH)?",
-                options: ["Serum", "Whole blood", "Urine", "Plasma"],
-                correct: 0,
-                explanation: "Because TSH is a hormone secreted into the bloodstream."
-            }
-        ]
-    },
-    'quick-quiz': {
-        title: 'Quick Quiz',
-        questions: [
-            {
-                question: "Which organ is measured by ALT enzyme?",
-                options: ["Liver", "Kidney", "Heart", "Pancreas"],
-                correct: 0,
-                explanation: "Because ALT is specific to liver cell damage."
-            },
-            {
-                question: "Which test is used for diabetic patient follow-up?",
-                options: ["Glucose", "HbA1c", "Insulin", "C-peptide"],
-                correct: 1,
-                explanation: "Because it reflects average glucose over 3 months."
-            },
-            {
-                question: "Which test evaluates kidney function?",
-                options: ["ALT", "Creatinine, Urea", "Glucose", "Cholesterol"],
-                correct: 1,
-                explanation: "Because kidneys filter both from blood."
-            },
-            {
-                question: "Which test monitors blood lipids?",
-                options: ["Glucose", "Lipid profile", "Creatinine", "ALT"],
-                correct: 1,
-                explanation: "Because it includes cholesterol and triglycerides."
-            },
-            {
-                question: "Which mineral is measured for osteoporosis?",
-                options: ["Iron", "Calcium", "Sodium", "Potassium"],
-                correct: 1,
-                explanation: "Because calcium is essential for bone strength."
-            },
-            {
-                question: "Which hormone is measured for hypothyroidism?",
-                options: ["Insulin", "TSH", "Cortisol", "Testosterone"],
-                correct: 1,
-                explanation: "Because high TSH indicates low thyroid activity."
-            },
-            {
-                question: "Which enzyme increases in pancreatitis?",
-                options: ["ALT", "Amylase, Lipase", "AST", "ALP"],
-                correct: 1,
-                explanation: "Because pancreas releases these enzymes when inflamed."
-            },
-            {
-                question: "Which test evaluates liver function?",
-                options: ["Creatinine", "LFT (Liver Function Tests)", "Glucose", "Cholesterol"],
-                correct: 1,
-                explanation: "Because it measures enzymes, proteins, and bilirubin."
-            },
-            {
-                question: "Which test diagnoses anemia?",
-                options: ["Glucose", "Hemoglobin", "Creatinine", "ALT"],
-                correct: 1,
-                explanation: "Because hemoglobin measures oxygen-carrying capacity of blood."
-            },
-            {
-                question: "Which test checks body response to glucose over 2 hours?",
-                options: ["Glucose", "HbA1c", "OGTT", "Insulin"],
-                correct: 2,
-                explanation: "Because it monitors how body metabolizes glucose."
-            }
-        ]
-    },
-    'guess-test': {
-        title: 'Guess the Test',
-        questions: [
-            {
-                question: "A patient with excessive thirst and weight loss. Which test?",
-                options: ["Glucose", "Cholesterol", "Creatinine", "ALT"],
-                correct: 0,
-                explanation: "Because high glucose causes diabetes symptoms."
-            },
-            {
-                question: "A patient with yellow eyes. Which test?",
-                options: ["Glucose", "Bilirubin", "Creatinine", "ALT"],
-                correct: 1,
-                explanation: "Because jaundice is caused by bilirubin buildup."
-            },
-            {
-                question: "A patient with leg swelling. Which test?",
-                options: ["Glucose", "Albumin", "Creatinine", "ALT"],
-                correct: 1,
-                explanation: "Because low albumin causes fluid retention."
-            },
-            {
-                question: "A patient with fatigue and hair loss. Which test?",
-                options: ["Glucose", "TSH", "Creatinine", "ALT"],
-                correct: 1,
-                explanation: "Because thyroid imbalance affects energy and hair."
-            },
-            {
-                question: "A patient with chest pain and family history of heart disease. Which test?",
-                options: ["Glucose", "Cholesterol, Lipid profile", "Creatinine", "ALT"],
-                correct: 1,
-                explanation: "Because high lipids increase heart risk."
-            },
-            {
-                question: "A patient with nausea after fatty meals. Which test?",
-                options: ["Glucose", "Amylase, Lipase", "Creatinine", "ALT"],
-                correct: 1,
-                explanation: "Because pancreas enzymes are elevated in pancreatitis."
-            },
-            {
-                question: "A patient with chronic kidney disease. Which tests?",
-                options: ["Glucose", "Creatinine, Urea, Electrolytes", "ALT", "Cholesterol"],
-                correct: 1,
-                explanation: "Because they show kidney filtering capacity."
-            },
-            {
-                question: "A child with poor growth. Which test?",
-                options: ["Glucose", "Growth hormone or Vitamin D", "Creatinine", "ALT"],
-                correct: 1,
-                explanation: "Because both affect bone and body development."
-            },
-            {
-                question: "A patient with loss of appetite and jaundice. Which test?",
-                options: ["Glucose", "LFTs", "Creatinine", "Cholesterol"],
-                correct: 1,
-                explanation: "Because they show liver damage."
-            },
-            {
-                question: "A patient with muscle cramps. Which tests?",
-                options: ["Glucose", "Calcium, Magnesium, Potassium", "Creatinine", "ALT"],
-                correct: 1,
-                explanation: "Because electrolytes control muscle contraction."
-            }
-        ]
-    },
-    'medical-puzzle': {
-        title: 'Medical Puzzle',
-        questions: [
-            {
-                type: 'organ-test-matching',
-                question: 'Match the organ with its primary laboratory test',
-                organ: {
-                    name: 'Liver',
-                    image: '🫀',
-                    description: 'This organ processes nutrients and filters toxins'
-                },
-                testOptions: [
-                    { id: 'alt', name: 'ALT (Alanine Aminotransferase)', correct: true },
-                    { id: 'glucose', name: 'Glucose', correct: false },
-                    { id: 'creatinine', name: 'Creatinine', correct: false },
-                    { id: 'tsh', name: 'TSH (Thyroid Stimulating Hormone)', correct: false }
-                ],
-                correctAnswer: 'alt',
-                explanation: 'ALT is the primary test for liver function as it indicates liver cell damage.'
-            },
-            {
-                type: 'organ-test-matching',
-                question: 'Match the organ with its primary laboratory test',
-                organ: {
-                    name: 'Kidney',
-                    image: '🫘',
-                    description: 'This organ filters waste from blood and produces urine'
-                },
-                testOptions: [
-                    { id: 'alt', name: 'ALT', correct: false },
-                    { id: 'creatinine', name: 'Creatinine', correct: true },
-                    { id: 'glucose', name: 'Glucose', correct: false },
-                    { id: 'cholesterol', name: 'Cholesterol', correct: false }
-                ],
-                correctAnswer: 'creatinine',
-                explanation: 'Creatinine is the primary test for kidney function as it measures filtration rate.'
-            },
-            {
-                type: 'organ-test-matching',
-                question: 'Match the organ with its primary laboratory test',
-                organ: {
-                    name: 'Pancreas',
-                    image: '🫁',
-                    description: 'This organ produces insulin and digestive enzymes'
-                },
-                testOptions: [
-                    { id: 'glucose', name: 'Glucose', correct: true },
-                    { id: 'alt', name: 'ALT', correct: false },
-                    { id: 'creatinine', name: 'Creatinine', correct: false },
-                    { id: 'tsh', name: 'TSH', correct: false }
-                ],
-                correctAnswer: 'glucose',
-                explanation: 'Glucose levels indicate pancreatic function, especially insulin production.'
-            },
-            {
-                type: 'organ-test-matching',
-                question: 'Match the organ with its primary laboratory test',
-                organ: {
-                    name: 'Thyroid',
-                    image: '🧠',
-                    description: 'This organ controls metabolism and energy levels'
-                },
-                testOptions: [
-                    { id: 'tsh', name: 'TSH (Thyroid Stimulating Hormone)', correct: true },
-                    { id: 'glucose', name: 'Glucose', correct: false },
-                    { id: 'alt', name: 'ALT', correct: false },
-                    { id: 'creatinine', name: 'Creatinine', correct: false }
-                ],
-                correctAnswer: 'tsh',
-                explanation: 'TSH is the primary test for thyroid function and hormone regulation.'
-            },
-            {
-                type: 'organ-test-matching',
-                question: 'Match the organ with its primary laboratory test',
-                organ: {
-                    name: 'Heart',
-                    image: '❤️',
-                    description: 'This organ pumps blood throughout the body'
-                },
-                testOptions: [
-                    { id: 'cholesterol', name: 'Cholesterol', correct: true },
-                    { id: 'glucose', name: 'Glucose', correct: false },
-                    { id: 'alt', name: 'ALT', correct: false },
-                    { id: 'creatinine', name: 'Creatinine', correct: false }
-                ],
-                correctAnswer: 'cholesterol',
-                explanation: 'Cholesterol levels are crucial for heart health and cardiovascular risk assessment.'
-            },
-            {
-                question: "Which organ is tested using ALT and AST?",
-                options: ["Liver", "Kidney", "Heart", "Pancreas"],
-                correct: 0,
-                explanation: "Because both enzymes rise in liver damage."
-            },
-            {
-                question: "Which organ is tested using Creatinine?",
-                options: ["Liver", "Kidney", "Heart", "Pancreas"],
-                correct: 1,
-                explanation: "Because creatinine clearance reflects kidney function."
-            },
-            {
-                question: "Which organ is evaluated using Amylase?",
-                options: ["Liver", "Kidney", "Heart", "Pancreas"],
-                correct: 3,
-                explanation: "Because amylase rises in pancreatic disease."
-            },
-            {
-                question: "Which organ is related to Bilirubin?",
-                options: ["Liver", "Kidney", "Heart", "Pancreas"],
-                correct: 0,
-                explanation: "Because liver processes and excretes bilirubin."
-            },
-            {
-                question: "Which organ is linked with TSH?",
-                options: ["Liver", "Thyroid gland", "Heart", "Pancreas"],
-                correct: 1,
-                explanation: "Because TSH controls thyroid hormone secretion."
-            },
-            {
-                question: "Which organ is assessed with Hemoglobin?",
-                options: ["Liver", "Blood", "Heart", "Pancreas"],
-                correct: 1,
-                explanation: "Because hemoglobin is part of red blood cells."
-            },
-            {
-                question: "Which organ is tested by Cholesterol levels?",
-                options: ["Liver", "Heart / Cardiovascular system", "Kidney", "Pancreas"],
-                correct: 1,
-                explanation: "Because high cholesterol causes heart disease."
-            },
-            {
-                question: "Which organ is tested by Albumin?",
-                options: ["Liver", "Liver and Kidney", "Heart", "Pancreas"],
-                correct: 1,
-                explanation: "Because both regulate protein balance."
-            },
-            {
-                question: "Which organ is related to Calcium?",
-                options: ["Liver", "Bones", "Heart", "Pancreas"],
-                correct: 1,
-                explanation: "Because calcium deficiency weakens bones."
-            },
-            {
-                question: "Which organ is tested by Lipase?",
-                options: ["Liver", "Kidney", "Heart", "Pancreas"],
-                correct: 3,
-                explanation: "Because lipase rises in pancreatitis."
-            }
-        ]
-    },
-    'lab-journey': {
-        title: 'Lab Journey',
-        questions: [
-            {
-                question: "What is the first step after sample collection?",
-                options: ["Analysis", "Labeling and registration", "Centrifugation", "Storage"],
-                correct: 1,
-                explanation: "Because correct ID prevents mix-ups."
-            },
-            {
-                question: "Which instrument is used to separate plasma or serum?",
-                options: ["Microscope", "Centrifuge", "Analyzer", "Incubator"],
-                correct: 1,
-                explanation: "Because it spins and separates blood components."
-            },
-            {
-                question: "What is used to measure Glucose levels?",
-                options: ["Microscope", "Biochemistry Analyzer", "Centrifuge", "Incubator"],
-                correct: 1,
-                explanation: "Because it uses reagents to detect glucose concentration."
-            },
-            {
-                question: "Which device checks electrolytes?",
-                options: ["Microscope", "Electrolyte Analyzer", "Centrifuge", "Incubator"],
-                correct: 1,
-                explanation: "Because it measures sodium, potassium, and chloride."
-            },
-            {
-                question: "Which step comes after analysis?",
-                options: ["Collection", "Result validation", "Storage", "Reporting"],
-                correct: 1,
-                explanation: "Because results must be checked for accuracy."
-            },
-            {
-                question: "Who reviews the final results before release?",
-                options: ["Technician", "Pathologist / Specialist", "Nurse", "Doctor"],
-                correct: 1,
-                explanation: "Because only experts can confirm medical results."
-            },
-            {
-                question: "What is important to avoid errors in samples?",
-                options: ["Speed", "Proper labeling and handling", "Temperature", "Volume"],
-                correct: 1,
-                explanation: "Because mistakes cause wrong diagnosis."
-            },
-            {
-                question: "What is used to check Hemoglobin?",
-                options: ["Microscope", "Hematology Analyzer", "Centrifuge", "Incubator"],
-                correct: 1,
-                explanation: "Because it counts blood cells and hemoglobin."
-            },
-            {
-                question: "Which department works closely with Biochemistry?",
-                options: ["Radiology", "Microbiology, Hematology, Immunology", "Surgery", "Cardiology"],
-                correct: 1,
-                explanation: "Because lab departments collaborate for diagnosis."
-            },
-            {
-                question: "What is the final step in lab workflow?",
-                options: ["Analysis", "Report delivery to doctor/patient", "Storage", "Validation"],
-                correct: 1,
-                explanation: "Because results must reach healthcare providers."
-            }
-        ]
-    },
-    'matching': {
-        title: 'Organ & Test Matching',
-        questions: [
-            {
-                type: 'organ-test-matching',
-                question: 'Match the organ with its primary laboratory test',
-                organ: {
-                    name: 'Liver',
-                    image: '🫀',
-                    description: 'This organ processes nutrients and filters toxins'
-                },
-                testOptions: [
-                    { id: 'alt', name: 'ALT (Alanine Aminotransferase)', correct: true },
-                    { id: 'glucose', name: 'Glucose', correct: false },
-                    { id: 'creatinine', name: 'Creatinine', correct: false },
-                    { id: 'tsh', name: 'TSH (Thyroid Stimulating Hormone)', correct: false }
-                ],
-                correctAnswer: 'alt',
-                explanation: 'ALT is the primary test for liver function as it indicates liver cell damage.'
-            },
-            {
-                type: 'organ-test-matching',
-                question: 'Match the organ with its primary laboratory test',
-                organ: {
-                    name: 'Kidney',
-                    image: '🫘',
-                    description: 'This organ filters waste from blood and produces urine'
-                },
-                testOptions: [
-                    { id: 'alt', name: 'ALT', correct: false },
-                    { id: 'creatinine', name: 'Creatinine', correct: true },
-                    { id: 'glucose', name: 'Glucose', correct: false },
-                    { id: 'cholesterol', name: 'Cholesterol', correct: false }
-                ],
-                correctAnswer: 'creatinine',
-                explanation: 'Creatinine is the primary test for kidney function as it measures filtration rate.'
-            },
-            {
-                type: 'organ-test-matching',
-                question: 'Match the organ with its primary laboratory test',
-                organ: {
-                    name: 'Pancreas',
-                    image: '🫁',
-                    description: 'This organ produces insulin and digestive enzymes'
-                },
-                testOptions: [
-                    { id: 'glucose', name: 'Glucose', correct: true },
-                    { id: 'alt', name: 'ALT', correct: false },
-                    { id: 'creatinine', name: 'Creatinine', correct: false },
-                    { id: 'tsh', name: 'TSH', correct: false }
-                ],
-                correctAnswer: 'glucose',
-                explanation: 'Glucose levels indicate pancreatic function, especially insulin production.'
-            },
-            {
-                type: 'organ-test-matching',
-                question: 'Match the organ with its primary laboratory test',
-                organ: {
-                    name: 'Thyroid',
-                    image: '🧠',
-                    description: 'This organ controls metabolism and energy levels'
-                },
-                testOptions: [
-                    { id: 'tsh', name: 'TSH (Thyroid Stimulating Hormone)', correct: true },
-                    { id: 'glucose', name: 'Glucose', correct: false },
-                    { id: 'alt', name: 'ALT', correct: false },
-                    { id: 'creatinine', name: 'Creatinine', correct: false }
-                ],
-                correctAnswer: 'tsh',
-                explanation: 'TSH is the primary test for thyroid function and hormone regulation.'
-            },
-            {
-                type: 'organ-test-matching',
-                question: 'Match the organ with its primary laboratory test',
-                organ: {
-                    name: 'Heart',
-                    image: '❤️',
-                    description: 'This organ pumps blood throughout the body'
-                },
-                testOptions: [
-                    { id: 'cholesterol', name: 'Cholesterol', correct: true },
-                    { id: 'glucose', name: 'Glucose', correct: false },
-                    { id: 'alt', name: 'ALT', correct: false },
-                    { id: 'creatinine', name: 'Creatinine', correct: false }
-                ],
-                correctAnswer: 'cholesterol',
-                explanation: 'Cholesterol levels are crucial for heart health and cardiovascular risk assessment.'
-            },
-            {
-                type: 'organ-test-matching',
-                question: 'Match the organ with its primary laboratory test',
-                organ: {
-                    name: 'Bones',
-                    image: '🦴',
-                    description: 'This organ provides structure and stores minerals'
-                },
-                testOptions: [
-                    { id: 'calcium', name: 'Calcium', correct: true },
-                    { id: 'glucose', name: 'Glucose', correct: false },
-                    { id: 'alt', name: 'ALT', correct: false },
-                    { id: 'creatinine', name: 'Creatinine', correct: false }
-                ],
-                correctAnswer: 'calcium',
-                explanation: 'Calcium levels are essential for bone health and strength assessment.'
-            },
-            {
-                type: 'organ-test-matching',
-                question: 'Match the organ with its primary laboratory test',
-                organ: {
-                    name: 'Blood',
-                    image: '🩸',
-                    description: 'This organ carries oxygen and nutrients throughout the body'
-                },
-                testOptions: [
-                    { id: 'hemoglobin', name: 'Hemoglobin', correct: true },
-                    { id: 'glucose', name: 'Glucose', correct: false },
-                    { id: 'alt', name: 'ALT', correct: false },
-                    { id: 'creatinine', name: 'Creatinine', correct: false }
-                ],
-                correctAnswer: 'hemoglobin',
-                explanation: 'Hemoglobin levels indicate blood oxygen-carrying capacity and detect anemia.'
-            },
-            {
-                type: 'organ-test-matching',
-                question: 'Match the organ with its primary laboratory test',
-                organ: {
-                    name: 'Muscles',
-                    image: '💪',
-                    description: 'This organ enables movement and supports the body'
-                },
-                testOptions: [
-                    { id: 'ck', name: 'Creatine Kinase (CK)', correct: true },
-                    { id: 'glucose', name: 'Glucose', correct: false },
-                    { id: 'alt', name: 'ALT', correct: false },
-                    { id: 'creatinine', name: 'Creatinine', correct: false }
-                ],
-                correctAnswer: 'ck',
-                explanation: 'Creatine Kinase levels indicate muscle damage and heart muscle injury.'
-            },
-            {
-                type: 'organ-test-matching',
-                question: 'Match the organ with its primary laboratory test',
-                organ: {
-                    name: 'Lungs',
-                    image: '🫁',
-                    description: 'This organ exchanges oxygen and carbon dioxide'
-                },
-                testOptions: [
-                    { id: 'oxygen', name: 'Blood Gas Analysis', correct: true },
-                    { id: 'glucose', name: 'Glucose', correct: false },
-                    { id: 'alt', name: 'ALT', correct: false },
-                    { id: 'creatinine', name: 'Creatinine', correct: false }
-                ],
-                correctAnswer: 'oxygen',
-                explanation: 'Blood gas analysis measures oxygen and carbon dioxide levels for lung function.'
-            },
-            {
-                type: 'organ-test-matching',
-                question: 'Match the organ with its primary laboratory test',
-                organ: {
-                    name: 'Brain',
-                    image: '🧠',
-                    description: 'This organ controls all body functions and processes'
-                },
-                testOptions: [
-                    { id: 'glucose', name: 'Glucose', correct: true },
-                    { id: 'alt', name: 'ALT', correct: false },
-                    { id: 'creatinine', name: 'Creatinine', correct: false },
-                    { id: 'cholesterol', name: 'Cholesterol', correct: false }
-                ],
-                correctAnswer: 'glucose',
-                explanation: 'Glucose levels are critical for brain function as the brain requires constant glucose supply.'
-            }
-        ]
-    }
-};
-
-// Game State Management
-class GameManager {
-    constructor() {
-        this.currentPlayer = null;
-        this.currentGame = null;
-        this.currentQuestionIndex = 0;
-        this.score = 0;
-        this.startTime = null;
-        this.gameStartTime = null;
-        this.timeLimit = 180; // 3 minutes in seconds
-        this.timeLeft = 180;
-        this.timerInterval = null;
-        this.countdownInterval = null;
-        this.leaderboards = this.loadLeaderboards();
-        this.boothStats = this.loadBoothStats();
-        
-        this.initializeEventListeners();
-        this.showPlayerModal();
-        // Load and display leaderboards immediately
-        this.updateLeaderboards();
-        this.updateBestScores();
-        this.updateBoothStats();
-    }
-
-    initializeEventListeners() {
-        // Player registration
-        document.getElementById('playerForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            this.registerPlayer();
-        });
-        
-        // Add comprehensive touch support for submit button
-        const submitBtn = document.getElementById('submitBtn');
-        submitBtn.addEventListener('touchstart', (e) => {
-            e.preventDefault();
-        }, { passive: false });
-        
-        submitBtn.addEventListener('touchend', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            this.registerPlayer();
-        }, { passive: false });
-        
-        submitBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            this.registerPlayer();
-        });
-
-        // Logout
-        document.getElementById('logoutBtn').addEventListener('click', () => {
-            this.logout();
-        });
-
-        // Game selection - improved for mobile devices
-        document.querySelectorAll('.game-card').forEach(card => {
-            // Add both click and touch events for better mobile support
-            const handleGameSelection = (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                const gameType = card.dataset.game;
-                this.startGame(gameType);
-            };
-            
-            card.addEventListener('click', handleGameSelection);
-            card.addEventListener('touchend', handleGameSelection);
-        });
-
-        // Back to menu buttons
-        document.getElementById('backToMenu').addEventListener('click', () => {
-            this.showMainMenu();
-        });
-
-        document.getElementById('backToMenuFromGame').addEventListener('click', () => {
-            this.showMainMenu();
-        });
-
-        // Play again
-        document.getElementById('playAgain').addEventListener('click', () => {
-            this.startGame(this.currentGame);
-        });
-
-        // No more leaderboard tabs - using unified leaderboard
-
-        // Admin panel
-        document.getElementById('adminBtn').addEventListener('click', () => {
-            this.showAdminPanel();
-        });
-
-        document.getElementById('closeAdminModal').addEventListener('click', () => {
-            this.hideAdminPanel();
-        });
-
-        document.getElementById('clearAllData').addEventListener('click', () => {
-            this.clearAllData();
-        });
-
-        document.getElementById('exportData').addEventListener('click', () => {
-            this.exportData();
-        });
-
-        document.getElementById('importData').addEventListener('click', () => {
-            this.importData();
-        });
-
-        // Random game button
-        document.getElementById('randomGameBtn').addEventListener('click', () => {
-            this.showRandomWheel();
-        });
-
-        // Random wheel events
-        document.getElementById('spinButton').addEventListener('click', () => {
-            this.spinWheel();
-        });
-
-        document.getElementById('startSelectedGame').addEventListener('click', () => {
-            this.startSelectedRandomGame();
-        });
-    }
-
-    showPlayerModal() {
-        document.getElementById('playerModal').style.display = 'flex';
-        document.getElementById('mainMenu').style.display = 'none';
-        document.getElementById('gameScreen').style.display = 'none';
-        document.getElementById('playerInfo').style.display = 'none';
-        // Update leaderboards to show data even when not logged in
-        this.updateLeaderboards();
-        this.updateBestScores();
-    }
-
-    registerPlayer() {
-        const playerName = document.getElementById('playerNameInput').value.trim();
-        if (!playerName) {
-            alert('Please enter your name');
-            return;
-        }
-
-        // Show loading spinner
-        const submitBtn = document.getElementById('submitBtn');
-        const submitText = document.getElementById('submitText');
-        const loadingSpinner = document.getElementById('loadingSpinner');
-        
-        submitBtn.disabled = true;
-        submitText.style.display = 'none';
-        loadingSpinner.style.display = 'inline-block';
-
-        // Simulate loading delay
-        setTimeout(() => {
-            this.currentPlayer = playerName;
-            document.getElementById('playerName').textContent = playerName;
-            
-            // Increment daily player count
-            this.boothStats.totalPlayersToday++;
-            this.saveBoothStats();
-            
-            document.getElementById('playerModal').style.display = 'none';
-            document.getElementById('mainMenu').style.display = 'block';
-            document.getElementById('playerInfo').style.display = 'flex';
-            
-            // Show admin button for specific admin users
-            if (this.isAdminUser(playerName)) {
-                document.getElementById('adminBtn').style.display = 'inline-block';
-            }
-            
-            this.updateLeaderboards();
-            this.updateBestScores();
-            this.updateBoothStats();
-            
-            // Reset button state
-            submitBtn.disabled = false;
-            submitText.style.display = 'inline';
-            loadingSpinner.style.display = 'none';
-        }, 1500);
-    }
-
-    isAdminUser(playerName) {
-        // Define admin users - you can change these names
-        const adminUsers = ['admin', 'administrator', 'developer', 'owner'];
-        return adminUsers.includes(playerName.toLowerCase());
-    }
-
-    logout() {
-        this.currentPlayer = null;
-        this.showPlayerModal();
-        document.getElementById('playerNameInput').value = '';
-        // Update leaderboards to show data even after logout
-        this.updateLeaderboards();
-        this.updateBestScores();
-    }
-
-    showMainMenu() {
-        document.getElementById('mainMenu').style.display = 'block';
-        document.getElementById('gameScreen').style.display = 'none';
-        this.updateLeaderboards();
-        this.updateBestScores();
-    }
-
-    startGame(gameType) {
-        if (!this.currentPlayer) {
-            this.showPlayerModal();
-            return;
-        }
-
-        this.currentGame = gameType;
-        this.currentQuestionIndex = 0;
-        this.score = 0;
-        this.gameStartTime = Date.now();
-        this.timeLeft = this.timeLimit;
-
-        document.getElementById('mainMenu').style.display = 'none';
-        document.getElementById('gameScreen').style.display = 'block';
-        document.getElementById('currentGameTitle').textContent = GAME_DATA[gameType].title;
-        document.getElementById('currentScore').textContent = '0';
-        document.getElementById('currentTime').textContent = '00:00';
-        document.getElementById('timeLeft').textContent = '03:00';
-        document.getElementById('timeLeft').className = '';
-        document.getElementById('resultContainer').style.display = 'none';
-        document.getElementById('questionContainer').style.display = 'block';
-
-        this.startTimer();
-        this.startCountdown();
-        this.showQuestion();
-    }
-
-    startTimer() {
-        this.startTime = Date.now();
-        this.timerInterval = setInterval(() => {
-            const elapsed = Date.now() - this.startTime;
-            const minutes = Math.floor(elapsed / 60000);
-            const seconds = Math.floor((elapsed % 60000) / 1000);
-            document.getElementById('currentTime').textContent = 
-                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-        }, 1000);
-    }
-
-    startCountdown() {
-        this.countdownInterval = setInterval(() => {
-            this.timeLeft--;
-            const minutes = Math.floor(this.timeLeft / 60);
-            const seconds = this.timeLeft % 60;
-            document.getElementById('timeLeft').textContent = 
-                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-            
-            // Change color based on time left
-            if (this.timeLeft <= 30) {
-                document.getElementById('timeLeft').className = 'danger';
-            } else if (this.timeLeft <= 60) {
-                document.getElementById('timeLeft').className = 'warning';
-            }
-            
-            // End game if time runs out
-            if (this.timeLeft <= 0) {
-                this.timeUp();
-            }
-        }, 1000);
-    }
-
-    timeUp() {
-        clearInterval(this.timerInterval);
-        clearInterval(this.countdownInterval);
-        this.finishGame();
-    }
-
-    getOrganImage(question) {
-        // No images for child-friendly version
-        return null;
-    }
-
-    // Drag and Drop functionality
-    initializeDragAndDrop() {
-        const dragItems = document.querySelectorAll('.drag-item');
-        const dropZones = document.querySelectorAll('.drop-zone');
-
-        dragItems.forEach(item => {
-            item.addEventListener('dragstart', this.handleDragStart.bind(this));
-            item.addEventListener('dragend', this.handleDragEnd.bind(this));
-            
-            // Add touch support for mobile devices
-            item.addEventListener('touchstart', this.handleTouchStart.bind(this));
-            item.addEventListener('touchmove', this.handleTouchMove.bind(this));
-            item.addEventListener('touchend', this.handleTouchEnd.bind(this));
-        });
-
-        dropZones.forEach(zone => {
-            zone.addEventListener('dragover', this.handleDragOver.bind(this));
-            zone.addEventListener('drop', this.handleDrop.bind(this));
-            zone.addEventListener('dragenter', this.handleDragEnter.bind(this));
-            zone.addEventListener('dragleave', this.handleDragLeave.bind(this));
-            
-            // Add touch support for drop zones
-            zone.addEventListener('touchstart', this.handleDropZoneTouchStart.bind(this));
-            zone.addEventListener('touchend', this.handleDropZoneTouchEnd.bind(this));
-        });
-    }
-
-    handleDragStart(e) {
-        e.dataTransfer.setData('text/plain', e.target.dataset.test);
-        e.target.classList.add('dragging');
-    }
-
-    handleDragEnd(e) {
-        e.target.classList.remove('dragging');
-    }
-
-    handleDragOver(e) {
-        e.preventDefault();
-    }
-
-    handleDragEnter(e) {
-        e.preventDefault();
-        e.target.classList.add('drag-over');
-    }
-
-    handleDragLeave(e) {
-        e.target.classList.remove('drag-over');
-    }
-
-    handleDrop(e) {
-        e.preventDefault();
-        const testType = e.dataTransfer.getData('text/plain');
-        const organType = e.target.closest('.drop-zone').dataset.organ;
-        
-        e.target.classList.remove('drag-over');
-        
-        // Check if the match is correct
-        const isCorrect = this.checkOrganTestMatch(organType, testType);
-        
-        if (isCorrect) {
-            e.target.classList.add('correct');
-            this.score++;
-            this.showFeedback('Correct!', 'success');
-        } else {
-            e.target.classList.add('incorrect');
-            this.showFeedback('Incorrect!', 'error');
-        }
-        
-        // Move to next question after a delay
-        setTimeout(() => {
-            this.nextQuestion();
-        }, 1500);
-    }
-
-    checkOrganTestMatch(organ, test) {
-        const correctMatches = {
-            'liver': ['alt', 'ast', 'bilirubin'],
-            'heart': ['cholesterol', 'lipids'],
-            'pancreas': ['amylase', 'lipase'],
-            'thyroid': ['tsh'],
-            'kidney': ['creatinine', 'urea']
-        };
-        
-        return correctMatches[organ] && correctMatches[organ].includes(test);
-    }
-
-    // Touch event handlers for mobile drag and drop
-    handleTouchStart(e) {
-        e.preventDefault();
-        this.touchStartX = e.touches[0].clientX;
-        this.touchStartY = e.touches[0].clientY;
-        this.touchElement = e.target;
-        this.touchElement.classList.add('dragging');
-    }
-
-    handleTouchMove(e) {
-        e.preventDefault();
-        if (!this.touchElement) return;
-        
-        const touchX = e.touches[0].clientX;
-        const touchY = e.touches[0].clientY;
-        
-        // Move the element with touch
-        this.touchElement.style.position = 'fixed';
-        this.touchElement.style.left = (touchX - 50) + 'px';
-        this.touchElement.style.top = (touchY - 50) + 'px';
-        this.touchElement.style.zIndex = '1000';
-        this.touchElement.style.pointerEvents = 'none';
-    }
-
-    handleTouchEnd(e) {
-        e.preventDefault();
-        if (!this.touchElement) return;
-        
-        const touchX = e.changedTouches[0].clientX;
-        const touchY = e.changedTouches[0].clientY;
-        
-        // Find the drop zone under the touch point
-        const elementBelow = document.elementFromPoint(touchX, touchY);
-        const dropZone = elementBelow ? elementBelow.closest('.drop-zone') : null;
-        
-        if (dropZone) {
-            const testType = this.touchElement.dataset.test;
-            const organType = dropZone.dataset.organ;
-            
-            const isCorrect = this.checkOrganTestMatch(organType, testType);
-            
-            if (isCorrect) {
-                dropZone.classList.add('correct');
-                this.score++;
-                this.showFeedback('Correct!', 'success');
-            } else {
-                dropZone.classList.add('incorrect');
-                this.showFeedback('Incorrect!', 'error');
-            }
-            
-            // Move to next question after a delay
-            setTimeout(() => {
-                this.nextQuestion();
-            }, 1500);
-        }
-        
-        // Reset element position
-        this.touchElement.style.position = '';
-        this.touchElement.style.left = '';
-        this.touchElement.style.top = '';
-        this.touchElement.style.zIndex = '';
-        this.touchElement.style.pointerEvents = '';
-        this.touchElement.classList.remove('dragging');
-        
-        this.touchElement = null;
-    }
-
-    handleDropZoneTouchStart(e) {
-        e.preventDefault();
-    }
-
-    handleDropZoneTouchEnd(e) {
-        e.preventDefault();
-    }
-
-    // Puzzle functionality
-    initializePuzzle() {
-        this.createPuzzlePieces();
-        this.createPuzzleBoard();
-    }
-
-    createPuzzlePieces() {
-        const puzzlePieces = document.querySelector('.puzzle-pieces');
-        const gameData = GAME_DATA[this.currentGame];
-        const question = gameData.questions[this.currentQuestionIndex];
-        
-        // Create puzzle pieces with proper styling
-        const pieces = question.puzzlePieces || ['🧩', '🧩', '🧩', '🧩', '🧩', '🧩', '🧩', '🧩', '🧩'];
-        
-        puzzlePieces.innerHTML = pieces.map((piece, index) => `
-            <div class="puzzle-piece" draggable="true" data-piece="${index}">
-                <span class="puzzle-emoji">${piece}</span>
-            </div>
-        `).join('');
-        
-        // Add event listeners to puzzle pieces
-        const puzzlePiecesElements = document.querySelectorAll('.puzzle-piece');
-        puzzlePiecesElements.forEach(piece => {
-            piece.addEventListener('dragstart', this.handlePuzzleDragStart.bind(this));
-            piece.addEventListener('dragend', this.handlePuzzleDragEnd.bind(this));
-            
-            // Add touch support for puzzle pieces
-            piece.addEventListener('touchstart', this.handlePuzzleTouchStart.bind(this));
-            piece.addEventListener('touchmove', this.handlePuzzleTouchMove.bind(this));
-            piece.addEventListener('touchend', this.handlePuzzleTouchEnd.bind(this));
-        });
-    }
-
-    createPuzzleBoard() {
-        const puzzleBoard = document.querySelector('.puzzle-board');
-        const slots = Array(9).fill().map((_, index) => `
-            <div class="puzzle-slot" data-slot="${index}"></div>
-        `).join('');
-        
-        puzzleBoard.innerHTML = slots;
-        
-        // Add event listeners to puzzle slots
-        const puzzleSlots = document.querySelectorAll('.puzzle-slot');
-        puzzleSlots.forEach(slot => {
-            slot.addEventListener('dragover', this.handlePuzzleDragOver.bind(this));
-            slot.addEventListener('drop', this.handlePuzzleDrop.bind(this));
-            slot.addEventListener('dragenter', this.handlePuzzleDragEnter.bind(this));
-            slot.addEventListener('dragleave', this.handlePuzzleDragLeave.bind(this));
-        });
-    }
-
-    initializePuzzleDragAndDrop() {
-        const puzzlePieces = document.querySelectorAll('.puzzle-piece');
-
-        puzzlePieces.forEach(piece => {
-            piece.addEventListener('dragstart', this.handlePuzzleDragStart.bind(this));
-            piece.addEventListener('dragend', this.handlePuzzleDragEnd.bind(this));
-        });
-    }
-
-    handlePuzzleDragStart(e) {
-        e.dataTransfer.setData('text/plain', e.target.dataset.piece);
-        e.target.classList.add('dragging');
-        e.dataTransfer.effectAllowed = 'move';
-    }
-
-    handlePuzzleDragEnd(e) {
-        e.target.classList.remove('dragging');
-    }
-
-    handlePuzzleDragOver(e) {
-        e.preventDefault();
-        e.dataTransfer.dropEffect = 'move';
-    }
-
-    handlePuzzleDragEnter(e) {
-        e.preventDefault();
-        // Only add drag-over if the slot is not already filled
-        if (!e.target.classList.contains('filled')) {
-            e.target.classList.add('drag-over');
-        }
-    }
-
-    handlePuzzleDragLeave(e) {
-        e.target.classList.remove('drag-over');
-    }
-
-    handlePuzzleDrop(e) {
-        e.preventDefault();
-        const pieceIndex = e.dataTransfer.getData('text/plain');
-        const slotIndex = e.target.dataset.slot;
-        
-        e.target.classList.remove('drag-over');
-        
-        // Don't allow dropping on already filled slots
-        if (e.target.classList.contains('filled')) {
-            return;
-        }
-        
-        // Get current question data
-        const gameData = GAME_DATA[this.currentGame];
-        const question = gameData.questions[this.currentQuestionIndex];
-        
-        // Check if the piece is in the correct position
-        const isCorrect = pieceIndex === slotIndex;
-        
-        if (isCorrect) {
-            e.target.classList.add('correct');
-            e.target.innerHTML = '🧩';
-            e.target.classList.add('filled');
-            this.score++;
-            this.showFeedback('Correct!', 'success');
-            
-            // Remove the dragged piece from the pieces area
-            const draggedPiece = document.querySelector(`[data-piece="${pieceIndex}"]`);
-            if (draggedPiece) {
-                draggedPiece.style.display = 'none';
-            }
-        } else {
-            e.target.classList.add('incorrect');
-            this.showFeedback('Incorrect!', 'error');
-            
-            // Reset the slot after a delay
-            setTimeout(() => {
-                e.target.classList.remove('incorrect');
-            }, 1000);
-        }
-        
-        // Check if puzzle is complete
-        if (this.isPuzzleComplete()) {
-            setTimeout(() => {
-                this.showFeedback(`🎉 Puzzle Complete! ${question.organ}: ${question.relatedTest}`, 'success');
-                setTimeout(() => {
-                    this.nextQuestion();
-                }, 3000);
-            }, 1500);
-        }
-    }
-
-    isPuzzleComplete() {
-        const filledSlots = document.querySelectorAll('.puzzle-slot.filled');
-        const totalSlots = document.querySelectorAll('.puzzle-slot').length;
-        return filledSlots.length === totalSlots;
-    }
-
-    // Touch event handlers for puzzle
-    handlePuzzleTouchStart(e) {
-        e.preventDefault();
-        this.puzzleTouchStartX = e.touches[0].clientX;
-        this.puzzleTouchStartY = e.touches[0].clientY;
-        this.puzzleTouchElement = e.target;
-        this.puzzleTouchElement.classList.add('dragging');
-    }
-
-    handlePuzzleTouchMove(e) {
-        e.preventDefault();
-        if (!this.puzzleTouchElement) return;
-        
-        const touchX = e.touches[0].clientX;
-        const touchY = e.touches[0].clientY;
-        
-        // Move the puzzle piece with touch
-        this.puzzleTouchElement.style.position = 'fixed';
-        this.puzzleTouchElement.style.left = (touchX - 25) + 'px';
-        this.puzzleTouchElement.style.top = (touchY - 25) + 'px';
-        this.puzzleTouchElement.style.zIndex = '1000';
-        this.puzzleTouchElement.style.pointerEvents = 'none';
-    }
-
-    handlePuzzleTouchEnd(e) {
-        e.preventDefault();
-        if (!this.puzzleTouchElement) return;
-        
-        const touchX = e.changedTouches[0].clientX;
-        const touchY = e.changedTouches[0].clientY;
-        
-        // Find the puzzle slot under the touch point
-        const elementBelow = document.elementFromPoint(touchX, touchY);
-        const puzzleSlot = elementBelow ? elementBelow.closest('.puzzle-slot') : null;
-        
-        if (puzzleSlot && !puzzleSlot.classList.contains('filled')) {
-            const pieceIndex = this.puzzleTouchElement.dataset.piece;
-            const slotIndex = puzzleSlot.dataset.slot;
-            
-            // Check if the piece is in the correct position
-            const isCorrect = pieceIndex === slotIndex;
-            
-            if (isCorrect) {
-                puzzleSlot.classList.add('correct');
-                puzzleSlot.innerHTML = '🧩';
-                puzzleSlot.classList.add('filled');
-                this.score++;
-                this.showFeedback('Correct!', 'success');
-                
-                // Hide the dragged piece
-                this.puzzleTouchElement.style.display = 'none';
-            } else {
-                puzzleSlot.classList.add('incorrect');
-                this.showFeedback('Incorrect!', 'error');
-                
-                // Reset the slot after a delay
-                setTimeout(() => {
-                    puzzleSlot.classList.remove('incorrect');
-                }, 1000);
-            }
-            
-            // Check if puzzle is complete
-            if (this.isPuzzleComplete()) {
-                const gameData = GAME_DATA[this.currentGame];
-                const question = gameData.questions[this.currentQuestionIndex];
-                setTimeout(() => {
-                    this.showFeedback(`🎉 Puzzle Complete! ${question.organ}: ${question.relatedTest}`, 'success');
-                    setTimeout(() => {
-                        this.nextQuestion();
-                    }, 3000);
-                }, 1500);
-            }
-        }
-        
-        // Reset puzzle piece position
-        this.puzzleTouchElement.style.position = '';
-        this.puzzleTouchElement.style.left = '';
-        this.puzzleTouchElement.style.top = '';
-        this.puzzleTouchElement.style.zIndex = '';
-        this.puzzleTouchElement.style.pointerEvents = '';
-        this.puzzleTouchElement.classList.remove('dragging');
-        
-        this.puzzleTouchElement = null;
-    }
-
-    showFeedback(message, type) {
-        // Remove any existing feedback
-        const existingFeedback = document.querySelectorAll('.feedback');
-        existingFeedback.forEach(feedback => feedback.remove());
-        
-        const feedback = document.createElement('div');
-        feedback.className = `feedback feedback-${type}`;
-        feedback.textContent = message;
-        
-        document.body.appendChild(feedback);
-        
-        // Add visual effects based on type
-        if (type === 'success') {
-            this.showCorrectAnswerEffect();
-            this.createParticles();
-            this.showScorePop();
-        } else if (type === 'error') {
-            this.showIncorrectAnswerEffect();
-        }
-        
-        setTimeout(() => {
-            feedback.remove();
-        }, 2000);
-    }
-
-    showCorrectAnswerEffect() {
-        const effect = document.createElement('div');
-        effect.className = 'correct-answer-effect';
-        effect.innerHTML = '🎉';
-        document.body.appendChild(effect);
-        
-        setTimeout(() => {
-            effect.remove();
-        }, 1500);
-    }
-
-    showIncorrectAnswerEffect() {
-        const effect = document.createElement('div');
-        effect.className = 'incorrect-answer-effect';
-        effect.innerHTML = '❌';
-        document.body.appendChild(effect);
-        
-        setTimeout(() => {
-            effect.remove();
-        }, 1000);
-    }
-
-    createParticles() {
-        for (let i = 0; i < 10; i++) {
-            const particle = document.createElement('div');
-            particle.className = 'particle';
-            particle.style.left = Math.random() * window.innerWidth + 'px';
-            particle.style.top = Math.random() * window.innerHeight + 'px';
-            particle.style.background = ['#4caf50', '#4ecdc4', '#45b7d1', '#feca57'][Math.floor(Math.random() * 4)];
-            document.body.appendChild(particle);
-            
-            setTimeout(() => {
-                particle.remove();
-            }, 2000);
-        }
-    }
-
-    showScorePop() {
-        const scorePop = document.createElement('div');
-        scorePop.className = 'score-pop';
-        scorePop.textContent = `+10 Points!`;
-        document.body.appendChild(scorePop);
-        
-        setTimeout(() => {
-            scorePop.remove();
-        }, 2000);
-    }
-
-    showCelebration() {
-        const celebration = document.createElement('div');
-        celebration.className = 'celebration';
-        
-        for (let i = 0; i < 50; i++) {
-            const confetti = document.createElement('div');
-            confetti.className = 'confetti';
-            confetti.style.left = Math.random() * 100 + '%';
-            confetti.style.animationDelay = Math.random() * 3 + 's';
-            celebration.appendChild(confetti);
-        }
-        
-        document.body.appendChild(celebration);
-        
-        setTimeout(() => {
-            celebration.remove();
-        }, 3000);
-    }
-
-    showQuestion() {
-        const gameData = GAME_DATA[this.currentGame];
-        const question = gameData.questions[this.currentQuestionIndex];
-        
-        const progress = ((this.currentQuestionIndex + 1) / gameData.questions.length) * 100;
-        
-        // Hide all game areas first
-        document.getElementById('questionContainer').style.display = 'none';
-        document.getElementById('dragDropArea').style.display = 'none';
-        document.getElementById('puzzleArea').style.display = 'none';
-        
-        // Check question type and show appropriate interface
-        if (question.type === 'drag-drop') {
-            this.showDragDropQuestion(question, progress);
-        } else if (question.type === 'puzzle') {
-            this.showPuzzleQuestion(question, progress);
-        } else if (question.type === 'organ-test-matching') {
-            this.showOrganTestMatchingQuestion(question, progress);
-        } else {
-            this.showMultipleChoiceQuestion(question, progress);
-        }
-    }
-
-    showMultipleChoiceQuestion(question, progress) {
-        document.getElementById('questionContainer').style.display = 'block';
-        
-        const questionHTML = `
-            <div class="question bounce-in">
-                <div class="progress-bar">
-                    <div class="progress-fill" style="width: ${progress}%"></div>
-                </div>
-                <h3>Question ${this.currentQuestionIndex + 1} of ${GAME_DATA[this.currentGame].questions.length}</h3>
-                <div class="question-content">
-                    <div class="question-text slide-in-right">${question.question}</div>
-                </div>
-                <div class="options">
-                    ${question.options.map((option, index) => `
-                        <div class="option slide-in-right" data-index="${index}" style="animation-delay: ${index * 0.1}s">
-                            ${option}
-                        </div>
-                    `).join('')}
-                </div>
-            </div>
-        `;
-        document.getElementById('questionContainer').innerHTML = questionHTML;
-
-        // Add click listeners to options
-        document.querySelectorAll('.option').forEach(option => {
-            option.addEventListener('click', () => {
-                this.selectAnswer(parseInt(option.dataset.index));
-            });
-        });
-    }
-
-    showDragDropQuestion(question, progress) {
-        document.getElementById('dragDropArea').style.display = 'block';
-        
-        // Update drag items based on question
-        const dragItems = document.querySelector('.drag-items');
-        const dropZones = document.querySelector('.drop-zones');
-        
-        dragItems.innerHTML = question.dragItems.map(item => `
-            <div class="drag-item" draggable="true" data-test="${item.id}">
-                <i class="fas fa-vial"></i>
-                <span>${item.name}</span>
-            </div>
-        `).join('');
-        
-        dropZones.innerHTML = question.dropZones.map(zone => `
-            <div class="drop-zone" data-organ="${zone.id}">
-                <div class="organ-3d">
-                    <i class="${zone.icon}"></i>
-                </div>
-                <span>${zone.name}</span>
-            </div>
-        `).join('');
-        
-        // Add progress bar
-        const progressHTML = `
-            <div class="progress-bar">
-                <div class="progress-fill" style="width: ${progress}%"></div>
-            </div>
-            <h3>Question ${this.currentQuestionIndex + 1} of ${GAME_DATA[this.currentGame].questions.length}</h3>
-            <div class="question-text">${question.question}</div>
-        `;
-        
-        document.getElementById('dragDropArea').insertAdjacentHTML('afterbegin', progressHTML);
-        
-        // Initialize drag and drop
-        this.initializeDragAndDrop();
-    }
-
-    showPuzzleQuestion(question, progress) {
-        document.getElementById('puzzleArea').style.display = 'block';
-        
-        // Clear previous content and add new content
-        document.getElementById('puzzleArea').innerHTML = `
-            <div class="progress-bar">
-                <div class="progress-fill" style="width: ${progress}%"></div>
-            </div>
-            <h3>Question ${this.currentQuestionIndex + 1} of ${GAME_DATA[this.currentGame].questions.length}</h3>
-            <div class="question-text">${question.question}</div>
-            <div class="puzzle-container">
-                <div class="puzzle-pieces">
-                    <!-- Puzzle pieces will be dynamically generated -->
-                </div>
-                <div class="puzzle-board">
-                    <!-- Puzzle board will be dynamically generated -->
-                </div>
-            </div>
-        `;
-        
-        // Initialize puzzle with proper styling
-        this.initializePuzzle();
-    }
-
-    showOrganTestMatchingQuestion(question, progress) {
-        document.getElementById('questionContainer').style.display = 'block';
-        
-        const questionHTML = `
-            <div class="question bounce-in">
-                <div class="progress-bar">
-                    <div class="progress-fill" style="width: ${progress}%"></div>
-                </div>
-                <h3>Question ${this.currentQuestionIndex + 1} of ${GAME_DATA[this.currentGame].questions.length}</h3>
-                <div class="question-content">
-                    <div class="question-text slide-in-right">${question.question}</div>
-                    <div class="organ-display">
-                        <div class="organ-image-large">
-                            <span class="organ-emoji">${question.organ.image}</span>
-                        </div>
-                        <div class="organ-info">
-                            <h4>${question.organ.name}</h4>
-                            <p>${question.organ.description}</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="test-options">
-                    ${question.testOptions.map((option, index) => `
-                        <div class="test-option slide-in-right" data-test-id="${option.id}" style="animation-delay: ${index * 0.1}s">
-                            <div class="test-icon">
-                                <i class="fas fa-vial"></i>
-                            </div>
-                            <div class="test-name">${option.name}</div>
-                        </div>
-                    `).join('')}
-                </div>
-            </div>
-        `;
-        document.getElementById('questionContainer').innerHTML = questionHTML;
-
-        // Add click and touch listeners to test options
-        document.querySelectorAll('.test-option').forEach(option => {
-            const handleTestSelection = (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                this.selectTestOption(option.dataset.testId, question);
-            };
-            
-            option.addEventListener('click', handleTestSelection);
-            option.addEventListener('touchend', handleTestSelection);
-        });
-    }
-
-    selectTestOption(selectedTestId, question) {
-        // Disable all test options
-        document.querySelectorAll('.test-option').forEach(option => {
-            option.style.pointerEvents = 'none';
-        });
-
-        // Mark correct and incorrect answers
-        document.querySelectorAll('.test-option').forEach(option => {
-            const testId = option.dataset.testId;
-            const testData = question.testOptions.find(test => test.id === testId);
-            
-            if (testData.correct) {
-                option.classList.add('correct');
-            } else if (testId === selectedTestId) {
-                option.classList.add('incorrect');
-            }
-        });
-
-        // Check if answer is correct
-        if (selectedTestId === question.correctAnswer) {
-            this.score += 10;
-            document.getElementById('currentScore').textContent = this.score;
-        }
-
-        // Show explanation
-        setTimeout(() => {
-            const explanationHTML = `
-                <div class="explanation slide-up">
-                    <h4>Explanation:</h4>
-                    <p>${question.explanation}</p>
-                </div>
-            `;
-            document.querySelector('.question').insertAdjacentHTML('beforeend', explanationHTML);
-
-            // Show next button
-            const nextButton = document.createElement('button');
-            nextButton.className = 'btn-primary';
-            nextButton.innerHTML = this.currentQuestionIndex < GAME_DATA[this.currentGame].questions.length - 1 ? 'Next Question' : 'Finish Game';
-            nextButton.style.marginTop = '20px';
-            
-            // Add both click and touch events for mobile support
-            const handleNextButton = (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                this.nextQuestion();
-            };
-            
-            nextButton.addEventListener('click', handleNextButton);
-            nextButton.addEventListener('touchend', handleNextButton);
-            
-            document.querySelector('.question').appendChild(nextButton);
-        }, 1500);
-    }
-
-    selectAnswer(selectedIndex) {
-        const gameData = GAME_DATA[this.currentGame];
-        const question = gameData.questions[this.currentQuestionIndex];
-        
-        // Disable all options
-        document.querySelectorAll('.option').forEach(option => {
-            option.style.pointerEvents = 'none';
-        });
-
-        // Mark correct and incorrect answers
-        document.querySelectorAll('.option').forEach((option, index) => {
-            if (index === question.correct) {
-                option.classList.add('correct');
-            } else if (index === selectedIndex && index !== question.correct) {
-                option.classList.add('incorrect');
-            }
-        });
-
-        // Check if answer is correct
-        if (selectedIndex === question.correct) {
-            this.score += 10;
-            document.getElementById('currentScore').textContent = this.score;
-        }
-
-        // Show explanation
-        setTimeout(() => {
-            const explanationHTML = `
-                <div class="explanation slide-up">
-                    <h4>Explanation:</h4>
-                    <p>${question.explanation}</p>
-                </div>
-            `;
-            document.querySelector('.question').insertAdjacentHTML('beforeend', explanationHTML);
-
-            // Show next button
-            const nextButton = document.createElement('button');
-            nextButton.className = 'btn-primary';
-            nextButton.innerHTML = this.currentQuestionIndex < gameData.questions.length - 1 ? 'Next Question' : 'Finish Game';
-            nextButton.style.marginTop = '20px';
-            
-            // Add both click and touch events for mobile support
-            const handleNextButton = (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                this.nextQuestion();
-            };
-            
-            nextButton.addEventListener('click', handleNextButton);
-            nextButton.addEventListener('touchend', handleNextButton);
-            
-            document.querySelector('.question').appendChild(nextButton);
-        }, 1500);
-    }
-
-    nextQuestion() {
-        const gameData = GAME_DATA[this.currentGame];
-        
-        if (this.currentQuestionIndex < gameData.questions.length - 1) {
-            this.currentQuestionIndex++;
-            // Clean up previous question elements
-            this.cleanupQuestionElements();
-            this.showQuestion();
-        } else {
-            // Stop timers immediately when questions are finished
-            clearInterval(this.timerInterval);
-            clearInterval(this.countdownInterval);
-            this.finishGame();
-        }
-    }
-
-    cleanupQuestionElements() {
-        // Remove any existing feedback elements
-        const existingFeedback = document.querySelectorAll('.feedback');
-        existingFeedback.forEach(feedback => feedback.remove());
-        
-        // Reset drag and drop areas
-        const dragItems = document.querySelectorAll('.drag-item');
-        const dropZones = document.querySelectorAll('.drop-zone');
-        const puzzlePieces = document.querySelectorAll('.puzzle-piece');
-        const puzzleSlots = document.querySelectorAll('.puzzle-slot');
-        
-        dragItems.forEach(item => {
-            item.classList.remove('dragging', 'correct', 'incorrect');
-            item.style.display = 'flex';
-        });
-        
-        dropZones.forEach(zone => {
-            zone.classList.remove('drag-over', 'correct', 'incorrect');
-        });
-        
-        puzzlePieces.forEach(piece => {
-            piece.classList.remove('dragging', 'correct', 'incorrect');
-            piece.style.display = 'flex';
-        });
-        
-        puzzleSlots.forEach(slot => {
-            slot.classList.remove('drag-over', 'correct', 'incorrect', 'filled');
-            slot.innerHTML = '';
-        });
-    }
-
-    finishGame() {
-        // Ensure timers are stopped
-        clearInterval(this.timerInterval);
-        clearInterval(this.countdownInterval);
-        
-        const totalTime = Date.now() - this.gameStartTime;
-        const minutes = Math.floor(totalTime / 60000);
-        const seconds = Math.floor((totalTime % 60000) / 1000);
-        const timeString = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-        
-        const accuracy = Math.round((this.score / (GAME_DATA[this.currentGame].questions.length * 10)) * 100);
-        const classification = this.getClassification(accuracy);
-        
-        // Update final stats
-        document.getElementById('finalScore').textContent = this.score;
-        document.getElementById('finalTime').textContent = timeString;
-        document.getElementById('finalAccuracy').textContent = `${accuracy}%`;
-        document.getElementById('classification').textContent = classification;
-        document.getElementById('classification').className = `stat-value ${classification.toLowerCase()}`;
-        
-        // Save score to leaderboard
-        this.saveScore(this.currentGame, this.currentPlayer, this.score, totalTime, accuracy, classification);
-        
-        // Update booth stats
-        this.incrementBoothStats();
-        
-        // Show celebration for high scores
-        if (accuracy >= 80) {
-            this.showCelebration();
-        }
-        
-        // Show result screen
-        document.getElementById('questionContainer').style.display = 'none';
-        document.getElementById('resultContainer').style.display = 'block';
-    }
-
-    getClassification(accuracy) {
-        if (accuracy >= 90) {
-            return 'Expert';
-        } else if (accuracy >= 70) {
-            return 'Intermediate';
-        } else {
-            return 'Beginner';
-        }
-    }
-
-    saveScore(gameType, playerName, score, time, accuracy, classification) {
-        if (!this.leaderboards[gameType]) {
-            this.leaderboards[gameType] = [];
-        }
-
-        const newScore = {
-            player: playerName,
-            score: score,
-            time: time,
-            accuracy: accuracy,
-            classification: classification,
-            date: new Date().toISOString()
-        };
-
-        this.leaderboards[gameType].push(newScore);
-        
-        // Sort by score (descending) then by time (ascending)
-        this.leaderboards[gameType].sort((a, b) => {
-            if (b.score !== a.score) {
-                return b.score - a.score;
-            }
-            return a.time - b.time;
-        });
-
-        // Keep only top 10 scores
-        this.leaderboards[gameType] = this.leaderboards[gameType].slice(0, 10);
-        
-        this.saveLeaderboards();
-    }
-
-    loadLeaderboards() {
-        const saved = localStorage.getItem('chemistryGameLeaderboards');
-        return saved ? JSON.parse(saved) : {};
-    }
-
-    saveLeaderboards() {
-        localStorage.setItem('chemistryGameLeaderboards', JSON.stringify(this.leaderboards));
-    }
-
-    loadBoothStats() {
-        const saved = localStorage.getItem('chemistryGameBoothStats');
-        const defaultStats = {
-            totalPlayersToday: 0,
-            totalGamesPlayed: 0,
-            totalScore: 0,
-            lastResetDate: new Date().toDateString()
-        };
-        
-        if (saved) {
-            const stats = JSON.parse(saved);
-            // Reset daily stats if it's a new day
-            if (stats.lastResetDate !== new Date().toDateString()) {
-                stats.totalPlayersToday = 0;
-                stats.lastResetDate = new Date().toDateString();
-            }
-            return stats;
-        }
-        return defaultStats;
-    }
-
-    saveBoothStats() {
-        localStorage.setItem('chemistryGameBoothStats', JSON.stringify(this.boothStats));
-    }
-
-    updateBoothStats() {
-        // Calculate average score
-        const averageScore = this.boothStats.totalGamesPlayed > 0 
-            ? Math.round(this.boothStats.totalScore / this.boothStats.totalGamesPlayed)
-            : 0;
-
-        // Update display
-        document.getElementById('totalPlayersToday').textContent = this.boothStats.totalPlayersToday;
-        document.getElementById('totalGamesPlayed').textContent = this.boothStats.totalGamesPlayed;
-        document.getElementById('averageScore').textContent = averageScore;
-    }
-
-    incrementBoothStats() {
-        this.boothStats.totalGamesPlayed++;
-        this.boothStats.totalScore += this.score;
-        this.saveBoothStats();
-        this.updateBoothStats();
-    }
-
-    updateLeaderboards() {
-        // Collect all scores from all games
-        const allScores = [];
-        
-        Object.keys(GAME_DATA).forEach(gameType => {
-            const leaderboard = this.leaderboards[gameType] || [];
-            leaderboard.forEach(entry => {
-                allScores.push({
-                    ...entry,
-                    gameType: gameType,
-                    gameTitle: GAME_DATA[gameType].title
-                });
-            });
-        });
-        
-        // Sort by score (descending) then by time (ascending)
-        allScores.sort((a, b) => {
-            if (b.score !== a.score) {
-                return b.score - a.score;
-            }
-            return a.time - b.time;
-        });
-        
-        // Keep only top 20 scores
-        const topScores = allScores.slice(0, 20);
-        
-        const leaderboardElement = document.querySelector('#unifiedLeaderboard .leaderboard-list');
-        
-        if (topScores.length === 0) {
-            leaderboardElement.innerHTML = '<p style="text-align: center; color: rgba(255, 255, 255, 0.7); padding: 40px; font-size: 1.1rem;">No scores yet. Be the first to play!</p>';
-        } else {
-            leaderboardElement.innerHTML = topScores.map((entry, index) => {
-                const minutes = Math.floor(entry.time / 60000);
-                const seconds = Math.floor((entry.time % 60000) / 1000);
-                const timeString = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-                
-                const rankClass = index === 0 ? 'rank-1' : index === 1 ? 'rank-2' : index === 2 ? 'rank-3' : '';
-                const classificationClass = entry.classification ? entry.classification.toLowerCase() : 'beginner';
-                
-                return `
-                    <div class="leaderboard-item ${rankClass}">
-                        <div class="rank-info">
-                            <span class="rank-number">#${index + 1}</span>
-                            <span class="player-name">${entry.player}</span>
-                            <span class="game-type">${entry.gameTitle}</span>
-                            <span class="classification ${classificationClass}">${entry.classification || 'Beginner'}</span>
-                        </div>
-                        <div class="score-info">
-                            <div class="score">${entry.score} pts</div>
-                            <div class="time">${timeString}</div>
-                            <div class="accuracy">${entry.accuracy || 0}%</div>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-        }
-    }
-
-    updateBestScores() {
-        Object.keys(GAME_DATA).forEach(gameType => {
-            const leaderboard = this.leaderboards[gameType] || [];
-            
-            if (this.currentPlayer) {
-                const playerScores = leaderboard.filter(entry => entry.player === this.currentPlayer);
-                
-                if (playerScores.length > 0) {
-                    const bestScore = playerScores[0];
-                    const minutes = Math.floor(bestScore.time / 60000);
-                    const seconds = Math.floor((bestScore.time % 60000) / 1000);
-                    const timeString = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-                    
-                    document.getElementById(`${gameType}Best`).textContent = bestScore.score;
-                    document.getElementById(`${gameType}Time`).textContent = timeString;
-                } else {
-                    document.getElementById(`${gameType}Best`).textContent = '0';
-                    document.getElementById(`${gameType}Time`).textContent = '--:--';
-                }
-            } else {
-                // Show best overall scores when no player is logged in
-                if (leaderboard.length > 0) {
-                    const bestScore = leaderboard[0];
-                    const minutes = Math.floor(bestScore.time / 60000);
-                    const seconds = Math.floor((bestScore.time % 60000) / 1000);
-                    const timeString = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-                    
-                    document.getElementById(`${gameType}Best`).textContent = bestScore.score;
-                    document.getElementById(`${gameType}Time`).textContent = timeString;
-                } else {
-                    document.getElementById(`${gameType}Best`).textContent = '0';
-                    document.getElementById(`${gameType}Time`).textContent = '--:--';
-                }
-            }
-        });
-    }
-
-
-    // Admin Panel Functions
-    showAdminPanel() {
-        document.getElementById('adminModal').style.display = 'flex';
-        this.updateAdminStats();
-        this.updateAdminLeaderboard();
-    }
-
-    hideAdminPanel() {
-        document.getElementById('adminModal').style.display = 'none';
-    }
-
-    updateAdminStats() {
-        const leaderboards = this.leaderboards;
-        let totalPlayers = 0;
-        let totalGames = 0;
-        const playerSet = new Set();
-
-        Object.keys(leaderboards).forEach(gameType => {
-            const gameData = leaderboards[gameType] || [];
-            totalGames += gameData.length;
-            gameData.forEach(entry => {
-                playerSet.add(entry.player);
-            });
-        });
-
-        totalPlayers = playerSet.size;
-
-        // Calculate data size
-        const dataString = JSON.stringify(leaderboards);
-        const dataSize = Math.round(dataString.length / 1024 * 100) / 100;
-
-        document.getElementById('totalPlayers').textContent = totalPlayers;
-        document.getElementById('totalGames').textContent = totalGames;
-        document.getElementById('dataSize').textContent = `${dataSize} KB`;
-    }
-
-    updateAdminLeaderboard() {
-        const leaderboardList = document.getElementById('adminLeaderboardList');
-        let html = '';
-
-        Object.keys(this.leaderboards).forEach(gameType => {
-            const gameData = this.leaderboards[gameType] || [];
-            if (gameData.length > 0) {
-                html += `<h4>${GAME_DATA[gameType].title}</h4>`;
-                gameData.forEach((entry, index) => {
-                    const minutes = Math.floor(entry.time / 60000);
-                    const seconds = Math.floor((entry.time % 60000) / 1000);
-                    const timeString = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-                    
-                    html += `
-                        <div class="leaderboard-item">
-                            <strong>#${index + 1}</strong> ${entry.player} - 
-                            ${entry.score} pts (${timeString}) - 
-                            ${entry.accuracy || 0}% - 
-                            ${entry.classification || 'Beginner'}
-                        </div>
-                    `;
-                });
-                html += '<br>';
-            }
-        });
-
-        if (html === '') {
-            html = '<p>No data available</p>';
-        }
-
-        leaderboardList.innerHTML = html;
-    }
-
-    clearAllData() {
-        if (confirm('Are you sure you want to clear ALL data? This action cannot be undone!')) {
-            if (confirm('This will delete all leaderboards and player data. Are you absolutely sure?')) {
-                // Clear all localStorage data
-                localStorage.removeItem('chemistryGameLeaderboards');
-                
-                // Reset leaderboards
-                this.leaderboards = {};
-                
-                // Update displays
-                this.updateLeaderboards();
-                this.updateBestScores();
-                this.updateAdminStats();
-                this.updateAdminLeaderboard();
-                
-                alert('All data has been cleared successfully!');
-            }
-        }
-    }
-
-    exportData() {
-        const data = {
-            leaderboards: this.leaderboards,
-            exportDate: new Date().toISOString(),
-            version: '1.0'
-        };
-
-        const dataString = JSON.stringify(data, null, 2);
-        const blob = new Blob([dataString], { type: 'application/json' });
-        const url = URL.createObjectURL(blob);
-        
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `chemistry-game-data-${new Date().toISOString().split('T')[0]}.json`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-        
-        alert('Data exported successfully!');
-    }
-
-    importData() {
-        const input = document.createElement('input');
-        input.type = 'file';
-        input.accept = '.json';
-        
-        input.onchange = (e) => {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    try {
-                        const data = JSON.parse(e.target.result);
-                        if (data.leaderboards) {
-                            this.leaderboards = data.leaderboards;
-                            this.saveLeaderboards();
-                            
-                            // Update displays
-                            this.updateLeaderboards();
-                            this.updateBestScores();
-                            this.updateAdminStats();
-                            this.updateAdminLeaderboard();
-                            
-                            alert('Data imported successfully!');
-                        } else {
-                            alert('Invalid data format!');
-                        }
-                    } catch (error) {
-                        alert('Error importing data: ' + error.message);
-                    }
-                };
-                reader.readAsText(file);
-            }
-        };
-        
-        input.click();
-    }
-
-    // Random Wheel Functions
-    showRandomWheel() {
-        if (!this.currentPlayer) {
-            this.showPlayerModal();
-            return;
-        }
-
-        document.getElementById('randomWheelModal').style.display = 'flex';
-        this.createWheelSegments();
-        this.selectedRandomGame = null;
-        document.getElementById('selectedGame').style.display = 'none';
-    }
-
-    createWheelSegments() {
-        const gameTypes = Object.keys(GAME_DATA);
-        const segmentsContainer = document.getElementById('wheelSegments');
-        segmentsContainer.innerHTML = '';
-
-        gameTypes.forEach((gameType, index) => {
-            const segment = document.createElement('div');
-            segment.className = 'wheel-segment';
-            segment.style.transform = `rotate(${index * (360 / gameTypes.length)}deg)`;
-            segment.textContent = GAME_DATA[gameType].title;
-            segmentsContainer.appendChild(segment);
-        });
-    }
-
-    spinWheel() {
-        const wheel = document.getElementById('gameWheel');
-        const spinButton = document.getElementById('spinButton');
-        
-        // Disable spin button during animation
-        spinButton.style.pointerEvents = 'none';
-        spinButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
-        
-        // Calculate random rotation (multiple full rotations + random angle)
-        const gameTypes = Object.keys(GAME_DATA);
-        const segmentAngle = 360 / gameTypes.length;
-        const randomSegment = Math.floor(Math.random() * gameTypes.length);
-        const baseRotation = 1800; // 5 full rotations
-        const finalAngle = randomSegment * segmentAngle;
-        const totalRotation = baseRotation + finalAngle;
-        
-        // Set CSS variable for animation
-        wheel.style.setProperty('--final-rotation', `${totalRotation}deg`);
-        wheel.classList.add('spinning');
-        
-        // Store selected game
-        this.selectedRandomGame = gameTypes[randomSegment];
-        
-        // Show result after animation
-        setTimeout(() => {
-            wheel.classList.remove('spinning');
-            this.showSelectedGame();
-            
-            // Reset spin button
-            spinButton.style.pointerEvents = 'auto';
-            spinButton.innerHTML = '<i class="fas fa-play"></i>';
-        }, 3000);
-    }
-
-    showSelectedGame() {
-        const selectedGameDiv = document.getElementById('selectedGame');
-        const gameResultDiv = document.getElementById('gameResult');
-        
-        gameResultDiv.innerHTML = `
-            <div class="game-icon">
-                <i class="fas fa-gamepad"></i>
-            </div>
-            <h4>${GAME_DATA[this.selectedRandomGame].title}</h4>
-            <p>Get ready to test your knowledge!</p>
-        `;
-        
-        selectedGameDiv.style.display = 'block';
-    }
-
-    startSelectedRandomGame() {
-        if (this.selectedRandomGame) {
-            document.getElementById('randomWheelModal').style.display = 'none';
-            this.startGame(this.selectedRandomGame);
-        }
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-touch-callout: none;
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+}
+
+/* Safari-specific fixes */
+input, textarea, button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 0;
+}
+
+/* iOS Safari viewport fix */
+@supports (-webkit-touch-callout: none) {
+    .container {
+        min-height: -webkit-fill-available;
     }
 }
 
-// Initialize the game when the page loads
-document.addEventListener('DOMContentLoaded', () => {
-    new GameManager();
-});
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #ff6b6b 0%, #4ecdc4 50%, #45b7d1 100%);
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+    color: #333;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
 
-// Add some additional utility functions for better user experience
-document.addEventListener('keydown', (e) => {
-    // Allow Enter key to submit player form
-    if (e.key === 'Enter' && document.getElementById('playerModal').style.display === 'flex') {
-        document.getElementById('playerForm').dispatchEvent(new Event('submit'));
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 10px;
+    width: 100%;
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Enhanced Mobile Support */
+@media (max-width: 480px) {
+    .container {
+        padding: 5px;
+    }
+}
+
+@media (max-width: 320px) {
+    .container {
+        padding: 2px;
+    }
+}
+
+/* Header Styles */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 15px 20px;
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+/* Mobile Header Adjustments */
+@media (max-width: 768px) {
+    .header {
+        padding: 10px 15px;
+        margin-bottom: 15px;
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .header {
+        padding: 8px 10px;
+        margin-bottom: 10px;
+        border-radius: 10px;
+    }
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo i {
+    font-size: 2.5rem;
+    color: #ff6b6b;
+    animation: bounce 2s infinite;
+    -webkit-animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
+@-webkit-keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        -webkit-transform: translateY(0);
+    }
+    40% {
+        -webkit-transform: translateY(-10px);
+    }
+    60% {
+        -webkit-transform: translateY(-5px);
+    }
+}
+
+.logo h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #ff6b6b, #4ecdc4, #45b7d1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Mobile Logo Adjustments */
+@media (max-width: 768px) {
+    .logo h1 {
+        font-size: 1.5rem;
     }
     
-    // Allow number keys 1-4 to select options in game
-    if (document.getElementById('gameScreen').style.display === 'block') {
-        const key = parseInt(e.key);
-        if (key >= 1 && key <= 4) {
-            const options = document.querySelectorAll('.option');
-            if (options[key - 1] && !options[key - 1].style.pointerEvents) {
-                options[key - 1].click();
-            }
-        }
+    .logo i {
+        font-size: 2rem;
     }
-});
+}
 
-// Add touch support for mobile devices
-document.addEventListener('touchstart', (e) => {
-    // Prevent double-tap zoom on game cards and other interactive elements
-    if (e.target.closest('.game-card') || e.target.closest('.option') || e.target.closest('.btn-primary') || e.target.closest('.btn-secondary') || e.target.closest('.modal-content button') || e.target.closest('.test-option')) {
-        e.preventDefault();
+@media (max-width: 480px) {
+    .logo h1 {
+        font-size: 1.2rem;
     }
-}, { passive: false });
-
-// Special handling for submit button
-document.addEventListener('touchstart', (e) => {
-    if (e.target.id === 'submitBtn' || e.target.closest('#submitBtn')) {
-        e.preventDefault();
-    }
-}, { passive: false });
-
-// Add touch support for options in questions
-document.addEventListener('DOMContentLoaded', () => {
-    // Add touch event listeners to options when they are created
-    const observer = new MutationObserver((mutations) => {
-        mutations.forEach((mutation) => {
-            mutation.addedNodes.forEach((node) => {
-                if (node.nodeType === 1) { // Element node
-                    const options = node.querySelectorAll ? node.querySelectorAll('.option') : [];
-                    options.forEach(option => {
-                        option.addEventListener('touchend', (e) => {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            option.click();
-                        });
-                    });
-                    
-                    // Add touch support for test options
-                    const testOptions = node.querySelectorAll ? node.querySelectorAll('.test-option') : [];
-                    testOptions.forEach(option => {
-                        option.addEventListener('touchend', (e) => {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            option.click();
-                        });
-                    });
-                    
-                    // Add touch support for buttons
-                    const buttons = node.querySelectorAll ? node.querySelectorAll('.btn-primary, .btn-secondary') : [];
-                    buttons.forEach(button => {
-                        button.addEventListener('touchend', (e) => {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            button.click();
-                        });
-                    });
-                    
-                    // Add touch support for modal buttons
-                    const modalButtons = node.querySelectorAll ? node.querySelectorAll('.modal-content button') : [];
-                    modalButtons.forEach(button => {
-                        button.addEventListener('touchend', (e) => {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            button.click();
-                        });
-                    });
-                    
-                    // Special handling for submit button
-                    const submitBtn = node.querySelector ? node.querySelector('#submitBtn') : null;
-                    if (submitBtn) {
-                        submitBtn.addEventListener('touchend', (e) => {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            submitBtn.click();
-                        });
-                    }
-                }
-            });
-        });
-    });
     
-    observer.observe(document.body, {
-        childList: true,
-        subtree: true
-    });
-});
+    .logo i {
+        font-size: 1.5rem;
+    }
+    
+    .logo {
+        gap: 10px;
+    }
+}
 
-// Add service worker for offline functionality (optional)
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js')
-            .then(registration => {
-                console.log('SW registered: ', registration);
-            })
-            .catch(registrationError => {
-                console.log('SW registration failed: ', registrationError);
-            });
-    });
+.player-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+/* Mobile Player Info */
+@media (max-width: 768px) {
+    .player-info {
+        gap: 10px;
+        flex-direction: column;
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .player-info {
+        gap: 8px;
+    }
+    
+    .player-info span {
+        font-size: 0.9rem;
+    }
+}
+
+.player-info span {
+    font-weight: 500;
+    color: #555;
+}
+
+/* Button Styles */
+.btn-primary, .btn-secondary {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    min-height: 44px;
+    min-width: 44px;
+    justify-content: center;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Mobile Button Adjustments */
+@media (max-width: 768px) {
+    .btn-primary, .btn-secondary {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+        min-height: 48px;
+        min-width: 48px;
+    }
+}
+
+@media (max-width: 480px) {
+    .btn-primary, .btn-secondary {
+        padding: 8px 16px;
+        font-size: 0.85rem;
+        min-height: 50px;
+        min-width: 50px;
+        border-radius: 6px;
+    }
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+    color: white;
+    border-radius: 25px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
+}
+
+.btn-secondary {
+    background: #f8f9fa;
+    color: #555;
+    border: 2px solid #e9ecef;
+}
+
+.btn-secondary:hover {
+    background: #e9ecef;
+    transform: translateY(-1px);
+}
+
+/* Modal Styles */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background: white;
+    border-radius: 15px;
+    padding: 0;
+    max-width: 500px;
+    width: 90%;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: modalSlideIn 0.3s ease;
+    -webkit-animation: modalSlideIn 0.3s ease;
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@-webkit-keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        -webkit-transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        -webkit-transform: translateY(0);
+    }
+}
+
+.modal-header {
+    background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+    color: white;
+    padding: 25px 30px;
+    border-radius: 15px 15px 0 0;
+    -webkit-border-radius: 15px 15px 0 0;
+}
+
+.modal-header h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.modal-body {
+    padding: 30px;
+    -webkit-border-radius: 0 0 15px 15px;
+    border-radius: 0 0 15px 15px;
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #555;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 15px;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #ff6b6b;
+    box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.2);
+    transform: scale(1.02);
+    -webkit-transform: scale(1.02);
+}
+
+/* Main Menu Styles */
+.main-menu {
+    animation: fadeInUp 0.6s ease;
+    -webkit-animation: fadeInUp 0.6s ease;
+    text-align: center;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@-webkit-keyframes fadeInUp {
+    from {
+        opacity: 0;
+        -webkit-transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        -webkit-transform: translateY(0);
+    }
+}
+
+.welcome-section {
+    text-align: center;
+    margin-bottom: 40px;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.welcome-section h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    background: linear-gradient(135deg, #ff6b6b, #4ecdc4, #45b7d1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.welcome-section p {
+    font-size: 1.2rem;
+    color: #666;
+}
+
+/* Games Grid */
+.games-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+/* Enhanced Mobile Games Grid */
+@media (max-width: 768px) {
+    .games-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 15px;
+        margin-bottom: 25px;
+    }
+}
+
+@media (max-width: 480px) {
+    .games-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 320px) {
+    .games-grid {
+        gap: 10px;
+        margin-bottom: 15px;
+    }
+}
+
+.game-card {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 3px solid transparent;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Mobile Game Card Adjustments */
+@media (max-width: 768px) {
+    .game-card {
+        padding: 20px;
+        border-radius: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .game-card {
+        padding: 15px;
+        border-radius: 12px;
+    }
+}
+
+@media (max-width: 320px) {
+    .game-card {
+        padding: 12px;
+        border-radius: 10px;
+    }
+}
+
+.game-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 50px rgba(255, 107, 107, 0.2);
+    border-color: #ff6b6b;
+}
+
+.game-icon {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    box-shadow: 0 8px 20px rgba(255, 107, 107, 0.3);
+    transition: all 0.3s ease;
+}
+
+.game-icon:hover {
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 12px 25px rgba(255, 107, 107, 0.4);
+}
+
+.game-icon i {
+    font-size: 1.8rem;
+    color: white;
+}
+
+.game-card h3 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #333;
+    text-align: center;
+}
+
+.game-card p {
+    color: #666;
+    margin-bottom: 20px;
+    line-height: 1.5;
+    text-align: center;
+}
+
+.game-stats {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    color: #888;
+    text-align: center;
+}
+
+.best-score, .best-time {
+    font-weight: 500;
+    color: #ff6b6b;
+}
+
+/* Leaderboard Styles */
+.leaderboard-section {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.leaderboard-section h3 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #333;
+    text-align: center;
+    justify-content: center;
+}
+
+.leaderboard-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.tab-btn {
+    padding: 10px 20px;
+    border: 2px solid #e9ecef;
+    background: white;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    color: #666;
+}
+
+.tab-btn.active,
+.tab-btn:hover {
+    background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+    color: white;
+    border-color: transparent;
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+}
+
+.leaderboard {
+    display: none;
+}
+
+.leaderboard.active {
+    display: block;
+}
+
+.leaderboard-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.leaderboard-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background: #f8f9fa;
+    border-radius: 15px;
+    border-left: 4px solid #ff6b6b;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    margin-bottom: 10px;
+}
+
+.leaderboard-item:hover {
+    transform: translateX(5px);
+    box-shadow: 0 6px 20px rgba(255, 107, 107, 0.2);
+}
+
+.leaderboard-item.rank-1 {
+    border-left-color: #ffd700;
+    background: linear-gradient(135deg, #fff9e6, #fff3cd);
+    transform: scale(1.02);
+}
+
+.leaderboard-item.rank-2 {
+    border-left-color: #c0c0c0;
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    transform: scale(1.01);
+}
+
+.leaderboard-item.rank-3 {
+    border-left-color: #cd7f32;
+    background: linear-gradient(135deg, #fdf2e9, #fce4d6);
+    transform: scale(1.005);
+}
+
+.rank-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.rank-number {
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: #ff6b6b;
+    background: rgba(255, 107, 107, 0.1);
+    padding: 5px 10px;
+    border-radius: 10px;
+}
+
+.player-name {
+    font-weight: 600;
+    color: #333;
+    font-size: 1.1rem;
+}
+
+.classification {
+    font-size: 0.8rem;
+    padding: 4px 10px;
+    border-radius: 15px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.classification.beginner {
+    background: #e0f7fa;
+    color: #00695c;
+    box-shadow: 0 2px 8px rgba(0, 105, 92, 0.2);
+}
+
+.classification.intermediate {
+    background: #fff3cd;
+    color: #856404;
+    box-shadow: 0 2px 8px rgba(133, 100, 4, 0.2);
+}
+
+.classification.expert {
+    background: #ffebee;
+    color: #c62828;
+    box-shadow: 0 2px 8px rgba(198, 40, 40, 0.2);
+}
+
+.score-info {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.score {
+    font-weight: 600;
+    color: #ff6b6b;
+    font-size: 1.1rem;
+}
+
+.time {
+    font-size: 0.9rem;
+    color: #4ecdc4;
+    font-weight: 500;
+}
+
+.accuracy {
+    font-size: 0.9rem;
+    color: #45b7d1;
+    font-weight: 500;
+}
+
+/* Game Screen Styles */
+.game-screen {
+    animation: fadeInUp 0.6s ease;
+    -webkit-animation: fadeInUp 0.6s ease;
+    text-align: center;
+}
+
+.game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 20px 30px;
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    margin-bottom: 30px;
+}
+
+.game-title h2 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #333;
+    text-align: center;
+}
+
+.game-stats {
+    display: flex;
+    gap: 20px;
+    font-weight: 500;
+    color: #555;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.game-stats span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background: rgba(255, 107, 107, 0.1);
+    padding: 8px 15px;
+    border-radius: 15px;
+    font-weight: 600;
+}
+
+#timeLeft {
+    color: #ff6b6b;
+    font-weight: 600;
+    background: rgba(255, 107, 107, 0.2);
+    padding: 4px 8px;
+    border-radius: 10px;
+}
+
+#timeLeft.warning {
+    color: #ffc107;
+    animation: pulse 1s infinite;
+    -webkit-animation: pulse 1s infinite;
+    background: rgba(255, 193, 7, 0.2);
+}
+
+#timeLeft.danger {
+    color: #ff6b6b;
+    animation: pulse 0.5s infinite;
+    -webkit-animation: pulse 0.5s infinite;
+    background: rgba(255, 107, 107, 0.3);
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+@-webkit-keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+.game-content {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    min-height: 500px;
+}
+
+/* Question Styles */
+.question-container {
+    text-align: center;
+}
+
+.question-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.organ-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    background: rgba(255, 107, 107, 0.1);
+    border-radius: 15px;
+    border: 2px solid rgba(255, 107, 107, 0.2);
+}
+
+.organ-image-real {
+    width: 200px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.organ-image-real:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+}
+
+.question {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.question h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #333;
+    line-height: 1.4;
+    text-align: center;
+}
+
+.question-text {
+    background: linear-gradient(135deg, #fff5f5, #f0f9ff);
+    padding: 25px;
+    border-radius: 20px;
+    margin-bottom: 25px;
+    border-left: 5px solid #ff6b6b;
+    font-size: 1.2rem;
+    line-height: 1.6;
+    font-weight: 500;
+    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.1);
+    text-align: center;
+}
+
+.options {
+    display: grid;
+    gap: 15px;
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.option {
+    padding: 20px 25px;
+    background: white;
+    border: 3px solid #e9ecef;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    text-align: center;
+    font-size: 1.1rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.option:hover {
+    border-color: #ff6b6b;
+    background: linear-gradient(135deg, #fff5f5, #f0f9ff);
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 8px 25px rgba(255, 107, 107, 0.2);
+    text-align: center;
+}
+
+.option.selected {
+    border-color: #ff6b6b;
+    background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+    color: white;
+    transform: scale(1.05);
+    text-align: center;
+}
+
+.option.correct {
+    border-color: #4ecdc4;
+    background: #e0f7fa;
+    color: #00695c;
+    transform: scale(1.05);
+    text-align: center;
+}
+
+.option.incorrect {
+    border-color: #ff6b6b;
+    background: #ffebee;
+    color: #c62828;
+    transform: scale(0.95);
+    text-align: center;
+}
+
+.explanation {
+    margin-top: 20px;
+    padding: 20px;
+    background: linear-gradient(135deg, #e0f7fa, #f0f9ff);
+    border-radius: 15px;
+    border-left: 4px solid #4ecdc4;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(78, 205, 196, 0.1);
+}
+
+.explanation h4 {
+    color: #00695c;
+    margin-bottom: 10px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.explanation p {
+    color: #004d40;
+    line-height: 1.6;
+    text-align: center;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 12px;
+    background: #e9ecef;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(135deg, #ff6b6b, #4ecdc4, #45b7d1);
+    transition: width 0.3s ease;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(255, 107, 107, 0.3);
+    text-align: center;
+}
+
+/* Result Styles */
+.result-container {
+    text-align: center;
+    padding: 40px 20px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.result-content h3 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 30px;
+    color: #333;
+    text-align: center;
+}
+
+.final-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.stat {
+    background: linear-gradient(135deg, #fff5f5, #f0f9ff);
+    padding: 20px;
+    border-radius: 15px;
+    border-left: 4px solid #ff6b6b;
+    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.1);
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.stat:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 6px 20px rgba(255, 107, 107, 0.2);
+}
+
+.stat-label {
+    display: block;
+    font-weight: 500;
+    color: #666;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+.stat-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #333;
+    text-align: center;
+}
+
+.stat-value.beginner {
+    color: #4ecdc4;
+    text-align: center;
+}
+
+.stat-value.intermediate {
+    color: #ffc107;
+    text-align: center;
+}
+
+.stat-value.expert {
+    color: #ff6b6b;
+    text-align: center;
+}
+
+.result-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+    text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+        text-align: center;
+    }
+    
+    .header {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+    
+    .logo h1 {
+        font-size: 1.5rem;
+        text-align: center;
+    }
+    
+    .welcome-section h2 {
+        font-size: 2rem;
+        text-align: center;
+    }
+    
+    .games-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        text-align: center;
+    }
+    
+    .game-header {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+    
+    .game-stats {
+        justify-content: center;
+    }
+    
+    .game-card {
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        user-select: none;
+        min-height: 120px;
+    }
+    
+    .game-card:active {
+        transform: scale(0.98);
+        transition: transform 0.1s ease;
+    }
+    
+    .option {
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        user-select: none;
+    }
+    
+    .option:active {
+        transform: scale(0.98);
+        transition: transform 0.1s ease;
+    }
+    
+    .btn-primary, .btn-secondary {
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        user-select: none;
+    }
+    
+    .btn-primary:active, .btn-secondary:active {
+        transform: scale(0.98);
+        transition: transform 0.1s ease;
+    }
+    
+    .test-option {
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        user-select: none;
+        min-height: 60px;
+    }
+    
+    .test-option:active {
+        transform: scale(0.98);
+        transition: transform 0.1s ease;
+    }
+    
+    .modal-content button {
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        user-select: none;
+        min-height: 50px;
+        cursor: pointer;
+        position: relative;
+        z-index: 10;
+    }
+    
+    #submitBtn {
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        user-select: none;
+        min-height: 50px;
+        cursor: pointer;
+        position: relative;
+        z-index: 10;
+        pointer-events: auto;
+    }
+    
+    .modal-content button:active {
+        transform: scale(0.98);
+        transition: transform 0.1s ease;
+    }
+    
+    .modal-content input {
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        user-select: none;
+        min-height: 50px;
+        font-size: 16px; /* Prevents zoom on iOS */
+    }
+    
+    .leaderboard-tabs {
+        justify-content: center;
+    }
+    
+    .tab-btn {
+        font-size: 0.9rem;
+        padding: 8px 16px;
+    }
+    
+    .final-stats {
+        grid-template-columns: 1fr;
+    }
+    
+    .result-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .modal-content {
+        width: 95%;
+        margin: 20px;
+    }
+    
+    .modal-header, .modal-body {
+        padding: 20px;
+    }
+    
+    .game-content {
+        padding: 20px;
+    }
+    
+    .question h3 {
+        font-size: 1.3rem;
+    }
+    
+    .options {
+        gap: 10px;
+    }
+    
+    .option {
+        padding: 12px 15px;
+        font-size: 0.95rem;
+    }
+    
+    .question-content {
+        gap: 15px;
+    }
+    
+    .organ-image {
+        padding: 10px;
+    }
+    
+    .organ-image-real {
+        width: 150px;
+        height: 100px;
+        text-align: center;
+    }
+    
+    .drag-drop-area {
+        gap: 20px;
+        padding: 15px;
+    }
+    
+    .drag-items {
+        gap: 15px;
+    }
+    
+    .drag-item {
+        padding: 12px 16px;
+        font-size: 0.8rem;
+    }
+    
+    .drop-zones {
+        gap: 20px;
+    }
+    
+    .drop-zone {
+        min-width: 120px;
+        min-height: 120px;
+        padding: 15px;
+    }
+    
+    .organ-3d {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+    }
+    
+    .puzzle-area {
+        padding: 15px;
+    }
+    
+    .puzzle-pieces {
+        gap: 10px;
+        padding: 15px;
+        min-height: 100px;
+    }
+    
+    .puzzle-piece {
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+    }
+    
+    .puzzle-board {
+        min-width: 250px;
+        min-height: 250px;
+        padding: 15px;
+    }
+    
+    .puzzle-slot {
+        width: 70px;
+        height: 70px;
+    }
+    
+    .puzzle-slot::before {
+        font-size: 1.2rem;
+    }
+    
+    .organ-3d-model {
+        width: 100px;
+        height: 100px;
+        font-size: 2.5rem;
+    }
+}
+
+/* Animation Classes */
+.fade-in {
+    animation: fadeIn 0.5s ease;
+    -webkit-animation: fadeIn 0.5s ease;
+    text-align: center;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@-webkit-keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.slide-up {
+    animation: slideUp 0.5s ease;
+    -webkit-animation: slideUp 0.5s ease;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@-webkit-keyframes slideUp {
+    from {
+        opacity: 0;
+        -webkit-transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        -webkit-transform: translateY(0);
+    }
+}
+
+.slide-in-right {
+    animation: slideInRight 0.6s ease;
+    -webkit-animation: slideInRight 0.6s ease;
+    text-align: center;
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@-webkit-keyframes slideInRight {
+    from {
+        opacity: 0;
+        -webkit-transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        -webkit-transform: translateX(0);
+    }
+}
+
+.slide-in-left {
+    animation: slideInLeft 0.6s ease;
+    -webkit-animation: slideInLeft 0.6s ease;
+    text-align: center;
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@-webkit-keyframes slideInLeft {
+    from {
+        opacity: 0;
+        -webkit-transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        -webkit-transform: translateX(0);
+    }
+}
+
+.bounce-in {
+    animation: bounceIn 0.8s ease;
+    -webkit-animation: bounceIn 0.8s ease;
+    text-align: center;
+}
+
+@keyframes bounceIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.3);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+    70% {
+        transform: scale(0.9);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@-webkit-keyframes bounceIn {
+    0% {
+        opacity: 0;
+        -webkit-transform: scale(0.3);
+    }
+    50% {
+        opacity: 1;
+        -webkit-transform: scale(1.05);
+    }
+    70% {
+        -webkit-transform: scale(0.9);
+    }
+    100% {
+        opacity: 1;
+        -webkit-transform: scale(1);
+    }
+}
+
+/* Drag and Drop Styles */
+.drag-drop-area {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding: 20px;
+    min-height: 400px;
+}
+
+.drag-items {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.drag-item {
+    background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+    color: white;
+    padding: 15px 20px;
+    border-radius: 15px;
+    cursor: grab;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+}
+
+.drag-item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+}
+
+.drag-item:active {
+    cursor: grabbing;
+    transform: scale(0.95);
+}
+
+.drag-item.dragging {
+    opacity: 0.5;
+    transform: rotate(5deg);
+}
+
+.drag-item i {
+    font-size: 1.5rem;
+}
+
+.drag-item span {
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.drop-zones {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.drop-zone {
+    background: linear-gradient(135deg, #4ecdc4, #45b7d1);
+    color: white;
+    padding: 20px;
+    border-radius: 20px;
+    min-width: 150px;
+    min-height: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    transition: all 0.3s ease;
+    border: 3px dashed transparent;
+    box-shadow: 0 4px 15px rgba(78, 205, 196, 0.3);
+}
+
+.drop-zone.drag-over {
+    border-color: #ff6b6b;
+    background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+}
+
+.drop-zone.correct {
+    background: linear-gradient(135deg, #4ecdc4, #45b7d1);
+    border-color: #4ecdc4;
+    animation: correctPulse 0.6s ease;
+    -webkit-animation: correctPulse 0.6s ease;
+}
+
+.drop-zone.incorrect {
+    background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+    border-color: #ff6b6b;
+    animation: incorrectShake 0.6s ease;
+    -webkit-animation: incorrectShake 0.6s ease;
+}
+
+.organ-3d {
+    width: 80px;
+    height: 80px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    transition: all 0.3s ease;
+}
+
+.drop-zone:hover .organ-3d {
+    transform: scale(1.1) rotate(5deg);
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.drop-zone span {
+    font-weight: 600;
+    font-size: 1.1rem;
+    text-align: center;
+}
+
+/* Organ Test Matching Styles */
+.organ-display {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin: 20px 0;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.organ-image-large {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #4ecdc4, #44a08d);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 25px rgba(78, 205, 196, 0.3);
+    animation: pulse 2s infinite;
+    -webkit-animation: pulse 2s infinite;
+}
+
+.organ-emoji {
+    font-size: 2.5rem;
+    display: block;
+}
+
+.organ-info h4 {
+    color: #4ecdc4;
+    font-size: 1.5rem;
+    margin: 0 0 10px 0;
+    font-weight: 600;
+}
+
+.organ-info p {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1rem;
+    margin: 0;
+    line-height: 1.4;
+}
+
+.test-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.test-option {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    border: 2px solid transparent;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+}
+
+.test-option:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+    -webkit-transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.test-option:active {
+    transform: scale(0.98);
+    -webkit-transform: scale(0.98);
+}
+
+.test-option.correct {
+    background: rgba(76, 175, 80, 0.2);
+    border-color: #4caf50;
+    animation: correctPulse 0.6s ease;
+    -webkit-animation: correctPulse 0.6s ease;
+}
+
+.test-option.incorrect {
+    background: rgba(244, 67, 54, 0.2);
+    border-color: #f44336;
+    animation: incorrectShake 0.6s ease;
+    -webkit-animation: incorrectShake 0.6s ease;
+}
+
+.test-icon {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+.test-name {
+    color: white;
+    font-size: 1rem;
+    font-weight: 500;
+    flex: 1;
+}
+
+/* Puzzle Styles */
+.puzzle-area {
+    padding: 20px;
+    min-height: 500px;
+    text-align: center;
+}
+
+.puzzle-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    align-items: center;
+}
+
+.puzzle-pieces {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    min-height: 120px;
+    border: 2px dashed rgba(255, 255, 255, 0.3);
+}
+
+.puzzle-piece {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+    border-radius: 10px;
+    cursor: grab;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: white;
+    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.puzzle-emoji {
+    font-size: 1.8rem;
+    display: block;
+    z-index: 2;
+    position: relative;
+}
+
+.puzzle-piece:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+}
+
+.puzzle-piece:active {
+    cursor: grabbing;
+    transform: scale(0.95);
+}
+
+.puzzle-piece.dragging {
+    opacity: 0.5;
+    transform: rotate(5deg) scale(1.1);
+    z-index: 1000;
+}
+
+.puzzle-board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 15px;
+    min-width: 300px;
+    min-height: 300px;
+    border: 2px dashed rgba(255, 255, 255, 0.3);
+}
+
+.puzzle-slot {
+    width: 80px;
+    height: 80px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px dashed rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.puzzle-slot::before {
+    content: '?';
+    position: absolute;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 1.5rem;
+    font-weight: bold;
+    z-index: 1;
+}
+
+.puzzle-slot.filled::before {
+    display: none;
+}
+
+.puzzle-slot.drag-over {
+    border-color: #ff6b6b;
+    background: rgba(255, 107, 107, 0.2);
+    transform: scale(1.05);
+}
+
+.puzzle-slot.filled {
+    border-color: #4ecdc4;
+    background: rgba(78, 205, 196, 0.3);
+}
+
+.puzzle-slot.filled::before {
+    display: none;
+}
+
+.puzzle-slot.correct {
+    background: rgba(78, 205, 196, 0.5);
+    border-color: #4ecdc4;
+    animation: correctPulse 0.6s ease;
+    -webkit-animation: correctPulse 0.6s ease;
+}
+
+.puzzle-slot.incorrect {
+    background: rgba(255, 107, 107, 0.5);
+    border-color: #ff6b6b;
+    animation: incorrectShake 0.6s ease;
+    -webkit-animation: incorrectShake 0.6s ease;
+}
+
+.puzzle-slot.incorrect::before {
+    display: none;
+}
+
+/* 3D Organ Models */
+.organ-3d-model {
+    width: 120px;
+    height: 120px;
+    background: linear-gradient(135deg, #4ecdc4, #45b7d1);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    color: white;
+    box-shadow: 0 8px 25px rgba(78, 205, 196, 0.4);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.organ-3d-model::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    transition: all 0.6s ease;
+}
+
+.organ-3d-model:hover::before {
+    animation: shine 1s ease;
+    -webkit-animation: shine 1s ease;
+}
+
+.organ-3d-model:hover {
+    transform: scale(1.1) rotateY(10deg);
+    -webkit-transform: scale(1.1) rotateY(10deg);
+    box-shadow: 0 12px 35px rgba(78, 205, 196, 0.6);
+}
+
+.organ-3d-model:active {
+    transform: scale(0.95);
+    -webkit-transform: scale(0.95);
+}
+
+/* Feedback Styles */
+.feedback {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    padding: 20px 30px;
+    border-radius: 15px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease;
+    -webkit-animation: fadeIn 0.3s ease;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    max-width: 300px;
+}
+
+.feedback-success {
+    background: #4ecdc4;
+    color: white;
+}
+
+.feedback-error {
+    background: #ff6b6b;
+    color: white;
+}
+
+/* Animations */
+@keyframes correctPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+@-webkit-keyframes correctPulse {
+    0% { -webkit-transform: scale(1); }
+    50% { -webkit-transform: scale(1.1); }
+    100% { -webkit-transform: scale(1); }
+}
+
+@keyframes incorrectShake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+@-webkit-keyframes incorrectShake {
+    0%, 100% { -webkit-transform: translateX(0); }
+    25% { -webkit-transform: translateX(-5px); }
+    75% { -webkit-transform: translateX(5px); }
+}
+
+@keyframes shine {
+    0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+    100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+}
+
+@-webkit-keyframes shine {
+    0% { -webkit-transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+    100% { -webkit-transform: translateX(100%) translateY(100%) rotate(45deg); }
+}
+
+/* Loading Animation */
+.loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #ff6b6b;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    -webkit-animation: spin 1s linear infinite;
+    text-align: center;
+}
+
+.loading-spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-top: 3px solid white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    -webkit-animation: spin 1s linear infinite;
+    margin-left: 10px;
+    text-align: center;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+}
+
+/* Admin Panel Styles */
+.btn-admin {
+    background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    margin-right: 10px;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.btn-admin:hover {
+    background: linear-gradient(135deg, #ee5a52, #e74c3c);
+    transform: translateY(-2px);
+    -webkit-transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+}
+
+.btn-admin:active {
+    transform: scale(0.98);
+    -webkit-transform: scale(0.98);
+}
+
+.btn-danger {
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.btn-danger:hover {
+    background: linear-gradient(135deg, #c0392b, #a93226);
+    transform: translateY(-2px);
+    -webkit-transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+}
+
+.btn-danger:active {
+    transform: scale(0.98);
+    -webkit-transform: scale(0.98);
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #666;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.close-btn:hover {
+    background: rgba(255, 107, 107, 0.1);
+    color: #ff6b6b;
+}
+
+.admin-section {
+    margin-bottom: 30px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.admin-section h3 {
+    color: #4ecdc4;
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.admin-actions {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.admin-actions button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 150px;
+    justify-content: center;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+.stat-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.stat-label {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9rem;
+}
+
+.stat-value {
+    color: #4ecdc4;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.leaderboard-preview {
+    max-height: 300px;
+    overflow-y: auto;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.leaderboard-preview .leaderboard-item {
+    padding: 10px;
+    margin-bottom: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 6px;
+    font-size: 0.9rem;
+}
+
+/* Success/Error Messages */
+.message {
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.message.success {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.message.error {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.message i {
+    font-size: 1.2rem;
+}
+
+/* Random Game Button */
+.random-game-btn {
+    margin-top: 20px;
+    font-size: 1.1rem;
+    padding: 15px 30px;
+    background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+    border: none;
+    border-radius: 25px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+    min-width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.random-game-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+}
+
+.random-game-btn i {
+    font-size: 1.2rem;
+}
+
+/* Wheel Modal Styles */
+.wheel-modal {
+    max-width: 500px;
+    text-align: center;
+}
+
+.wheel-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 30px 0;
+}
+
+.wheel {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    position: relative;
+    background: conic-gradient(
+        #ff6b6b 0deg 60deg,
+        #4ecdc4 60deg 120deg,
+        #45b7d1 120deg 180deg,
+        #96ceb4 180deg 240deg,
+        #feca57 240deg 300deg,
+        #ff9ff3 300deg 360deg
+    );
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    transition: transform 3s cubic-bezier(0.25, 0.1, 0.25, 1);
+    border: 8px solid #fff;
+}
+
+.wheel-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80px;
+    height: 80px;
+    background: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.wheel-center:hover {
+    transform: translate(-50%, -50%) scale(1.1);
+}
+
+.wheel-center i {
+    font-size: 1.5rem;
+    color: #ff6b6b;
+}
+
+.wheel-pointer {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-top: 30px solid #fff;
+    z-index: 5;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.wheel-segments {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+.wheel-segment {
+    position: absolute;
+    width: 50%;
+    height: 50%;
+    transform-origin: 100% 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #fff;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+}
+
+.selected-game {
+    margin-top: 30px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.game-result {
+    margin: 15px 0;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #4ecdc4;
+}
+
+/* Enhanced Wheel Animation */
+.wheel.spinning {
+    animation: spin 4s cubic-bezier(0.25, 0.1, 0.25, 1);
+    box-shadow: 0 0 50px rgba(255, 107, 107, 0.8), 0 0 100px rgba(78, 205, 196, 0.6);
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+    25% {
+        box-shadow: 0 0 30px rgba(255, 107, 107, 0.6), 0 0 60px rgba(78, 205, 196, 0.4);
+    }
+    50% {
+        box-shadow: 0 0 40px rgba(255, 107, 107, 0.7), 0 0 80px rgba(78, 205, 196, 0.5);
+    }
+    75% {
+        box-shadow: 0 0 50px rgba(255, 107, 107, 0.8), 0 0 100px rgba(78, 205, 196, 0.6);
+    }
+    100% {
+        transform: rotate(var(--final-rotation, 1800deg));
+        box-shadow: 0 0 50px rgba(255, 107, 107, 0.8), 0 0 100px rgba(78, 205, 196, 0.6);
+    }
+}
+
+/* Wheel Glow Effect */
+.wheel::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    border-radius: 50%;
+    background: conic-gradient(
+        rgba(255, 107, 107, 0.3) 0deg 60deg,
+        rgba(78, 205, 196, 0.3) 60deg 120deg,
+        rgba(69, 183, 209, 0.3) 120deg 180deg,
+        rgba(150, 206, 180, 0.3) 180deg 240deg,
+        rgba(254, 202, 87, 0.3) 240deg 300deg,
+        rgba(255, 159, 243, 0.3) 300deg 360deg
+    );
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.wheel:hover::before {
+    opacity: 1;
+}
+
+/* Enhanced Responsive Design for Wheel */
+@media (max-width: 768px) {
+    .wheel {
+        width: 250px;
+        height: 250px;
+    }
+    
+    .wheel-center {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .wheel-center i {
+        font-size: 1.2rem;
+    }
+    
+    .wheel-segment {
+        font-size: 0.7rem;
+    }
+    
+    .random-game-btn {
+        font-size: 1rem;
+        padding: 12px 25px;
+        min-width: 180px;
+    }
+}
+
+@media (max-width: 480px) {
+    .wheel {
+        width: 200px;
+        height: 200px;
+    }
+    
+    .wheel-center {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .wheel-center i {
+        font-size: 1rem;
+    }
+    
+    .wheel-segment {
+        font-size: 0.6rem;
+    }
+    
+    .wheel-pointer {
+        border-left: 12px solid transparent;
+        border-right: 12px solid transparent;
+        border-top: 24px solid #fff;
+    }
+    
+    .random-game-btn {
+        font-size: 0.9rem;
+        padding: 10px 20px;
+        min-width: 160px;
+    }
+}
+
+@media (max-width: 320px) {
+    .wheel {
+        width: 180px;
+        height: 180px;
+    }
+    
+    .wheel-center {
+        width: 45px;
+        height: 45px;
+    }
+    
+    .wheel-center i {
+        font-size: 0.9rem;
+    }
+    
+    .wheel-segment {
+        font-size: 0.5rem;
+    }
+    
+    .random-game-btn {
+        font-size: 0.8rem;
+        padding: 8px 16px;
+        min-width: 140px;
+    }
+}
+
+/* Unified Leaderboard Styles */
+.unified-leaderboard {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.unified-leaderboard .leaderboard-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    margin-bottom: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.unified-leaderboard .leaderboard-item:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.unified-leaderboard .leaderboard-item.rank-1 {
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 193, 7, 0.1));
+    border: 2px solid rgba(255, 215, 0, 0.3);
+}
+
+.unified-leaderboard .leaderboard-item.rank-2 {
+    background: linear-gradient(135deg, rgba(192, 192, 192, 0.2), rgba(169, 169, 169, 0.1));
+    border: 2px solid rgba(192, 192, 192, 0.3);
+}
+
+.unified-leaderboard .leaderboard-item.rank-3 {
+    background: linear-gradient(135deg, rgba(205, 127, 50, 0.2), rgba(184, 115, 51, 0.1));
+    border: 2px solid rgba(205, 127, 50, 0.3);
+}
+
+.unified-leaderboard .rank-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex: 1;
+}
+
+.unified-leaderboard .rank-number {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #4ecdc4;
+    min-width: 30px;
+    text-align: center;
+}
+
+.unified-leaderboard .player-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #fff;
+    flex: 1;
+}
+
+.unified-leaderboard .game-type {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.7);
+    background: rgba(78, 205, 196, 0.2);
+    padding: 4px 8px;
+    border-radius: 6px;
+    margin-left: 10px;
+}
+
+.unified-leaderboard .classification {
+    font-size: 0.8rem;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.unified-leaderboard .classification.expert {
+    background: rgba(76, 175, 80, 0.2);
+    color: #4caf50;
+}
+
+.unified-leaderboard .classification.intermediate {
+    background: rgba(255, 193, 7, 0.2);
+    color: #ffc107;
+}
+
+.unified-leaderboard .classification.beginner {
+    background: rgba(244, 67, 54, 0.2);
+    color: #f44336;
+}
+
+.unified-leaderboard .score-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    text-align: right;
+}
+
+.unified-leaderboard .score {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #ff6b6b;
+}
+
+.unified-leaderboard .time {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.8);
+    font-family: 'Courier New', monospace;
+}
+
+.unified-leaderboard .accuracy {
+    font-size: 0.9rem;
+    color: #4ecdc4;
+    font-weight: 600;
+}
+
+/* Responsive Design for Unified Leaderboard */
+@media (max-width: 768px) {
+    .unified-leaderboard .leaderboard-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    .unified-leaderboard .rank-info {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .unified-leaderboard .score-info {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .unified-leaderboard .player-name {
+        font-size: 1rem;
+    }
+    
+    .unified-leaderboard .game-type {
+        margin-left: 0;
+        margin-top: 5px;
+    }
+}
+
+/* Enhanced Visual Effects for Booth */
+.correct-answer-effect {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 4rem;
+    color: #4caf50;
+    z-index: 1000;
+    pointer-events: none;
+    animation: correctBurst 1.5s ease-out forwards;
+}
+
+.incorrect-answer-effect {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 4rem;
+    color: #f44336;
+    z-index: 1000;
+    pointer-events: none;
+    animation: incorrectShake 1s ease-out forwards;
+}
+
+@keyframes correctBurst {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.5);
+    }
+    50% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1.2);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+@keyframes incorrectShake {
+    0%, 100% {
+        transform: translate(-50%, -50%);
+    }
+    25% {
+        transform: translate(-52%, -50%);
+    }
+    75% {
+        transform: translate(-48%, -50%);
+    }
+}
+
+/* Particle Effects */
+.particle {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: #4caf50;
+    border-radius: 50%;
+    pointer-events: none;
+    animation: particleFloat 2s ease-out forwards;
+}
+
+@keyframes particleFloat {
+    0% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-100px) scale(0);
+    }
+}
+
+/* Score Pop Animation */
+.score-pop {
+    position: fixed;
+    top: 20%;
+    right: 20px;
+    background: linear-gradient(135deg, #4caf50, #45a049);
+    color: white;
+    padding: 15px 25px;
+    border-radius: 25px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    z-index: 1000;
+    animation: scorePop 2s ease-out forwards;
+    box-shadow: 0 4px 20px rgba(76, 175, 80, 0.4);
+}
+
+@keyframes scorePop {
+    0% {
+        opacity: 0;
+        transform: translateX(100px) scale(0.5);
+    }
+    20% {
+        opacity: 1;
+        transform: translateX(0) scale(1.1);
+    }
+    80% {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(0) scale(0.8);
+    }
+}
+
+/* Enhanced Button Effects */
+.btn-primary {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.btn-primary:hover::before {
+    left: 100%;
+}
+
+.btn-primary:active {
+    transform: scale(0.95);
+}
+
+/* Booth Theme Enhancements */
+.booth-header {
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    color: white;
+    padding: 20px;
+    text-align: center;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.booth-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.booth-header p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+
+/* Mobile Booth Header */
+@media (max-width: 768px) {
+    .booth-header {
+        padding: 15px;
+        margin-bottom: 15px;
+        border-radius: 12px;
+    }
+    
+    .booth-header h1 {
+        font-size: 2rem;
+        margin-bottom: 8px;
+    }
+    
+    .booth-header p {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .booth-header {
+        padding: 12px;
+        margin-bottom: 12px;
+        border-radius: 10px;
+    }
+    
+    .booth-header h1 {
+        font-size: 1.5rem;
+        margin-bottom: 6px;
+    }
+    
+    .booth-header p {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 320px) {
+    .booth-header {
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 8px;
+    }
+    
+    .booth-header h1 {
+        font-size: 1.3rem;
+        margin-bottom: 5px;
+    }
+    
+    .booth-header p {
+        font-size: 0.8rem;
+    }
+}
+
+/* Quick Stats Display */
+.quick-stats {
+    display: flex;
+    justify-content: space-around;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 10px;
+    margin: 20px 0;
+    backdrop-filter: blur(10px);
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+/* Mobile Quick Stats */
+@media (max-width: 768px) {
+    .quick-stats {
+        padding: 12px;
+        margin: 15px 0;
+        border-radius: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .quick-stats {
+        padding: 10px;
+        margin: 12px 0;
+        border-radius: 6px;
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .stat-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 6px;
+    }
+}
+
+@media (max-width: 320px) {
+    .quick-stats {
+        padding: 8px;
+        margin: 10px 0;
+        border-radius: 5px;
+    }
+    
+    .stat-item {
+        padding: 6px;
+        border-radius: 4px;
+    }
+}
+
+.stat-item {
+    text-align: center;
+    color: white;
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #4ecdc4;
+    display: block;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+/* Celebration Effects */
+.celebration {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 999;
+}
+
+.confetti {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: #ff6b6b;
+    animation: confettiFall 3s linear infinite;
+}
+
+.confetti:nth-child(2n) {
+    background: #4ecdc4;
+    animation-delay: 0.5s;
+}
+
+.confetti:nth-child(3n) {
+    background: #45b7d1;
+    animation-delay: 1s;
+}
+
+.confetti:nth-child(4n) {
+    background: #feca57;
+    animation-delay: 1.5s;
+}
+
+@keyframes confettiFall {
+    0% {
+        transform: translateY(-100vh) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) rotate(720deg);
+        opacity: 0;
+    }
 }
