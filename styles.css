@@ -2022,3 +2022,345 @@ body {
 .message i {
     font-size: 1.2rem;
 }
+
+/* Random Game Button */
+.random-game-btn {
+    margin-top: 20px;
+    font-size: 1.1rem;
+    padding: 15px 30px;
+    background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+    border: none;
+    border-radius: 25px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+    min-width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.random-game-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+}
+
+.random-game-btn i {
+    font-size: 1.2rem;
+}
+
+/* Wheel Modal Styles */
+.wheel-modal {
+    max-width: 500px;
+    text-align: center;
+}
+
+.wheel-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 30px 0;
+}
+
+.wheel {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    position: relative;
+    background: conic-gradient(
+        #ff6b6b 0deg 60deg,
+        #4ecdc4 60deg 120deg,
+        #45b7d1 120deg 180deg,
+        #96ceb4 180deg 240deg,
+        #feca57 240deg 300deg,
+        #ff9ff3 300deg 360deg
+    );
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    transition: transform 3s cubic-bezier(0.25, 0.1, 0.25, 1);
+    border: 8px solid #fff;
+}
+
+.wheel-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80px;
+    height: 80px;
+    background: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.wheel-center:hover {
+    transform: translate(-50%, -50%) scale(1.1);
+}
+
+.wheel-center i {
+    font-size: 1.5rem;
+    color: #ff6b6b;
+}
+
+.wheel-pointer {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-top: 30px solid #fff;
+    z-index: 5;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.wheel-segments {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+.wheel-segment {
+    position: absolute;
+    width: 50%;
+    height: 50%;
+    transform-origin: 100% 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #fff;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+}
+
+.selected-game {
+    margin-top: 30px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.game-result {
+    margin: 15px 0;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #4ecdc4;
+}
+
+/* Wheel Animation */
+.wheel.spinning {
+    animation: spin 3s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(var(--final-rotation, 1800deg));
+    }
+}
+
+/* Responsive Design for Wheel */
+@media (max-width: 768px) {
+    .wheel {
+        width: 250px;
+        height: 250px;
+    }
+    
+    .wheel-center {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .wheel-center i {
+        font-size: 1.2rem;
+    }
+    
+    .wheel-segment {
+        font-size: 0.7rem;
+    }
+    
+    .random-game-btn {
+        font-size: 1rem;
+        padding: 12px 25px;
+        min-width: 180px;
+    }
+}
+
+/* Unified Leaderboard Styles */
+.unified-leaderboard {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.unified-leaderboard .leaderboard-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    margin-bottom: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.unified-leaderboard .leaderboard-item:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.unified-leaderboard .leaderboard-item.rank-1 {
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 193, 7, 0.1));
+    border: 2px solid rgba(255, 215, 0, 0.3);
+}
+
+.unified-leaderboard .leaderboard-item.rank-2 {
+    background: linear-gradient(135deg, rgba(192, 192, 192, 0.2), rgba(169, 169, 169, 0.1));
+    border: 2px solid rgba(192, 192, 192, 0.3);
+}
+
+.unified-leaderboard .leaderboard-item.rank-3 {
+    background: linear-gradient(135deg, rgba(205, 127, 50, 0.2), rgba(184, 115, 51, 0.1));
+    border: 2px solid rgba(205, 127, 50, 0.3);
+}
+
+.unified-leaderboard .rank-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex: 1;
+}
+
+.unified-leaderboard .rank-number {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #4ecdc4;
+    min-width: 30px;
+    text-align: center;
+}
+
+.unified-leaderboard .player-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #fff;
+    flex: 1;
+}
+
+.unified-leaderboard .game-type {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.7);
+    background: rgba(78, 205, 196, 0.2);
+    padding: 4px 8px;
+    border-radius: 6px;
+    margin-left: 10px;
+}
+
+.unified-leaderboard .classification {
+    font-size: 0.8rem;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.unified-leaderboard .classification.expert {
+    background: rgba(76, 175, 80, 0.2);
+    color: #4caf50;
+}
+
+.unified-leaderboard .classification.intermediate {
+    background: rgba(255, 193, 7, 0.2);
+    color: #ffc107;
+}
+
+.unified-leaderboard .classification.beginner {
+    background: rgba(244, 67, 54, 0.2);
+    color: #f44336;
+}
+
+.unified-leaderboard .score-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    text-align: right;
+}
+
+.unified-leaderboard .score {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #ff6b6b;
+}
+
+.unified-leaderboard .time {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.8);
+    font-family: 'Courier New', monospace;
+}
+
+.unified-leaderboard .accuracy {
+    font-size: 0.9rem;
+    color: #4ecdc4;
+    font-weight: 600;
+}
+
+/* Responsive Design for Unified Leaderboard */
+@media (max-width: 768px) {
+    .unified-leaderboard .leaderboard-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    .unified-leaderboard .rank-info {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .unified-leaderboard .score-info {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .unified-leaderboard .player-name {
+        font-size: 1rem;
+    }
+    
+    .unified-leaderboard .game-type {
+        margin-left: 0;
+        margin-top: 5px;
+    }
+}
+
