@@ -82,71 +82,6 @@ const GAME_DATA = {
             }
         ]
     },
-    'correct-range': {
-        title: 'Correct Range',
-        questions: [
-            {
-                question: "Glucose = 250 mg/dl. Normal / High / Low?",
-                options: ["Normal", "High", "Low"],
-                correct: 1,
-                explanation: "Normal is ~70-110 mg/dl; 250 indicates hyperglycemia."
-            },
-            {
-                question: "Creatinine = 0.8 mg/dl. Normal / High / Low?",
-                options: ["Normal", "High", "Low"],
-                correct: 0,
-                explanation: "Normal range ~0.6-1.2 mg/dl."
-            },
-            {
-                question: "Cholesterol = 300 mg/dl. Normal / High / Low?",
-                options: ["Normal", "High", "Low"],
-                correct: 1,
-                explanation: "Normal is <200 mg/dl; 300 indicates hypercholesterolemia."
-            },
-            {
-                question: "ALT = 60 U/L. Normal / High / Low?",
-                options: ["Normal", "High", "Low"],
-                correct: 1,
-                explanation: "Normal is <40 U/L; elevated indicates liver injury."
-            },
-            {
-                question: "Calcium = 6 mg/dl. Normal / High / Low?",
-                options: ["Normal", "High", "Low"],
-                correct: 2,
-                explanation: "Normal is ~8.5-10.5 mg/dl; low indicates hypocalcemia."
-            },
-            {
-                question: "HbA1c = 4.5%. Normal / High / Low?",
-                options: ["Normal", "High", "Low"],
-                correct: 0,
-                explanation: "Normal is 4–5.6%; diabetic is >6.5%."
-            },
-            {
-                question: "Urea = 55 mg/dl. Normal / High / Low?",
-                options: ["Normal", "High", "Low"],
-                correct: 1,
-                explanation: "Normal is ~15-45 mg/dl; 55 suggests kidney dysfunction."
-            },
-            {
-                question: "Glucose = 50 mg/dl. Normal / High / Low?",
-                options: ["Normal", "High", "Low"],
-                correct: 2,
-                explanation: "Normal is ~70-110 mg/dl; 50 indicates hypoglycemia."
-            },
-            {
-                question: "Triglycerides = 120 mg/dl. Normal / High / Low?",
-                options: ["Normal", "High", "Low"],
-                correct: 0,
-                explanation: "Normal is <150 mg/dl."
-            },
-            {
-                question: "Potassium = 6.5 mmol/L. Normal / High / Low?",
-                options: ["Normal", "High", "Low"],
-                correct: 1,
-                explanation: "Normal is 3.5–5.0 mmol/L; 6.5 indicates hyperkalemia."
-            }
-        ]
-    },
     'quick-quiz': {
         title: 'Quick Quiz',
         questions: [
@@ -491,6 +426,181 @@ const GAME_DATA = {
                 explanation: "Because results must reach healthcare providers."
             }
         ]
+    },
+    'matching': {
+        title: 'Organ & Test Matching',
+        questions: [
+            {
+                type: 'organ-test-matching',
+                question: 'Match the organ with its primary laboratory test',
+                organ: {
+                    name: 'Liver',
+                    image: '🫀',
+                    description: 'This organ processes nutrients and filters toxins'
+                },
+                testOptions: [
+                    { id: 'alt', name: 'ALT (Alanine Aminotransferase)', correct: true },
+                    { id: 'glucose', name: 'Glucose', correct: false },
+                    { id: 'creatinine', name: 'Creatinine', correct: false },
+                    { id: 'tsh', name: 'TSH (Thyroid Stimulating Hormone)', correct: false }
+                ],
+                correctAnswer: 'alt',
+                explanation: 'ALT is the primary test for liver function as it indicates liver cell damage.'
+            },
+            {
+                type: 'organ-test-matching',
+                question: 'Match the organ with its primary laboratory test',
+                organ: {
+                    name: 'Kidney',
+                    image: '🫘',
+                    description: 'This organ filters waste from blood and produces urine'
+                },
+                testOptions: [
+                    { id: 'alt', name: 'ALT', correct: false },
+                    { id: 'creatinine', name: 'Creatinine', correct: true },
+                    { id: 'glucose', name: 'Glucose', correct: false },
+                    { id: 'cholesterol', name: 'Cholesterol', correct: false }
+                ],
+                correctAnswer: 'creatinine',
+                explanation: 'Creatinine is the primary test for kidney function as it measures filtration rate.'
+            },
+            {
+                type: 'organ-test-matching',
+                question: 'Match the organ with its primary laboratory test',
+                organ: {
+                    name: 'Pancreas',
+                    image: '🫁',
+                    description: 'This organ produces insulin and digestive enzymes'
+                },
+                testOptions: [
+                    { id: 'glucose', name: 'Glucose', correct: true },
+                    { id: 'alt', name: 'ALT', correct: false },
+                    { id: 'creatinine', name: 'Creatinine', correct: false },
+                    { id: 'tsh', name: 'TSH', correct: false }
+                ],
+                correctAnswer: 'glucose',
+                explanation: 'Glucose levels indicate pancreatic function, especially insulin production.'
+            },
+            {
+                type: 'organ-test-matching',
+                question: 'Match the organ with its primary laboratory test',
+                organ: {
+                    name: 'Thyroid',
+                    image: '🧠',
+                    description: 'This organ controls metabolism and energy levels'
+                },
+                testOptions: [
+                    { id: 'tsh', name: 'TSH (Thyroid Stimulating Hormone)', correct: true },
+                    { id: 'glucose', name: 'Glucose', correct: false },
+                    { id: 'alt', name: 'ALT', correct: false },
+                    { id: 'creatinine', name: 'Creatinine', correct: false }
+                ],
+                correctAnswer: 'tsh',
+                explanation: 'TSH is the primary test for thyroid function and hormone regulation.'
+            },
+            {
+                type: 'organ-test-matching',
+                question: 'Match the organ with its primary laboratory test',
+                organ: {
+                    name: 'Heart',
+                    image: '❤️',
+                    description: 'This organ pumps blood throughout the body'
+                },
+                testOptions: [
+                    { id: 'cholesterol', name: 'Cholesterol', correct: true },
+                    { id: 'glucose', name: 'Glucose', correct: false },
+                    { id: 'alt', name: 'ALT', correct: false },
+                    { id: 'creatinine', name: 'Creatinine', correct: false }
+                ],
+                correctAnswer: 'cholesterol',
+                explanation: 'Cholesterol levels are crucial for heart health and cardiovascular risk assessment.'
+            },
+            {
+                type: 'organ-test-matching',
+                question: 'Match the organ with its primary laboratory test',
+                organ: {
+                    name: 'Bones',
+                    image: '🦴',
+                    description: 'This organ provides structure and stores minerals'
+                },
+                testOptions: [
+                    { id: 'calcium', name: 'Calcium', correct: true },
+                    { id: 'glucose', name: 'Glucose', correct: false },
+                    { id: 'alt', name: 'ALT', correct: false },
+                    { id: 'creatinine', name: 'Creatinine', correct: false }
+                ],
+                correctAnswer: 'calcium',
+                explanation: 'Calcium levels are essential for bone health and strength assessment.'
+            },
+            {
+                type: 'organ-test-matching',
+                question: 'Match the organ with its primary laboratory test',
+                organ: {
+                    name: 'Blood',
+                    image: '🩸',
+                    description: 'This organ carries oxygen and nutrients throughout the body'
+                },
+                testOptions: [
+                    { id: 'hemoglobin', name: 'Hemoglobin', correct: true },
+                    { id: 'glucose', name: 'Glucose', correct: false },
+                    { id: 'alt', name: 'ALT', correct: false },
+                    { id: 'creatinine', name: 'Creatinine', correct: false }
+                ],
+                correctAnswer: 'hemoglobin',
+                explanation: 'Hemoglobin levels indicate blood oxygen-carrying capacity and detect anemia.'
+            },
+            {
+                type: 'organ-test-matching',
+                question: 'Match the organ with its primary laboratory test',
+                organ: {
+                    name: 'Muscles',
+                    image: '💪',
+                    description: 'This organ enables movement and supports the body'
+                },
+                testOptions: [
+                    { id: 'ck', name: 'Creatine Kinase (CK)', correct: true },
+                    { id: 'glucose', name: 'Glucose', correct: false },
+                    { id: 'alt', name: 'ALT', correct: false },
+                    { id: 'creatinine', name: 'Creatinine', correct: false }
+                ],
+                correctAnswer: 'ck',
+                explanation: 'Creatine Kinase levels indicate muscle damage and heart muscle injury.'
+            },
+            {
+                type: 'organ-test-matching',
+                question: 'Match the organ with its primary laboratory test',
+                organ: {
+                    name: 'Lungs',
+                    image: '🫁',
+                    description: 'This organ exchanges oxygen and carbon dioxide'
+                },
+                testOptions: [
+                    { id: 'oxygen', name: 'Blood Gas Analysis', correct: true },
+                    { id: 'glucose', name: 'Glucose', correct: false },
+                    { id: 'alt', name: 'ALT', correct: false },
+                    { id: 'creatinine', name: 'Creatinine', correct: false }
+                ],
+                correctAnswer: 'oxygen',
+                explanation: 'Blood gas analysis measures oxygen and carbon dioxide levels for lung function.'
+            },
+            {
+                type: 'organ-test-matching',
+                question: 'Match the organ with its primary laboratory test',
+                organ: {
+                    name: 'Brain',
+                    image: '🧠',
+                    description: 'This organ controls all body functions and processes'
+                },
+                testOptions: [
+                    { id: 'glucose', name: 'Glucose', correct: true },
+                    { id: 'alt', name: 'ALT', correct: false },
+                    { id: 'creatinine', name: 'Creatinine', correct: false },
+                    { id: 'cholesterol', name: 'Cholesterol', correct: false }
+                ],
+                correctAnswer: 'glucose',
+                explanation: 'Glucose levels are critical for brain function as the brain requires constant glucose supply.'
+            }
+        ]
     }
 };
 
@@ -574,12 +684,7 @@ class GameManager {
             this.startGame(this.currentGame);
         });
 
-        // Leaderboard tabs
-        document.querySelectorAll('.tab-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                this.switchLeaderboardTab(btn.dataset.tab);
-            });
-        });
+        // No more leaderboard tabs - using unified leaderboard
 
         // Admin panel
         document.getElementById('adminBtn').addEventListener('click', () => {
@@ -600,6 +705,20 @@ class GameManager {
 
         document.getElementById('importData').addEventListener('click', () => {
             this.importData();
+        });
+
+        // Random game button
+        document.getElementById('randomGameBtn').addEventListener('click', () => {
+            this.showRandomWheel();
+        });
+
+        // Random wheel events
+        document.getElementById('spinButton').addEventListener('click', () => {
+            this.spinWheel();
+        });
+
+        document.getElementById('startSelectedGame').addEventListener('click', () => {
+            this.startSelectedRandomGame();
         });
     }
 
@@ -1550,38 +1669,61 @@ class GameManager {
     }
 
     updateLeaderboards() {
+        // Collect all scores from all games
+        const allScores = [];
+        
         Object.keys(GAME_DATA).forEach(gameType => {
             const leaderboard = this.leaderboards[gameType] || [];
-            const leaderboardElement = document.querySelector(`#leaderboard-${gameType} .leaderboard-list`);
-            
-            if (leaderboard.length === 0) {
-                leaderboardElement.innerHTML = '<p style="text-align: center; color: #666; padding: 20px;">No scores yet. Be the first to play!</p>';
-            } else {
-                leaderboardElement.innerHTML = leaderboard.map((entry, index) => {
-                    const minutes = Math.floor(entry.time / 60000);
-                    const seconds = Math.floor((entry.time % 60000) / 1000);
-                    const timeString = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-                    
-                    const rankClass = index === 0 ? 'rank-1' : index === 1 ? 'rank-2' : index === 2 ? 'rank-3' : '';
-                    const classificationClass = entry.classification ? entry.classification.toLowerCase() : 'beginner';
-                    
-                    return `
-                        <div class="leaderboard-item ${rankClass}">
-                            <div class="rank-info">
-                                <span class="rank-number">#${index + 1}</span>
-                                <span class="player-name">${entry.player}</span>
-                                <span class="classification ${classificationClass}">${entry.classification || 'Beginner'}</span>
-                            </div>
-                            <div class="score-info">
-                                <div class="score">${entry.score} pts</div>
-                                <div class="time">${timeString}</div>
-                                <div class="accuracy">${entry.accuracy || 0}%</div>
-                            </div>
-                        </div>
-                    `;
-                }).join('');
-            }
+            leaderboard.forEach(entry => {
+                allScores.push({
+                    ...entry,
+                    gameType: gameType,
+                    gameTitle: GAME_DATA[gameType].title
+                });
+            });
         });
+        
+        // Sort by score (descending) then by time (ascending)
+        allScores.sort((a, b) => {
+            if (b.score !== a.score) {
+                return b.score - a.score;
+            }
+            return a.time - b.time;
+        });
+        
+        // Keep only top 20 scores
+        const topScores = allScores.slice(0, 20);
+        
+        const leaderboardElement = document.querySelector('#unifiedLeaderboard .leaderboard-list');
+        
+        if (topScores.length === 0) {
+            leaderboardElement.innerHTML = '<p style="text-align: center; color: rgba(255, 255, 255, 0.7); padding: 40px; font-size: 1.1rem;">No scores yet. Be the first to play!</p>';
+        } else {
+            leaderboardElement.innerHTML = topScores.map((entry, index) => {
+                const minutes = Math.floor(entry.time / 60000);
+                const seconds = Math.floor((entry.time % 60000) / 1000);
+                const timeString = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                
+                const rankClass = index === 0 ? 'rank-1' : index === 1 ? 'rank-2' : index === 2 ? 'rank-3' : '';
+                const classificationClass = entry.classification ? entry.classification.toLowerCase() : 'beginner';
+                
+                return `
+                    <div class="leaderboard-item ${rankClass}">
+                        <div class="rank-info">
+                            <span class="rank-number">#${index + 1}</span>
+                            <span class="player-name">${entry.player}</span>
+                            <span class="game-type">${entry.gameTitle}</span>
+                            <span class="classification ${classificationClass}">${entry.classification || 'Beginner'}</span>
+                        </div>
+                        <div class="score-info">
+                            <div class="score">${entry.score} pts</div>
+                            <div class="time">${timeString}</div>
+                            <div class="accuracy">${entry.accuracy || 0}%</div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
     }
 
     updateBestScores() {
@@ -1621,19 +1763,6 @@ class GameManager {
         });
     }
 
-    switchLeaderboardTab(tabName) {
-        // Update tab buttons
-        document.querySelectorAll('.tab-btn').forEach(btn => {
-            btn.classList.remove('active');
-        });
-        document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
-
-        // Update leaderboard content
-        document.querySelectorAll('.leaderboard').forEach(board => {
-            board.classList.remove('active');
-        });
-        document.getElementById(`leaderboard-${tabName}`).classList.add('active');
-    }
 
     // Admin Panel Functions
     showAdminPanel() {
@@ -1781,6 +1910,89 @@ class GameManager {
         };
         
         input.click();
+    }
+
+    // Random Wheel Functions
+    showRandomWheel() {
+        if (!this.currentPlayer) {
+            this.showPlayerModal();
+            return;
+        }
+
+        document.getElementById('randomWheelModal').style.display = 'flex';
+        this.createWheelSegments();
+        this.selectedRandomGame = null;
+        document.getElementById('selectedGame').style.display = 'none';
+    }
+
+    createWheelSegments() {
+        const gameTypes = Object.keys(GAME_DATA);
+        const segmentsContainer = document.getElementById('wheelSegments');
+        segmentsContainer.innerHTML = '';
+
+        gameTypes.forEach((gameType, index) => {
+            const segment = document.createElement('div');
+            segment.className = 'wheel-segment';
+            segment.style.transform = `rotate(${index * (360 / gameTypes.length)}deg)`;
+            segment.textContent = GAME_DATA[gameType].title;
+            segmentsContainer.appendChild(segment);
+        });
+    }
+
+    spinWheel() {
+        const wheel = document.getElementById('gameWheel');
+        const spinButton = document.getElementById('spinButton');
+        
+        // Disable spin button during animation
+        spinButton.style.pointerEvents = 'none';
+        spinButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+        
+        // Calculate random rotation (multiple full rotations + random angle)
+        const gameTypes = Object.keys(GAME_DATA);
+        const segmentAngle = 360 / gameTypes.length;
+        const randomSegment = Math.floor(Math.random() * gameTypes.length);
+        const baseRotation = 1800; // 5 full rotations
+        const finalAngle = randomSegment * segmentAngle;
+        const totalRotation = baseRotation + finalAngle;
+        
+        // Set CSS variable for animation
+        wheel.style.setProperty('--final-rotation', `${totalRotation}deg`);
+        wheel.classList.add('spinning');
+        
+        // Store selected game
+        this.selectedRandomGame = gameTypes[randomSegment];
+        
+        // Show result after animation
+        setTimeout(() => {
+            wheel.classList.remove('spinning');
+            this.showSelectedGame();
+            
+            // Reset spin button
+            spinButton.style.pointerEvents = 'auto';
+            spinButton.innerHTML = '<i class="fas fa-play"></i>';
+        }, 3000);
+    }
+
+    showSelectedGame() {
+        const selectedGameDiv = document.getElementById('selectedGame');
+        const gameResultDiv = document.getElementById('gameResult');
+        
+        gameResultDiv.innerHTML = `
+            <div class="game-icon">
+                <i class="fas fa-gamepad"></i>
+            </div>
+            <h4>${GAME_DATA[this.selectedRandomGame].title}</h4>
+            <p>Get ready to test your knowledge!</p>
+        `;
+        
+        selectedGameDiv.style.display = 'block';
+    }
+
+    startSelectedRandomGame() {
+        if (this.selectedRandomGame) {
+            document.getElementById('randomWheelModal').style.display = 'none';
+            this.startGame(this.selectedRandomGame);
+        }
     }
 }
 
