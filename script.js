@@ -618,12 +618,14 @@ class GameManager {
         this.timerInterval = null;
         this.countdownInterval = null;
         this.leaderboards = this.loadLeaderboards();
+        this.boothStats = this.loadBoothStats();
         
         this.initializeEventListeners();
         this.showPlayerModal();
         // Load and display leaderboards immediately
         this.updateLeaderboards();
         this.updateBestScores();
+        this.updateBoothStats();
     }
 
     initializeEventListeners() {
@@ -753,6 +755,10 @@ class GameManager {
             this.currentPlayer = playerName;
             document.getElementById('playerName').textContent = playerName;
             
+            // Increment daily player count
+            this.boothStats.totalPlayersToday++;
+            this.saveBoothStats();
+            
             document.getElementById('playerModal').style.display = 'none';
             document.getElementById('mainMenu').style.display = 'block';
             document.getElementById('playerInfo').style.display = 'flex';
@@ -764,6 +770,7 @@ class GameManager {
             
             this.updateLeaderboards();
             this.updateBestScores();
+            this.updateBoothStats();
             
             // Reset button state
             submitBtn.disabled = false;
@@ -1267,9 +1274,85 @@ class GameManager {
         
         document.body.appendChild(feedback);
         
+        // Add visual effects based on type
+        if (type === 'success') {
+            this.showCorrectAnswerEffect();
+            this.createParticles();
+            this.showScorePop();
+        } else if (type === 'error') {
+            this.showIncorrectAnswerEffect();
+        }
+        
         setTimeout(() => {
             feedback.remove();
         }, 2000);
+    }
+
+    showCorrectAnswerEffect() {
+        const effect = document.createElement('div');
+        effect.className = 'correct-answer-effect';
+        effect.innerHTML = '🎉';
+        document.body.appendChild(effect);
+        
+        setTimeout(() => {
+            effect.remove();
+        }, 1500);
+    }
+
+    showIncorrectAnswerEffect() {
+        const effect = document.createElement('div');
+        effect.className = 'incorrect-answer-effect';
+        effect.innerHTML = '❌';
+        document.body.appendChild(effect);
+        
+        setTimeout(() => {
+            effect.remove();
+        }, 1000);
+    }
+
+    createParticles() {
+        for (let i = 0; i < 10; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * window.innerWidth + 'px';
+            particle.style.top = Math.random() * window.innerHeight + 'px';
+            particle.style.background = ['#4caf50', '#4ecdc4', '#45b7d1', '#feca57'][Math.floor(Math.random() * 4)];
+            document.body.appendChild(particle);
+            
+            setTimeout(() => {
+                particle.remove();
+            }, 2000);
+        }
+    }
+
+    showScorePop() {
+        const scorePop = document.createElement('div');
+        scorePop.className = 'score-pop';
+        scorePop.textContent = `+10 Points!`;
+        document.body.appendChild(scorePop);
+        
+        setTimeout(() => {
+            scorePop.remove();
+        }, 2000);
+    }
+
+    showCelebration() {
+        const celebration = document.createElement('div');
+        celebration.className = 'celebration';
+        
+        for (let i = 0; i < 50; i++) {
+            const confetti = document.createElement('div');
+            confetti.className = 'confetti';
+            confetti.style.left = Math.random() * 100 + '%';
+            confetti.style.animationDelay = Math.random() * 3 + 's';
+            celebration.appendChild(confetti);
+        }
+        
+        document.body.appendChild(celebration);
+        
+        setTimeout(() => {
+            celebration.remove();
+        }, 3000);
     }
 
     showQuestion() {
@@ -1614,6 +1697,14 @@ class GameManager {
         // Save score to leaderboard
         this.saveScore(this.currentGame, this.currentPlayer, this.score, totalTime, accuracy, classification);
         
+        // Update booth stats
+        this.incrementBoothStats();
+        
+        // Show celebration for high scores
+        if (accuracy >= 80) {
+            this.showCelebration();
+        }
+        
         // Show result screen
         document.getElementById('questionContainer').style.display = 'none';
         document.getElementById('resultContainer').style.display = 'block';
@@ -1666,6 +1757,50 @@ class GameManager {
 
     saveLeaderboards() {
         localStorage.setItem('chemistryGameLeaderboards', JSON.stringify(this.leaderboards));
+    }
+
+    loadBoothStats() {
+        const saved = localStorage.getItem('chemistryGameBoothStats');
+        const defaultStats = {
+            totalPlayersToday: 0,
+            totalGamesPlayed: 0,
+            totalScore: 0,
+            lastResetDate: new Date().toDateString()
+        };
+        
+        if (saved) {
+            const stats = JSON.parse(saved);
+            // Reset daily stats if it's a new day
+            if (stats.lastResetDate !== new Date().toDateString()) {
+                stats.totalPlayersToday = 0;
+                stats.lastResetDate = new Date().toDateString();
+            }
+            return stats;
+        }
+        return defaultStats;
+    }
+
+    saveBoothStats() {
+        localStorage.setItem('chemistryGameBoothStats', JSON.stringify(this.boothStats));
+    }
+
+    updateBoothStats() {
+        // Calculate average score
+        const averageScore = this.boothStats.totalGamesPlayed > 0 
+            ? Math.round(this.boothStats.totalScore / this.boothStats.totalGamesPlayed)
+            : 0;
+
+        // Update display
+        document.getElementById('totalPlayersToday').textContent = this.boothStats.totalPlayersToday;
+        document.getElementById('totalGamesPlayed').textContent = this.boothStats.totalGamesPlayed;
+        document.getElementById('averageScore').textContent = averageScore;
+    }
+
+    incrementBoothStats() {
+        this.boothStats.totalGamesPlayed++;
+        this.boothStats.totalScore += this.score;
+        this.saveBoothStats();
+        this.updateBoothStats();
     }
 
     updateLeaderboards() {
