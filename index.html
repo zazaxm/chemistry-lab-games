@@ -50,6 +50,33 @@
             </div>
         </div>
 
+        <!-- Random Wheel Modal -->
+        <div id="randomWheelModal" class="modal" style="display: none;">
+            <div class="modal-content wheel-modal">
+                <div class="modal-header">
+                    <h2><i class="fas fa-dice"></i> Random Game Selection</h2>
+                </div>
+                <div class="modal-body">
+                    <div class="wheel-container">
+                        <div class="wheel" id="gameWheel">
+                            <div class="wheel-center">
+                                <i class="fas fa-play" id="spinButton"></i>
+                            </div>
+                            <div class="wheel-segments" id="wheelSegments">
+                                <!-- Segments will be dynamically generated -->
+                            </div>
+                        </div>
+                        <div class="wheel-pointer"></div>
+                    </div>
+                    <div class="selected-game" id="selectedGame" style="display: none;">
+                        <h3>Selected Game:</h3>
+                        <div class="game-result" id="gameResult"></div>
+                        <button id="startSelectedGame" class="btn-primary">Start Game</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Admin Panel Modal -->
         <div id="adminModal" class="modal" style="display: none;">
             <div class="modal-content">
@@ -106,6 +133,9 @@
             <div class="welcome-section">
                 <h2>Welcome to Chemistry Lab Games!</h2>
                 <p>Test your knowledge of medical laboratory tests and procedures</p>
+                <button id="randomGameBtn" class="btn-primary random-game-btn">
+                    <i class="fas fa-dice"></i> Random Game
+                </button>
             </div>
 
             <div class="games-grid">
@@ -121,17 +151,6 @@
                     </div>
                 </div>
 
-                <div class="game-card" data-game="correct-range">
-                    <div class="game-icon">
-                        <i class="fas fa-chart-bar"></i>
-                    </div>
-                    <h3>Correct Range</h3>
-                    <p>Determine if test results are normal, high, or low</p>
-                    <div class="game-stats">
-                        <span class="best-score">Best: <span id="correctRangeBest">0</span></span>
-                        <span class="best-time">Time: <span id="correctRangeTime">--:--</span></span>
-                    </div>
-                </div>
 
                 <div class="game-card" data-game="quick-quiz">
                     <div class="game-icon">
@@ -180,35 +199,24 @@
                         <span class="best-time">Time: <span id="labJourneyTime">--:--</span></span>
                     </div>
                 </div>
+
+                <div class="game-card" data-game="matching">
+                    <div class="game-icon">
+                        <i class="fas fa-link"></i>
+                    </div>
+                    <h3>Organ & Test Matching</h3>
+                    <p>Match each organ with its primary laboratory test</p>
+                    <div class="game-stats">
+                        <span class="best-score">Best: <span id="matchingBest">0</span></span>
+                        <span class="best-time">Time: <span id="matchingTime">--:--</span></span>
+                    </div>
+                </div>
             </div>
 
             <div class="leaderboard-section">
-                <h3><i class="fas fa-trophy"></i> Leaderboards</h3>
-                <div class="leaderboard-tabs">
-                    <button class="tab-btn active" data-tab="sample-matching">Sample Matching</button>
-                    <button class="tab-btn" data-tab="correct-range">Correct Range</button>
-                    <button class="tab-btn" data-tab="quick-quiz">Quick Quiz</button>
-                    <button class="tab-btn" data-tab="guess-test">Guess Test</button>
-                    <button class="tab-btn" data-tab="medical-puzzle">Medical Puzzle</button>
-                    <button class="tab-btn" data-tab="lab-journey">Lab Journey</button>
-                </div>
+                <h3><i class="fas fa-trophy"></i> Global Leaderboard</h3>
                 <div class="leaderboard-content">
-                    <div id="leaderboard-sample-matching" class="leaderboard active">
-                        <div class="leaderboard-list"></div>
-                    </div>
-                    <div id="leaderboard-correct-range" class="leaderboard">
-                        <div class="leaderboard-list"></div>
-                    </div>
-                    <div id="leaderboard-quick-quiz" class="leaderboard">
-                        <div class="leaderboard-list"></div>
-                    </div>
-                    <div id="leaderboard-guess-test" class="leaderboard">
-                        <div class="leaderboard-list"></div>
-                    </div>
-                    <div id="leaderboard-medical-puzzle" class="leaderboard">
-                        <div class="leaderboard-list"></div>
-                    </div>
-                    <div id="leaderboard-lab-journey" class="leaderboard">
+                    <div id="unifiedLeaderboard" class="unified-leaderboard">
                         <div class="leaderboard-list"></div>
                     </div>
                 </div>
