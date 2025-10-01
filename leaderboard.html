@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical Lab Game - Global Leaderboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .stats-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 30px;
+            background: #f8f9fa;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-card i {
+            font-size: 2rem;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .stat-card h3 {
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .stat-card p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .leaderboard-section {
+            padding: 30px;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 2px;
+        }
+
+        .game-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .tab-btn {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: transparent;
+        }
+
+        .tab-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .leaderboard-table {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .table-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 60px 1fr 100px 100px 120px;
+            gap: 20px;
+            font-weight: bold;
+        }
+
+        .leaderboard-entry {
+            display: grid;
+            grid-template-columns: 60px 1fr 100px 100px 120px;
+            gap: 20px;
+            padding: 20px;
+            border-bottom: 1px solid #f0f0f0;
+            transition: all 0.3s ease;
+            align-items: center;
+        }
+
+        .leaderboard-entry:hover {
+            background: #f8f9fa;
+            transform: translateX(5px);
+        }
+
+        .leaderboard-entry:last-child {
+            border-bottom: none;
+        }
+
+        .rank {
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .rank-1 { color: #ffd700; }
+        .rank-2 { color: #c0c0c0; }
+        .rank-3 { color: #cd7f32; }
+
+        .player-name {
+            font-weight: bold;
+            color: #333;
+            font-size: 1.1rem;
+        }
+
+        .score {
+            font-weight: bold;
+            color: #667eea;
+            text-align: center;
+        }
+
+        .time {
+            color: #666;
+            text-align: center;
+            font-family: monospace;
+        }
+
+        .date {
+            color: #999;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .no-data {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+        }
+
+        .no-data i {
+            font-size: 3rem;
+            color: #ddd;
+            margin-bottom: 20px;
+        }
+
+        .refresh-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin: 20px auto;
+            display: block;
+            transition: all 0.3s ease;
+        }
+
+        .refresh-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .table-header,
+            .leaderboard-entry {
+                grid-template-columns: 50px 1fr 80px 80px 100px;
+                gap: 10px;
+                font-size: 0.9rem;
+            }
+            
+            .rank {
+                font-size: 1.2rem;
+            }
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+
+        .loading i {
+            font-size: 2rem;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button class="back-btn" onclick="goBack()">
+            <i class="fas fa-arrow-left"></i> Back to Game
+        </button>
+        
+        <div class="header">
+            <h1><i class="fas fa-trophy"></i> Global Leaderboard</h1>
+            <p>See how you rank against other medical professionals worldwide</p>
+        </div>
+
+        <div class="stats-overview">
+            <div class="stat-card">
+                <i class="fas fa-users"></i>
+                <h3 id="totalPlayers">0</h3>
+                <p>Total Players</p>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-gamepad"></i>
+                <h3 id="totalGames">0</h3>
+                <p>Games Played</p>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-star"></i>
+                <h3 id="averageScore">0</h3>
+                <p>Average Score</p>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-clock"></i>
+                <h3 id="averageTime">--:--</h3>
+                <p>Average Time</p>
+            </div>
+        </div>
+
+        <div class="leaderboard-section">
+            <h2 class="section-title">Game Leaderboards</h2>
+            
+            <div class="game-tabs">
+                <button class="tab-btn active" data-game="all">All Games</button>
+                <button class="tab-btn" data-game="medical-phlebotomy">Medical & Phlebotomy</button>
+                <button class="tab-btn" data-game="lab-processing">Lab Processing</button>
+                <button class="tab-btn" data-game="physicians-nurses">Physicians & Nurses</button>
+                <button class="tab-btn" data-game="transport-safety">Transport & Safety</button>
+            </div>
+
+            <button class="refresh-btn" onclick="refreshLeaderboard()">
+                <i class="fas fa-sync-alt"></i> Refresh Leaderboard
+            </button>
+
+            <div class="leaderboard-table">
+                <div class="table-header">
+                    <div>Rank</div>
+                    <div>Player</div>
+                    <div>Score</div>
+                    <div>Time</div>
+                    <div>Date</div>
+                </div>
+                <div id="leaderboardContent">
+                    <div class="loading">
+                        <i class="fas fa-spinner"></i>
+                        <p>Loading leaderboard...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class LeaderboardManager {
+            constructor() {
+                this.currentGame = 'all';
+                this.leaderboards = {};
+                this.gameData = {
+                    'medical-phlebotomy': 'Medical & Phlebotomy',
+                    'lab-processing': 'Medical Lab Staff',
+                    'physicians-nurses': 'Physicians & Nurses',
+                    'transport-safety': 'Transport & Safety'
+                };
+                this.init();
+            }
+
+            init() {
+                this.loadLeaderboards();
+                this.setupEventListeners();
+                this.updateStats();
+            }
+
+            setupEventListeners() {
+                // Tab switching
+                document.querySelectorAll('.tab-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                        e.target.classList.add('active');
+                        this.currentGame = e.target.dataset.game;
+                        this.displayLeaderboard();
+                    });
+                });
+            }
+
+            loadLeaderboards() {
+                // Load from localStorage
+                Object.keys(this.gameData).forEach(gameType => {
+                    const data = localStorage.getItem(`leaderboard_${gameType}`);
+                    this.leaderboards[gameType] = data ? JSON.parse(data) : [];
+                });
+                
+                this.displayLeaderboard();
+            }
+
+            displayLeaderboard() {
+                const content = document.getElementById('leaderboardContent');
+                
+                if (this.currentGame === 'all') {
+                    this.displayCombinedLeaderboard();
+                } else {
+                    this.displayGameLeaderboard(this.currentGame);
+                }
+            }
+
+            displayCombinedLeaderboard() {
+                const content = document.getElementById('leaderboardContent');
+                
+                // Combine all leaderboards
+                let allEntries = [];
+                Object.keys(this.leaderboards).forEach(gameType => {
+                    this.leaderboards[gameType].forEach(entry => {
+                        allEntries.push({
+                            ...entry,
+                            gameType: gameType,
+                            gameName: this.gameData[gameType]
+                        });
+                    });
+                });
+
+                // Sort by score (descending)
+                allEntries.sort((a, b) => b.score - a.score);
+
+                if (allEntries.length === 0) {
+                    content.innerHTML = `
+                        <div class="no-data">
+                            <i class="fas fa-trophy"></i>
+                            <h3>No Data Available</h3>
+                            <p>Be the first to play and appear on the leaderboard!</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                // Display top 50 entries
+                const topEntries = allEntries.slice(0, 50);
+                content.innerHTML = topEntries.map((entry, index) => `
+                    <div class="leaderboard-entry">
+                        <div class="rank ${this.getRankClass(index + 1)}">${index + 1}</div>
+                        <div class="player-name">${entry.player} <span style="color: #999; font-size: 0.8rem;">(${entry.gameName})</span></div>
+                        <div class="score">${entry.score}</div>
+                        <div class="time">${this.formatTime(entry.time)}</div>
+                        <div class="date">${this.formatDate(entry.date)}</div>
+                    </div>
+                `).join('');
+            }
+
+            displayGameLeaderboard(gameType) {
+                const content = document.getElementById('leaderboardContent');
+                const entries = this.leaderboards[gameType] || [];
+
+                if (entries.length === 0) {
+                    content.innerHTML = `
+                        <div class="no-data">
+                            <i class="fas fa-gamepad"></i>
+                            <h3>No Data Available</h3>
+                            <p>Be the first to play ${this.gameData[gameType]} and appear on the leaderboard!</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                // Display top 25 entries for specific game
+                const topEntries = entries.slice(0, 25);
+                content.innerHTML = topEntries.map((entry, index) => `
+                    <div class="leaderboard-entry">
+                        <div class="rank ${this.getRankClass(index + 1)}">${index + 1}</div>
+                        <div class="player-name">${entry.player}</div>
+                        <div class="score">${entry.score}</div>
+                        <div class="time">${this.formatTime(entry.time)}</div>
+                        <div class="date">${this.formatDate(entry.date)}</div>
+                    </div>
+                `).join('');
+            }
+
+            getRankClass(rank) {
+                if (rank === 1) return 'rank-1';
+                if (rank === 2) return 'rank-2';
+                if (rank === 3) return 'rank-3';
+                return '';
+            }
+
+            formatTime(time) {
+                const minutes = Math.floor(time / 60000);
+                const seconds = Math.floor((time % 60000) / 1000);
+                return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            }
+
+            formatDate(dateString) {
+                const date = new Date(dateString);
+                return date.toLocaleDateString('en-US', { 
+                    month: 'short', 
+                    day: 'numeric',
+                    year: 'numeric'
+                });
+            }
+
+            updateStats() {
+                // Calculate total players
+                const allPlayers = new Set();
+                Object.values(this.leaderboards).forEach(entries => {
+                    entries.forEach(entry => allPlayers.add(entry.player));
+                });
+                document.getElementById('totalPlayers').textContent = allPlayers.size;
+
+                // Calculate total games
+                const totalGames = Object.values(this.leaderboards).reduce((sum, entries) => sum + entries.length, 0);
+                document.getElementById('totalGames').textContent = totalGames;
+
+                // Calculate average score
+                if (totalGames > 0) {
+                    const totalScore = Object.values(this.leaderboards).reduce((sum, entries) => 
+                        sum + entries.reduce((entrySum, entry) => entrySum + entry.score, 0), 0);
+                    const avgScore = Math.round(totalScore / totalGames);
+                    document.getElementById('averageScore').textContent = avgScore;
+                }
+
+                // Calculate average time
+                if (totalGames > 0) {
+                    const totalTime = Object.values(this.leaderboards).reduce((sum, entries) => 
+                        sum + entries.reduce((entrySum, entry) => entrySum + entry.time, 0), 0);
+                    const avgTime = totalTime / totalGames;
+                    document.getElementById('averageTime').textContent = this.formatTime(avgTime);
+                }
+            }
+
+            refreshLeaderboard() {
+                this.loadLeaderboards();
+                this.updateStats();
+            }
+        }
+
+        // Initialize leaderboard
+        const leaderboardManager = new LeaderboardManager();
+
+        function refreshLeaderboard() {
+            leaderboardManager.refreshLeaderboard();
+        }
+
+        function goBack() {
+            window.location.href = 'index.html';
+        }
+
+        // Auto-refresh every 30 seconds
+        setInterval(() => {
+            leaderboardManager.refreshLeaderboard();
+        }, 30000);
+    </script>
+</body>
+</html>
