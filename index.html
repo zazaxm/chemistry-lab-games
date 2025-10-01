@@ -28,6 +28,7 @@
             </div>
             <div class="player-info" id="playerInfo" style="display: none;">
                 <span>Welcome, <span id="playerName"></span>!</span>
+                <button id="medicalStaffBtn" class="btn-primary">Medical Staff</button>
                 <button id="adminBtn" class="btn-admin" style="display: none;">Admin Panel</button>
                 <button id="logoutBtn" class="btn-secondary">Logout</button>
             </div>
@@ -139,6 +140,103 @@
                 <p>Test your medical knowledge and win amazing prizes!</p>
             </div>
             
+            <!-- Medical Staff Section -->
+            <div id="medicalStaffSection" class="medical-staff-section" style="display: none;">
+                <div class="medical-staff-header">
+                    <h2><i class="fas fa-user-md"></i> Medical Staff Portal</h2>
+                    <p>Access medical tools and resources</p>
+                </div>
+                
+                <div class="medical-staff-grid">
+                    <div class="medical-staff-card" data-action="lab-tests">
+                        <div class="medical-staff-icon">
+                            <i class="fas fa-vial"></i>
+                        </div>
+                        <h3>Lab Tests</h3>
+                        <p>Access laboratory test references and normal ranges</p>
+                        <div class="medical-staff-badge">Essential</div>
+                    </div>
+                    
+                    <div class="medical-staff-card" data-action="drug-interactions">
+                        <div class="medical-staff-icon">
+                            <i class="fas fa-pills"></i>
+                        </div>
+                        <h3>Drug Interactions</h3>
+                        <p>Check drug interactions and contraindications</p>
+                        <div class="medical-staff-badge">Critical</div>
+                    </div>
+                    
+                    <div class="medical-staff-card" data-action="medical-calculator">
+                        <div class="medical-staff-icon">
+                            <i class="fas fa-calculator"></i>
+                        </div>
+                        <h3>Medical Calculator</h3>
+                        <p>BMI, GFR, and other medical calculations</p>
+                        <div class="medical-staff-badge">Tools</div>
+                    </div>
+                    
+                    <div class="medical-staff-card" data-action="patient-records">
+                        <div class="medical-staff-icon">
+                            <i class="fas fa-file-medical"></i>
+                        </div>
+                        <h3>Patient Records</h3>
+                        <p>Access and manage patient information</p>
+                        <div class="medical-staff-badge">Records</div>
+                    </div>
+                    
+                    <div class="medical-staff-card" data-action="emergency-protocols">
+                        <div class="medical-staff-icon">
+                            <i class="fas fa-ambulance"></i>
+                        </div>
+                        <h3>Emergency Protocols</h3>
+                        <p>Quick access to emergency procedures</p>
+                        <div class="medical-staff-badge">Emergency</div>
+                    </div>
+                    
+                    <div class="medical-staff-card" data-action="medical-education">
+                        <div class="medical-staff-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <h3>Medical Education</h3>
+                        <p>Continuing education and training materials</p>
+                        <div class="medical-staff-badge">Learning</div>
+                    </div>
+                    
+                    <div class="medical-staff-card" data-action="diagnostic-tools">
+                        <div class="medical-staff-icon">
+                            <i class="fas fa-stethoscope"></i>
+                        </div>
+                        <h3>Diagnostic Tools</h3>
+                        <p>Clinical decision support and diagnostic aids</p>
+                        <div class="medical-staff-badge">Diagnosis</div>
+                    </div>
+                    
+                    <div class="medical-staff-card" data-action="treatment-guidelines">
+                        <div class="medical-staff-icon">
+                            <i class="fas fa-clipboard-list"></i>
+                        </div>
+                        <h3>Treatment Guidelines</h3>
+                        <p>Evidence-based treatment protocols and guidelines</p>
+                        <div class="medical-staff-badge">Guidelines</div>
+                    </div>
+                    
+                    <div class="medical-staff-card" data-action="medical-imaging">
+                        <div class="medical-staff-icon">
+                            <i class="fas fa-x-ray"></i>
+                        </div>
+                        <h3>Medical Imaging</h3>
+                        <p>Radiology references and imaging protocols</p>
+                        <div class="medical-staff-badge">Imaging</div>
+                    </div>
+                </div>
+                
+                <div class="medical-staff-actions">
+                    <button id="backToGamesBtn" class="btn-secondary">
+                        <i class="fas fa-arrow-left"></i> Back to Games
+                    </button>
+                </div>
+            </div>
+            
             <div class="quick-stats">
                 <div class="stat-item">
                     <span class="stat-number" id="totalPlayersToday">0</span>
@@ -163,76 +261,51 @@
             </div>
 
             <div class="games-grid">
-                <div class="game-card" data-game="sample-matching">
+                <div class="game-card" data-game="medical-phlebotomy">
                     <div class="game-icon">
-                        <i class="fas fa-vials"></i>
+                        <i class="fas fa-syringe"></i>
                     </div>
-                    <h3>Sample & Test Matching</h3>
-                    <p>Drag test tubes to their corresponding lab tests</p>
+                    <h3>Medical & Phlebotomy</h3>
+                    <p>Test your knowledge of medical tests and blood collection procedures</p>
                     <div class="game-stats">
-                        <span class="best-score">Best: <span id="sampleMatchingBest">0</span></span>
-                        <span class="best-time">Time: <span id="sampleMatchingTime">--:--</span></span>
+                        <span class="best-score">Best: <span id="medicalPhlebotomyBest">0</span></span>
+                        <span class="best-time">Time: <span id="medicalPhlebotomyTime">--:--</span></span>
                     </div>
                 </div>
 
-
-                <div class="game-card" data-game="quick-quiz">
-                    <div class="game-icon">
-                        <i class="fas fa-question-circle"></i>
-                    </div>
-                    <h3>Quick Quiz</h3>
-                    <p>Answer questions about organs and laboratory tests</p>
-                    <div class="game-stats">
-                        <span class="best-score">Best: <span id="quickQuizBest">0</span></span>
-                        <span class="best-time">Time: <span id="quickQuizTime">--:--</span></span>
-                    </div>
-                </div>
-
-                <div class="game-card" data-game="guess-test">
-                    <div class="game-icon">
-                        <i class="fas fa-user-md"></i>
-                    </div>
-                    <h3>Guess the Test</h3>
-                    <p>Identify which test to order based on patient symptoms</p>
-                    <div class="game-stats">
-                        <span class="best-score">Best: <span id="guessTestBest">0</span></span>
-                        <span class="best-time">Time: <span id="guessTestTime">--:--</span></span>
-                    </div>
-                </div>
-
-                <div class="game-card" data-game="medical-puzzle">
-                    <div class="game-icon">
-                        <i class="fas fa-heartbeat"></i>
-                    </div>
-                    <h3>Medical Puzzle</h3>
-                    <p>Assemble organ puzzles and match with tests</p>
-                    <div class="game-stats">
-                        <span class="best-score">Best: <span id="medicalPuzzleBest">0</span></span>
-                        <span class="best-time">Time: <span id="medicalPuzzleTime">--:--</span></span>
-                    </div>
-                </div>
-
-                <div class="game-card" data-game="lab-journey">
+                <div class="game-card" data-game="lab-processing">
                     <div class="game-icon">
                         <i class="fas fa-flask"></i>
                     </div>
-                    <h3>Lab Journey</h3>
-                    <p>Learn about laboratory workflow and procedures</p>
+                    <h3>Medical Lab Staff</h3>
+                    <p>Lab Processing procedures and sample handling</p>
                     <div class="game-stats">
-                        <span class="best-score">Best: <span id="labJourneyBest">0</span></span>
-                        <span class="best-time">Time: <span id="labJourneyTime">--:--</span></span>
+                        <span class="best-score">Best: <span id="labProcessingBest">0</span></span>
+                        <span class="best-time">Time: <span id="labProcessingTime">--:--</span></span>
                     </div>
                 </div>
 
-                <div class="game-card" data-game="matching">
+                <div class="game-card" data-game="physicians-nurses">
                     <div class="game-icon">
-                        <i class="fas fa-link"></i>
+                        <i class="fas fa-user-md"></i>
                     </div>
-                    <h3>Organ & Test Matching</h3>
-                    <p>Match each organ with its primary laboratory test</p>
+                    <h3>Physicians & Nurses</h3>
+                    <p>Collection procedures and patient preparation</p>
                     <div class="game-stats">
-                        <span class="best-score">Best: <span id="matchingBest">0</span></span>
-                        <span class="best-time">Time: <span id="matchingTime">--:--</span></span>
+                        <span class="best-score">Best: <span id="physiciansNursesBest">0</span></span>
+                        <span class="best-time">Time: <span id="physiciansNursesTime">--:--</span></span>
+                    </div>
+                </div>
+
+                <div class="game-card" data-game="transport-safety">
+                    <div class="game-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Transport & Safety</h3>
+                    <p>Sample transport and general safety procedures</p>
+                    <div class="game-stats">
+                        <span class="best-score">Best: <span id="transportSafetyBest">0</span></span>
+                        <span class="best-time">Time: <span id="transportSafetyTime">--:--</span></span>
                     </div>
                 </div>
             </div>
