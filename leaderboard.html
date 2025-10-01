@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Medical Lab Game - Global Leaderboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore-compat.js"></script>
+    <script src="firebase-config.js"></script>
     <style>
         * {
             margin: 0;
@@ -330,9 +334,17 @@
                 <button class="tab-btn" data-game="transport-safety">Transport & Safety</button>
             </div>
 
-            <button class="refresh-btn" onclick="refreshLeaderboard()">
-                <i class="fas fa-sync-alt"></i> Refresh Leaderboard
-            </button>
+            <div style="text-align: center; margin: 20px 0;">
+                <button class="refresh-btn" onclick="refreshLeaderboard()">
+                    <i class="fas fa-sync-alt"></i> Refresh Leaderboard
+                </button>
+                <button class="refresh-btn" onclick="resetLeaderboard()" style="background: #dc3545; margin-left: 10px;">
+                    <i class="fas fa-trash"></i> Reset Data
+                </button>
+                <button class="refresh-btn" onclick="addSampleData()" style="background: #28a745; margin-left: 10px;">
+                    <i class="fas fa-plus"></i> Add Sample Data
+                </button>
+            </div>
 
             <div class="leaderboard-table">
                 <div class="table-header">
@@ -384,14 +396,54 @@
                 });
             }
 
-            loadLeaderboards() {
-                // Load from localStorage
+            async loadLeaderboards() {
+                // Try to load from Firebase first
+                if (typeof cloudLeaderboard !== 'undefined') {
+                    try {
+                        const cloudData = await cloudLeaderboard.getAllLeaderboards();
+                        if (Object.keys(cloudData).length > 0) {
+                            this.leaderboards = cloudData;
+                            this.displayLeaderboard();
+                            return;
+                        }
+                    } catch (error) {
+                        console.log('Firebase not available, using localStorage');
+                    }
+                }
+                
+                // Fallback to localStorage
                 Object.keys(this.gameData).forEach(gameType => {
                     const data = localStorage.getItem(`leaderboard_${gameType}`);
                     this.leaderboards[gameType] = data ? JSON.parse(data) : [];
                 });
                 
+                // Add sample data if no data exists
+                this.addSampleData();
+                
                 this.displayLeaderboard();
+            }
+
+            addSampleData() {
+                const hasData = Object.values(this.leaderboards).some(entries => entries.length > 0);
+                
+                if (!hasData) {
+                    // Add sample data for demonstration
+                    const sampleData = [
+                        { player: 'Dr. Sarah', score: 95, time: 120000, date: new Date().toISOString() },
+                        { player: 'Nurse Ahmed', score: 88, time: 150000, date: new Date().toISOString() },
+                        { player: 'Lab Tech Fatima', score: 92, time: 135000, date: new Date().toISOString() },
+                        { player: 'Dr. Mohammed', score: 87, time: 180000, date: new Date().toISOString() },
+                        { player: 'Nurse Layla', score: 90, time: 165000, date: new Date().toISOString() }
+                    ];
+
+                    // Add sample data to each game type
+                    Object.keys(this.gameData).forEach(gameType => {
+                        if (this.leaderboards[gameType].length === 0) {
+                            this.leaderboards[gameType] = [...sampleData];
+                            localStorage.setItem(`leaderboard_${gameType}`, JSON.stringify(this.leaderboards[gameType]));
+                        }
+                    });
+                }
             }
 
             displayLeaderboard() {
@@ -536,6 +588,40 @@
 
         function refreshLeaderboard() {
             leaderboardManager.refreshLeaderboard();
+        }
+
+        function resetLeaderboard() {
+            if (confirm('Are you sure you want to reset all leaderboard data? This cannot be undone.')) {
+                // Clear all leaderboard data
+                Object.keys(leaderboardManager.gameData).forEach(gameType => {
+                    localStorage.removeItem(`leaderboard_${gameType}`);
+                });
+                leaderboardManager.loadLeaderboards();
+                alert('Leaderboard data has been reset!');
+            }
+        }
+
+        function addSampleData() {
+            const sampleData = [
+                { player: 'Dr. Sarah', score: 95, time: 120000, date: new Date().toISOString() },
+                { player: 'Nurse Ahmed', score: 88, time: 150000, date: new Date().toISOString() },
+                { player: 'Lab Tech Fatima', score: 92, time: 135000, date: new Date().toISOString() },
+                { player: 'Dr. Mohammed', score: 87, time: 180000, date: new Date().toISOString() },
+                { player: 'Nurse Layla', score: 90, time: 165000, date: new Date().toISOString() },
+                { player: 'Dr. Ali', score: 93, time: 140000, date: new Date().toISOString() },
+                { player: 'Nurse Mariam', score: 89, time: 160000, date: new Date().toISOString() },
+                { player: 'Lab Tech Omar', score: 91, time: 155000, date: new Date().toISOString() }
+            ];
+
+            // Add sample data to each game type
+            Object.keys(leaderboardManager.gameData).forEach(gameType => {
+                const existingData = JSON.parse(localStorage.getItem(`leaderboard_${gameType}`) || '[]');
+                const newData = [...existingData, ...sampleData];
+                localStorage.setItem(`leaderboard_${gameType}`, JSON.stringify(newData));
+            });
+            
+            leaderboardManager.loadLeaderboards();
+            alert('Sample data has been added!');
         }
 
         function goBack() {
