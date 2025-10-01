@@ -1,604 +1,307 @@
 // Game Data and Configuration
 const GAME_DATA = {
-    'sample-matching': {
-        title: 'Sample & Test Matching',
+    'medical-phlebotomy': {
+        title: 'Medical & Phlebotomy',
         questions: [
+            // 🩸 Glucose Tests
             {
-                type: 'drag-drop',
-                question: 'Drag the test tubes to their corresponding organs',
-                dragItems: [
-                    { id: 'alt', name: 'ALT Test' },
-                    { id: 'ast', name: 'AST Test' },
-                    { id: 'bilirubin', name: 'Bilirubin Test' }
-                ],
-                dropZones: [
-                    { id: 'liver', name: 'Liver', icon: 'fas fa-heart' },
-                    { id: 'heart', name: 'Heart', icon: 'fas fa-heart' },
-                    { id: 'pancreas', name: 'Pancreas', icon: 'fas fa-heart' }
-                ],
-                correctMatches: {
-                    'liver': ['alt', 'ast', 'bilirubin']
-                }
-            },
-            {
-                question: "Which sample is usually used for Glucose test?",
-                options: ["Serum", "Whole blood", "Urine", "Plasma"],
-                correct: 0,
-                explanation: "Because glucose is measured in the liquid part of the blood after clotting."
-            },
-            {
-                question: "Which sample is required for HbA1c test?",
-                options: ["Serum", "Whole blood", "Urine", "Plasma"],
+                question: "What is a blood sugar (glucose) test?",
+                options: ["Measures blood pressure", "Measures the amount of glucose in the blood", "Measures cholesterol"],
                 correct: 1,
-                explanation: "Because HbA1c measures glucose bound to red blood cells."
+                explanation: "A blood glucose test measures the amount of sugar (glucose) in your blood, which is essential for diagnosing diabetes and monitoring blood sugar levels."
             },
             {
-                question: "Which sample is used for Creatinine?",
-                options: ["Serum only", "Urine only", "Serum or Urine", "Plasma only"],
+                question: "What are the types of glucose tests?",
+                options: ["FBG and HbA1c", "CBC and ESR", "ALT and AST"],
+                correct: 0,
+                explanation: "FBG (Fasting Blood Glucose) and HbA1c are the main types of glucose tests used to diagnose and monitor diabetes."
+            },
+            {
+                question: "Why is the cortisol test done in the morning and evening?",
+                options: ["To measure blood pressure", "To measure cortisol levels at different times", "To check calcium levels"],
+                correct: 1,
+                explanation: "Cortisol levels vary throughout the day, so testing at different times helps assess the body's stress response and adrenal function."
+            },
+            {
+                question: "What conditions can cortisol test help diagnose?",
+                options: ["Addison's disease", "Cushing's syndrome", "Both Addison's disease and Cushing's syndrome"],
                 correct: 2,
-                explanation: "Because creatinine reflects kidney filtration measured in blood or urine."
+                explanation: "Cortisol testing helps diagnose both Addison's disease (low cortisol) and Cushing's syndrome (high cortisol)."
             },
             {
-                question: "Which sample is used for Liver enzymes (ALT/AST)?",
-                options: ["Serum", "Whole blood", "Urine", "Plasma"],
+                question: "How is the 24-hour urine collection test done?",
+                options: ["Blood sample", "Collecting urine for 24 hours", "Nose swab"],
+                correct: 1,
+                explanation: "The 24-hour urine collection test requires collecting all urine produced over a 24-hour period to measure various substances."
+            },
+            {
+                question: "What does the 24-hour urine collection test measure?",
+                options: ["Protein, calcium, cortisol", "Hemoglobin", "Vitamin B12"],
                 correct: 0,
-                explanation: "Because liver enzymes are released into the bloodstream."
+                explanation: "This test measures protein, calcium, cortisol, and other substances to assess kidney and endocrine function."
             },
             {
-                question: "Which sample is used for Cholesterol test?",
-                options: ["Serum", "Whole blood", "Urine", "Plasma"],
+                question: "What is the 24-hour urine test mainly used for?",
+                options: ["Diagnosing kidney or endocrine disorders", "Eye problems", "Heart diseases"],
                 correct: 0,
-                explanation: "Because cholesterol is measured in the lipid fraction of serum."
+                explanation: "The 24-hour urine test is primarily used to diagnose kidney disorders and endocrine problems."
             },
             {
-                question: "Which sample is used for Bilirubin?",
-                options: ["Serum", "Whole blood", "Urine", "Plasma"],
+                question: "What is a vitamin D test?",
+                options: ["Measures vitamin D levels in the blood", "Measures iron levels", "Measures blood sugar"],
                 correct: 0,
-                explanation: "Because bilirubin is transported in blood bound to albumin."
+                explanation: "A vitamin D test measures the amount of vitamin D in your blood, which is essential for bone health."
             },
             {
-                question: "Which sample is used for Total Protein?",
-                options: ["Serum only", "Plasma only", "Serum or Plasma", "Whole blood"],
+                question: "When is vitamin D test usually ordered?",
+                options: ["In cases of bone weakness or fatigue", "When coughing", "When having a fever"],
+                correct: 0,
+                explanation: "Vitamin D testing is ordered when patients have symptoms of bone weakness, fatigue, or suspected deficiency."
+            },
+            {
+                question: "What is the purpose of vitamin D test?",
+                options: ["Evaluate bone health and diagnose vitamin D deficiency or excess", "Measure blood pressure", "Measure cholesterol"],
+                correct: 0,
+                explanation: "Vitamin D testing evaluates bone health and helps diagnose vitamin D deficiency or excess."
+            },
+            // ❓ Extra Simple Medical Questions (for Phlebotomists)
+            {
+                question: "How many hours should a patient fast before a fasting blood glucose test (FBG)?",
+                options: ["4 hours", "8 hours", "12 hours"],
+                correct: 1,
+                explanation: "Patients should fast for 8 hours before a fasting blood glucose test to get accurate results."
+            },
+            {
+                question: "Which tube is usually used for CBC?",
+                options: ["Red", "Purple (Lavender)", "Blue"],
+                correct: 1,
+                explanation: "Purple (Lavender) tubes contain EDTA and are used for CBC and other hematology tests."
+            },
+            {
+                question: "For coagulation tests (PT/INR), which tube is used?",
+                options: ["Blue", "Green", "Yellow"],
+                correct: 0,
+                explanation: "Blue tubes contain sodium citrate and are used for coagulation studies like PT/INR."
+            },
+            {
+                question: "What is the ideal time to draw a morning cortisol sample?",
+                options: ["Between 7–9 AM", "12 Noon", "10 PM"],
+                correct: 0,
+                explanation: "Morning cortisol samples should be drawn between 7-9 AM when cortisol levels are naturally highest."
+            },
+            // 🧑‍⚕️ Phlebotomy Collection Questions
+            {
+                question: "Which vein is most commonly used for venipuncture?",
+                options: ["Basilic", "Median cubital", "Dorsal hand vein"],
+                correct: 1,
+                explanation: "The median cubital vein is the most commonly used for venipuncture as it's large, stable, and easily accessible."
+            },
+            {
+                question: "What is the correct order of draw for blood collection?",
+                options: ["Red → Blue → Green → Lavender", "Lavender → Blue → Red → Green", "Green → Lavender → Blue → Red"],
+                correct: 0,
+                explanation: "The correct order is Red → Blue → Green → Lavender to prevent cross-contamination between tubes."
+            },
+            {
+                question: "Which tube contains sodium citrate?",
+                options: ["Blue", "Red", "Green"],
+                correct: 0,
+                explanation: "Blue tubes contain sodium citrate, which is an anticoagulant used for coagulation studies."
+            },
+            {
+                question: "What should be done if a patient feels faint during venipuncture?",
+                options: ["Continue the draw", "Stop immediately and lay the patient down", "Ignore and finish quickly"],
+                correct: 1,
+                explanation: "If a patient feels faint, stop immediately, remove the needle, and lay the patient down to prevent injury."
+            },
+            {
+                question: "Why is it important to invert tubes after collection?",
+                options: ["To prevent clotting", "To mix with oxygen", "To change the tube color"],
+                correct: 0,
+                explanation: "Inverting tubes ensures proper mixing of anticoagulants and prevents clotting of the blood sample."
+            },
+            {
+                question: "Which angle should the needle enter the skin during venipuncture?",
+                options: ["15–30 degrees", "45–60 degrees", "90 degrees"],
+                correct: 0,
+                explanation: "The needle should enter at a 15-30 degree angle for optimal vein access and patient comfort."
+            },
+            {
+                question: "Which antiseptic is commonly used before drawing blood?",
+                options: ["Chlorhexidine", "70% Isopropyl alcohol", "Hydrogen peroxide"],
+                correct: 1,
+                explanation: "70% Isopropyl alcohol is the most commonly used antiseptic for cleaning the venipuncture site."
+            },
+            {
+                question: "How long should a tourniquet be applied before venipuncture?",
+                options: ["Less than 1 minute", "2–3 minutes", "5 minutes"],
+                correct: 0,
+                explanation: "Tourniquet should be applied for less than 1 minute to prevent hemoconcentration and patient discomfort."
+            },
+            {
+                question: "What happens if the tourniquet is left on too long?",
+                options: ["Hemoconcentration", "Hemolysis only", "Nothing happens"],
+                correct: 0,
+                explanation: "Leaving the tourniquet on too long causes hemoconcentration, which can affect test results."
+            },
+            {
+                question: "Which color tube is used for blood culture?",
+                options: ["Yellow", "Red", "Blue"],
+                correct: 0,
+                explanation: "Yellow tubes are used for blood cultures as they contain SPS (Sodium Polyanethol Sulfonate)."
+            },
+            {
+                question: "Which color tube is used for serum chemistry tests?",
+                options: ["Red", "Blue", "Lavender"],
+                correct: 0,
+                explanation: "Red tubes are used for serum chemistry tests as they allow blood to clot and separate serum."
+            },
+            {
+                question: "Which tube is used for coagulation studies?",
+                options: ["Blue", "Purple", "Yellow"],
+                correct: 0,
+                explanation: "Blue tubes are used for coagulation studies as they contain sodium citrate anticoagulant."
+            },
+            {
+                question: "What is the first step before performing venipuncture?",
+                options: ["Ask patient to clench fist", "Verify patient identity", "Apply tourniquet"],
+                correct: 1,
+                explanation: "Verifying patient identity is the first and most critical step to ensure patient safety and correct results."
+            },
+            {
+                question: "What is the maximum number of attempts a phlebotomist should try on one patient?",
+                options: ["2", "3", "5"],
+                correct: 0,
+                explanation: "The maximum number of attempts should be 2 to minimize patient discomfort and avoid complications."
+            },
+            {
+                question: "What should be done if blood flow stops during collection?",
+                options: ["Wiggle needle aggressively", "Gently reposition the needle", "Push plunger harder"],
+                correct: 1,
+                explanation: "If blood flow stops, gently reposition the needle to restore flow without causing patient discomfort."
+            }
+        ]
+    },
+    'lab-processing': {
+        title: 'Medical Lab Staff (Lab Processing)',
+        questions: [
+            {
+                question: "What's the best way to gently mix a blood sample tube with an anticoagulant additive?",
+                options: ["Shake it hard", "Gently mix", "Leave it still"],
+                correct: 1,
+                explanation: "Gently mixing the tube ensures proper mixing of the anticoagulant without causing hemolysis or damage to blood cells."
+            },
+            {
+                question: "If a sample is accidentally collected in the wrong type of tube, what should the lab staff member do?",
+                options: ["Run the test anyway", "Reject the sample and request a redraw", "Write a note on the label"],
+                correct: 1,
+                explanation: "Using the wrong tube type can affect test results, so the sample must be rejected and a new one collected."
+            },
+            {
+                question: "What is the main reason we use a centrifuge on blood samples?",
+                options: ["To heat the sample", "To make the blood clot", "To separate cells from serum/plasma"],
                 correct: 2,
-                explanation: "Because proteins are present in blood fluid."
+                explanation: "Centrifugation separates blood components - cells settle at the bottom while serum/plasma remains on top for testing."
             },
             {
-                question: "Which sample is used for Urea test?",
-                options: ["Serum", "Whole blood", "Urine", "Plasma"],
-                correct: 0,
-                explanation: "Because urea is a waste product filtered by kidneys into blood."
-            },
-            {
-                question: "Which sample is used for Calcium test?",
-                options: ["Serum", "Whole blood", "Urine", "Plasma"],
-                correct: 0,
-                explanation: "Because calcium circulates in blood bound to proteins or free."
-            },
-            {
-                question: "Which sample is used for Thyroid hormone (TSH)?",
-                options: ["Serum", "Whole blood", "Urine", "Plasma"],
-                correct: 0,
-                explanation: "Because TSH is a hormone secreted into the bloodstream."
-            }
-        ]
-    },
-    'quick-quiz': {
-        title: 'Quick Quiz',
-        questions: [
-            {
-                question: "Which organ is measured by ALT enzyme?",
-                options: ["Liver", "Kidney", "Heart", "Pancreas"],
-                correct: 0,
-                explanation: "Because ALT is specific to liver cell damage."
-            },
-            {
-                question: "Which test is used for diabetic patient follow-up?",
-                options: ["Glucose", "HbA1c", "Insulin", "C-peptide"],
-                correct: 1,
-                explanation: "Because it reflects average glucose over 3 months."
-            },
-            {
-                question: "Which test evaluates kidney function?",
-                options: ["ALT", "Creatinine, Urea", "Glucose", "Cholesterol"],
-                correct: 1,
-                explanation: "Because kidneys filter both from blood."
-            },
-            {
-                question: "Which test monitors blood lipids?",
-                options: ["Glucose", "Lipid profile", "Creatinine", "ALT"],
-                correct: 1,
-                explanation: "Because it includes cholesterol and triglycerides."
-            },
-            {
-                question: "Which mineral is measured for osteoporosis?",
-                options: ["Iron", "Calcium", "Sodium", "Potassium"],
-                correct: 1,
-                explanation: "Because calcium is essential for bone strength."
-            },
-            {
-                question: "Which hormone is measured for hypothyroidism?",
-                options: ["Insulin", "TSH", "Cortisol", "Testosterone"],
-                correct: 1,
-                explanation: "Because high TSH indicates low thyroid activity."
-            },
-            {
-                question: "Which enzyme increases in pancreatitis?",
-                options: ["ALT", "Amylase, Lipase", "AST", "ALP"],
-                correct: 1,
-                explanation: "Because pancreas releases these enzymes when inflamed."
-            },
-            {
-                question: "Which test evaluates liver function?",
-                options: ["Creatinine", "LFT (Liver Function Tests)", "Glucose", "Cholesterol"],
-                correct: 1,
-                explanation: "Because it measures enzymes, proteins, and bilirubin."
-            },
-            {
-                question: "Which test diagnoses anemia?",
-                options: ["Glucose", "Hemoglobin", "Creatinine", "ALT"],
-                correct: 1,
-                explanation: "Because hemoglobin measures oxygen-carrying capacity of blood."
-            },
-            {
-                question: "Which test checks body response to glucose over 2 hours?",
-                options: ["Glucose", "HbA1c", "OGTT", "Insulin"],
+                question: "If a patient sample tube is missing its label, what happens?",
+                options: ["It goes straight to testing", "The lab writes the patient name on it", "The lab cannot test it"],
                 correct: 2,
-                explanation: "Because it monitors how body metabolizes glucose."
+                explanation: "Unlabeled samples cannot be tested as they cannot be properly identified, which is a critical safety requirement."
+            },
+            {
+                question: "What can happen if a sample is delayed and sits out too long before being spun?",
+                options: ["The tube will change color", "Some chemicals in the blood may change", "Nothing at all"],
+                correct: 1,
+                explanation: "Delayed processing can cause changes in blood chemistry, leading to inaccurate test results."
+            },
+            {
+                question: "A sample that is too hot or too cold during transport is an example of what kind of error?",
+                options: ["Analytical error", "Pre-analytical error", "Post-analytical error"],
+                correct: 1,
+                explanation: "Temperature issues during transport are pre-analytical errors that occur before the sample reaches the testing phase."
             }
         ]
     },
-    'guess-test': {
-        title: 'Guess the Test',
+    'physicians-nurses': {
+        title: 'Physicians and Nurses (Collection & Patient Prep)',
         questions: [
             {
-                question: "A patient with excessive thirst and weight loss. Which test?",
-                options: ["Glucose", "Cholesterol", "Creatinine", "ALT"],
-                correct: 0,
-                explanation: "Because high glucose causes diabetes symptoms."
+                question: "To confirm a patient's identity before blood draw, what is the most important information to check?",
+                options: ["Their address", "Their name and date of birth", "Their insurance ID"],
+                correct: 1,
+                explanation: "Name and date of birth are the two most critical identifiers to ensure the correct patient receives the correct test."
             },
             {
-                question: "A patient with yellow eyes. Which test?",
-                options: ["Glucose", "Bilirubin", "Creatinine", "ALT"],
+                question: "What is 'Fasting' mainly required for?",
+                options: ["To make veins easier to find", "To get accurate glucose (sugar) and lipid (fat) results", "To save time"],
                 correct: 1,
-                explanation: "Because jaundice is caused by bilirubin buildup."
+                explanation: "Fasting ensures accurate glucose and lipid measurements by eliminating the effects of recent food intake."
             },
             {
-                question: "A patient with leg swelling. Which test?",
-                options: ["Glucose", "Albumin", "Creatinine", "ALT"],
-                correct: 1,
-                explanation: "Because low albumin causes fluid retention."
+                question: "How should the blood collection tubes be filled relative to the line on the label?",
+                options: ["Only half-way", "As little as possible", "To the correct fill line"],
+                correct: 2,
+                explanation: "Tubes must be filled to the correct line to maintain the proper blood-to-additive ratio for accurate results."
             },
             {
-                question: "A patient with fatigue and hair loss. Which test?",
-                options: ["Glucose", "TSH", "Creatinine", "ALT"],
+                question: "What is the correct action if a small amount of blood spills during the draw?",
+                options: ["Ignore it and finish the draw", "Clean it up immediately with a disinfectant wipe", "Use your bare hand to wipe it away"],
                 correct: 1,
-                explanation: "Because thyroid imbalance affects energy and hair."
+                explanation: "Blood spills must be cleaned immediately with appropriate disinfectant to prevent contamination and infection risk."
             },
             {
-                question: "A patient with chest pain and family history of heart disease. Which test?",
-                options: ["Glucose", "Cholesterol, Lipid profile", "Creatinine", "ALT"],
+                question: "If you collect a sample, where must you put the patient label?",
+                options: ["On the transport box", "Directly onto the sample tube", "On your own clipboard"],
                 correct: 1,
-                explanation: "Because high lipids increase heart risk."
+                explanation: "Patient labels must be placed directly on the sample tube to ensure proper identification throughout the testing process."
             },
             {
-                question: "A patient with nausea after fatty meals. Which test?",
-                options: ["Glucose", "Amylase, Lipase", "Creatinine", "ALT"],
-                correct: 1,
-                explanation: "Because pancreas enzymes are elevated in pancreatitis."
-            },
-            {
-                question: "A patient with chronic kidney disease. Which tests?",
-                options: ["Glucose", "Creatinine, Urea, Electrolytes", "ALT", "Cholesterol"],
-                correct: 1,
-                explanation: "Because they show kidney filtering capacity."
-            },
-            {
-                question: "A child with poor growth. Which test?",
-                options: ["Glucose", "Growth hormone or Vitamin D", "Creatinine", "ALT"],
-                correct: 1,
-                explanation: "Because both affect bone and body development."
-            },
-            {
-                question: "A patient with loss of appetite and jaundice. Which test?",
-                options: ["Glucose", "LFTs", "Creatinine", "Cholesterol"],
-                correct: 1,
-                explanation: "Because they show liver damage."
-            },
-            {
-                question: "A patient with muscle cramps. Which tests?",
-                options: ["Glucose", "Calcium, Magnesium, Potassium", "Creatinine", "ALT"],
-                correct: 1,
-                explanation: "Because electrolytes control muscle contraction."
+                question: "If a patient is told to fast for 12 hours, what can they only drink?",
+                options: ["Orange Juice", "Black Coffee", "Plain water"],
+                correct: 2,
+                explanation: "During fasting, patients can only drink plain water as other beverages can affect test results."
             }
         ]
     },
-    'medical-puzzle': {
-        title: 'Medical Puzzle',
+    'transport-safety': {
+        title: 'Non-Medical (Transport & General Safety)',
         questions: [
             {
-                type: 'organ-test-matching',
-                question: 'Match the organ with its primary laboratory test',
-                organ: {
-                    name: 'Liver',
-                    image: '🫀',
-                    description: 'This organ processes nutrients and filters toxins'
-                },
-                testOptions: [
-                    { id: 'alt', name: 'ALT (Alanine Aminotransferase)', correct: true },
-                    { id: 'glucose', name: 'Glucose', correct: false },
-                    { id: 'creatinine', name: 'Creatinine', correct: false },
-                    { id: 'tsh', name: 'TSH (Thyroid Stimulating Hormone)', correct: false }
-                ],
-                correctAnswer: 'alt',
-                explanation: 'ALT is the primary test for liver function as it indicates liver cell damage.'
-            },
-            {
-                type: 'organ-test-matching',
-                question: 'Match the organ with its primary laboratory test',
-                organ: {
-                    name: 'Kidney',
-                    image: '🫘',
-                    description: 'This organ filters waste from blood and produces urine'
-                },
-                testOptions: [
-                    { id: 'alt', name: 'ALT', correct: false },
-                    { id: 'creatinine', name: 'Creatinine', correct: true },
-                    { id: 'glucose', name: 'Glucose', correct: false },
-                    { id: 'cholesterol', name: 'Cholesterol', correct: false }
-                ],
-                correctAnswer: 'creatinine',
-                explanation: 'Creatinine is the primary test for kidney function as it measures filtration rate.'
-            },
-            {
-                type: 'organ-test-matching',
-                question: 'Match the organ with its primary laboratory test',
-                organ: {
-                    name: 'Pancreas',
-                    image: '🫁',
-                    description: 'This organ produces insulin and digestive enzymes'
-                },
-                testOptions: [
-                    { id: 'glucose', name: 'Glucose', correct: true },
-                    { id: 'alt', name: 'ALT', correct: false },
-                    { id: 'creatinine', name: 'Creatinine', correct: false },
-                    { id: 'tsh', name: 'TSH', correct: false }
-                ],
-                correctAnswer: 'glucose',
-                explanation: 'Glucose levels indicate pancreatic function, especially insulin production.'
-            },
-            {
-                type: 'organ-test-matching',
-                question: 'Match the organ with its primary laboratory test',
-                organ: {
-                    name: 'Thyroid',
-                    image: '🧠',
-                    description: 'This organ controls metabolism and energy levels'
-                },
-                testOptions: [
-                    { id: 'tsh', name: 'TSH (Thyroid Stimulating Hormone)', correct: true },
-                    { id: 'glucose', name: 'Glucose', correct: false },
-                    { id: 'alt', name: 'ALT', correct: false },
-                    { id: 'creatinine', name: 'Creatinine', correct: false }
-                ],
-                correctAnswer: 'tsh',
-                explanation: 'TSH is the primary test for thyroid function and hormone regulation.'
-            },
-            {
-                type: 'organ-test-matching',
-                question: 'Match the organ with its primary laboratory test',
-                organ: {
-                    name: 'Heart',
-                    image: '❤️',
-                    description: 'This organ pumps blood throughout the body'
-                },
-                testOptions: [
-                    { id: 'cholesterol', name: 'Cholesterol', correct: true },
-                    { id: 'glucose', name: 'Glucose', correct: false },
-                    { id: 'alt', name: 'ALT', correct: false },
-                    { id: 'creatinine', name: 'Creatinine', correct: false }
-                ],
-                correctAnswer: 'cholesterol',
-                explanation: 'Cholesterol levels are crucial for heart health and cardiovascular risk assessment.'
-            },
-            {
-                question: "Which organ is tested using ALT and AST?",
-                options: ["Liver", "Kidney", "Heart", "Pancreas"],
-                correct: 0,
-                explanation: "Because both enzymes rise in liver damage."
-            },
-            {
-                question: "Which organ is tested using Creatinine?",
-                options: ["Liver", "Kidney", "Heart", "Pancreas"],
+                question: "Why must sample tubes be placed in a leak-proof bag before transport?",
+                options: ["To keep them tidy", "To prevent leaks and spills from touching people", "To keep them warm"],
                 correct: 1,
-                explanation: "Because creatinine clearance reflects kidney function."
+                explanation: "Leak-proof bags prevent blood exposure and contamination during transport, protecting both handlers and the public."
             },
             {
-                question: "Which organ is evaluated using Amylase?",
-                options: ["Liver", "Kidney", "Heart", "Pancreas"],
-                correct: 3,
-                explanation: "Because amylase rises in pancreatic disease."
-            },
-            {
-                question: "Which organ is related to Bilirubin?",
-                options: ["Liver", "Kidney", "Heart", "Pancreas"],
-                correct: 0,
-                explanation: "Because liver processes and excretes bilirubin."
-            },
-            {
-                question: "Which organ is linked with TSH?",
-                options: ["Liver", "Thyroid gland", "Heart", "Pancreas"],
+                question: "What is the most common and safest way to transport lab samples?",
+                options: ["In your pants pocket", "In a sturdy container or cooler box", "Tied to the back of a bike"],
                 correct: 1,
-                explanation: "Because TSH controls thyroid hormone secretion."
+                explanation: "Sturdy containers or cooler boxes provide proper protection and temperature control for sample integrity."
             },
             {
-                question: "Which organ is assessed with Hemoglobin?",
-                options: ["Liver", "Blood", "Heart", "Pancreas"],
+                question: "If you are taking a sample to the lab, what should you keep it away from?",
+                options: ["Loud noise", "Extreme heat or direct sunlight", "Other people"],
                 correct: 1,
-                explanation: "Because hemoglobin is part of red blood cells."
+                explanation: "Extreme temperatures can damage samples and affect test results, so samples must be protected from heat and sunlight."
             },
             {
-                question: "Which organ is tested by Cholesterol levels?",
-                options: ["Liver", "Heart / Cardiovascular system", "Kidney", "Pancreas"],
+                question: "Which item is used to clean the skin before a needle is inserted?",
+                options: ["Water", "An alcohol pad", "Hand lotion"],
                 correct: 1,
-                explanation: "Because high cholesterol causes heart disease."
+                explanation: "Alcohol pads are used to disinfect the skin before needle insertion to prevent infection."
             },
             {
-                question: "Which organ is tested by Albumin?",
-                options: ["Liver", "Liver and Kidney", "Heart", "Pancreas"],
+                question: "What is the special container for throwing away used needles and sharp objects called?",
+                options: ["The trash can", "The metal bin", "A sharps container"],
+                correct: 2,
+                explanation: "Sharps containers are specially designed to safely dispose of needles and other sharp medical instruments."
+            },
+            {
+                question: "In a laboratory setting, which piece of Personal Protective Equipment (PPE) protects your hands?",
+                options: ["A face mask", "Gloves", "Safety glasses"],
                 correct: 1,
-                explanation: "Because both regulate protein balance."
-            },
-            {
-                question: "Which organ is related to Calcium?",
-                options: ["Liver", "Bones", "Heart", "Pancreas"],
-                correct: 1,
-                explanation: "Because calcium deficiency weakens bones."
-            },
-            {
-                question: "Which organ is tested by Lipase?",
-                options: ["Liver", "Kidney", "Heart", "Pancreas"],
-                correct: 3,
-                explanation: "Because lipase rises in pancreatitis."
-            }
-        ]
-    },
-    'lab-journey': {
-        title: 'Lab Journey',
-        questions: [
-            {
-                question: "What is the first step after sample collection?",
-                options: ["Analysis", "Labeling and registration", "Centrifugation", "Storage"],
-                correct: 1,
-                explanation: "Because correct ID prevents mix-ups."
-            },
-            {
-                question: "Which instrument is used to separate plasma or serum?",
-                options: ["Microscope", "Centrifuge", "Analyzer", "Incubator"],
-                correct: 1,
-                explanation: "Because it spins and separates blood components."
-            },
-            {
-                question: "What is used to measure Glucose levels?",
-                options: ["Microscope", "Biochemistry Analyzer", "Centrifuge", "Incubator"],
-                correct: 1,
-                explanation: "Because it uses reagents to detect glucose concentration."
-            },
-            {
-                question: "Which device checks electrolytes?",
-                options: ["Microscope", "Electrolyte Analyzer", "Centrifuge", "Incubator"],
-                correct: 1,
-                explanation: "Because it measures sodium, potassium, and chloride."
-            },
-            {
-                question: "Which step comes after analysis?",
-                options: ["Collection", "Result validation", "Storage", "Reporting"],
-                correct: 1,
-                explanation: "Because results must be checked for accuracy."
-            },
-            {
-                question: "Who reviews the final results before release?",
-                options: ["Technician", "Pathologist / Specialist", "Nurse", "Doctor"],
-                correct: 1,
-                explanation: "Because only experts can confirm medical results."
-            },
-            {
-                question: "What is important to avoid errors in samples?",
-                options: ["Speed", "Proper labeling and handling", "Temperature", "Volume"],
-                correct: 1,
-                explanation: "Because mistakes cause wrong diagnosis."
-            },
-            {
-                question: "What is used to check Hemoglobin?",
-                options: ["Microscope", "Hematology Analyzer", "Centrifuge", "Incubator"],
-                correct: 1,
-                explanation: "Because it counts blood cells and hemoglobin."
-            },
-            {
-                question: "Which department works closely with Biochemistry?",
-                options: ["Radiology", "Microbiology, Hematology, Immunology", "Surgery", "Cardiology"],
-                correct: 1,
-                explanation: "Because lab departments collaborate for diagnosis."
-            },
-            {
-                question: "What is the final step in lab workflow?",
-                options: ["Analysis", "Report delivery to doctor/patient", "Storage", "Validation"],
-                correct: 1,
-                explanation: "Because results must reach healthcare providers."
-            }
-        ]
-    },
-    'matching': {
-        title: 'Organ & Test Matching',
-        questions: [
-            {
-                type: 'organ-test-matching',
-                question: 'Match the organ with its primary laboratory test',
-                organ: {
-                    name: 'Liver',
-                    image: '🫀',
-                    description: 'This organ processes nutrients and filters toxins'
-                },
-                testOptions: [
-                    { id: 'alt', name: 'ALT (Alanine Aminotransferase)', correct: true },
-                    { id: 'glucose', name: 'Glucose', correct: false },
-                    { id: 'creatinine', name: 'Creatinine', correct: false },
-                    { id: 'tsh', name: 'TSH (Thyroid Stimulating Hormone)', correct: false }
-                ],
-                correctAnswer: 'alt',
-                explanation: 'ALT is the primary test for liver function as it indicates liver cell damage.'
-            },
-            {
-                type: 'organ-test-matching',
-                question: 'Match the organ with its primary laboratory test',
-                organ: {
-                    name: 'Kidney',
-                    image: '🫘',
-                    description: 'This organ filters waste from blood and produces urine'
-                },
-                testOptions: [
-                    { id: 'alt', name: 'ALT', correct: false },
-                    { id: 'creatinine', name: 'Creatinine', correct: true },
-                    { id: 'glucose', name: 'Glucose', correct: false },
-                    { id: 'cholesterol', name: 'Cholesterol', correct: false }
-                ],
-                correctAnswer: 'creatinine',
-                explanation: 'Creatinine is the primary test for kidney function as it measures filtration rate.'
-            },
-            {
-                type: 'organ-test-matching',
-                question: 'Match the organ with its primary laboratory test',
-                organ: {
-                    name: 'Pancreas',
-                    image: '🫁',
-                    description: 'This organ produces insulin and digestive enzymes'
-                },
-                testOptions: [
-                    { id: 'glucose', name: 'Glucose', correct: true },
-                    { id: 'alt', name: 'ALT', correct: false },
-                    { id: 'creatinine', name: 'Creatinine', correct: false },
-                    { id: 'tsh', name: 'TSH', correct: false }
-                ],
-                correctAnswer: 'glucose',
-                explanation: 'Glucose levels indicate pancreatic function, especially insulin production.'
-            },
-            {
-                type: 'organ-test-matching',
-                question: 'Match the organ with its primary laboratory test',
-                organ: {
-                    name: 'Thyroid',
-                    image: '🧠',
-                    description: 'This organ controls metabolism and energy levels'
-                },
-                testOptions: [
-                    { id: 'tsh', name: 'TSH (Thyroid Stimulating Hormone)', correct: true },
-                    { id: 'glucose', name: 'Glucose', correct: false },
-                    { id: 'alt', name: 'ALT', correct: false },
-                    { id: 'creatinine', name: 'Creatinine', correct: false }
-                ],
-                correctAnswer: 'tsh',
-                explanation: 'TSH is the primary test for thyroid function and hormone regulation.'
-            },
-            {
-                type: 'organ-test-matching',
-                question: 'Match the organ with its primary laboratory test',
-                organ: {
-                    name: 'Heart',
-                    image: '❤️',
-                    description: 'This organ pumps blood throughout the body'
-                },
-                testOptions: [
-                    { id: 'cholesterol', name: 'Cholesterol', correct: true },
-                    { id: 'glucose', name: 'Glucose', correct: false },
-                    { id: 'alt', name: 'ALT', correct: false },
-                    { id: 'creatinine', name: 'Creatinine', correct: false }
-                ],
-                correctAnswer: 'cholesterol',
-                explanation: 'Cholesterol levels are crucial for heart health and cardiovascular risk assessment.'
-            },
-            {
-                type: 'organ-test-matching',
-                question: 'Match the organ with its primary laboratory test',
-                organ: {
-                    name: 'Bones',
-                    image: '🦴',
-                    description: 'This organ provides structure and stores minerals'
-                },
-                testOptions: [
-                    { id: 'calcium', name: 'Calcium', correct: true },
-                    { id: 'glucose', name: 'Glucose', correct: false },
-                    { id: 'alt', name: 'ALT', correct: false },
-                    { id: 'creatinine', name: 'Creatinine', correct: false }
-                ],
-                correctAnswer: 'calcium',
-                explanation: 'Calcium levels are essential for bone health and strength assessment.'
-            },
-            {
-                type: 'organ-test-matching',
-                question: 'Match the organ with its primary laboratory test',
-                organ: {
-                    name: 'Blood',
-                    image: '🩸',
-                    description: 'This organ carries oxygen and nutrients throughout the body'
-                },
-                testOptions: [
-                    { id: 'hemoglobin', name: 'Hemoglobin', correct: true },
-                    { id: 'glucose', name: 'Glucose', correct: false },
-                    { id: 'alt', name: 'ALT', correct: false },
-                    { id: 'creatinine', name: 'Creatinine', correct: false }
-                ],
-                correctAnswer: 'hemoglobin',
-                explanation: 'Hemoglobin levels indicate blood oxygen-carrying capacity and detect anemia.'
-            },
-            {
-                type: 'organ-test-matching',
-                question: 'Match the organ with its primary laboratory test',
-                organ: {
-                    name: 'Muscles',
-                    image: '💪',
-                    description: 'This organ enables movement and supports the body'
-                },
-                testOptions: [
-                    { id: 'ck', name: 'Creatine Kinase (CK)', correct: true },
-                    { id: 'glucose', name: 'Glucose', correct: false },
-                    { id: 'alt', name: 'ALT', correct: false },
-                    { id: 'creatinine', name: 'Creatinine', correct: false }
-                ],
-                correctAnswer: 'ck',
-                explanation: 'Creatine Kinase levels indicate muscle damage and heart muscle injury.'
-            },
-            {
-                type: 'organ-test-matching',
-                question: 'Match the organ with its primary laboratory test',
-                organ: {
-                    name: 'Lungs',
-                    image: '🫁',
-                    description: 'This organ exchanges oxygen and carbon dioxide'
-                },
-                testOptions: [
-                    { id: 'oxygen', name: 'Blood Gas Analysis', correct: true },
-                    { id: 'glucose', name: 'Glucose', correct: false },
-                    { id: 'alt', name: 'ALT', correct: false },
-                    { id: 'creatinine', name: 'Creatinine', correct: false }
-                ],
-                correctAnswer: 'oxygen',
-                explanation: 'Blood gas analysis measures oxygen and carbon dioxide levels for lung function.'
-            },
-            {
-                type: 'organ-test-matching',
-                question: 'Match the organ with its primary laboratory test',
-                organ: {
-                    name: 'Brain',
-                    image: '🧠',
-                    description: 'This organ controls all body functions and processes'
-                },
-                testOptions: [
-                    { id: 'glucose', name: 'Glucose', correct: true },
-                    { id: 'alt', name: 'ALT', correct: false },
-                    { id: 'creatinine', name: 'Creatinine', correct: false },
-                    { id: 'cholesterol', name: 'Cholesterol', correct: false }
-                ],
-                correctAnswer: 'glucose',
-                explanation: 'Glucose levels are critical for brain function as the brain requires constant glucose supply.'
+                explanation: "Gloves are the primary PPE for hand protection in laboratory settings to prevent contamination and exposure."
             }
         ]
     }
@@ -739,6 +442,24 @@ class GameManager {
             this.showRandomWheel();
         });
 
+        // Medical Staff button
+        document.getElementById('medicalStaffBtn').addEventListener('click', () => {
+            this.showMedicalStaffSection();
+        });
+
+        // Back to games button
+        document.getElementById('backToGamesBtn').addEventListener('click', () => {
+            this.hideMedicalStaffSection();
+        });
+
+        // Medical Staff cards
+        document.querySelectorAll('.medical-staff-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const action = card.dataset.action;
+                this.handleMedicalStaffAction(action);
+            });
+        });
+
         // Enhanced random wheel events for mobile
         const spinButton = document.getElementById('spinButton');
         const startSelectedGameBtn = document.getElementById('startSelectedGame');
@@ -865,8 +586,96 @@ class GameManager {
     showMainMenu() {
         document.getElementById('mainMenu').style.display = 'block';
         document.getElementById('gameScreen').style.display = 'none';
+        document.getElementById('medicalStaffSection').style.display = 'none';
+        document.getElementById('quick-stats').style.display = 'flex';
+        document.getElementById('games-grid').style.display = 'grid';
+        document.getElementById('randomGameBtn').style.display = 'inline-flex';
         this.updateLeaderboards();
         this.updateBestScores();
+    }
+
+    showMedicalStaffSection() {
+        document.getElementById('medicalStaffSection').style.display = 'block';
+        document.getElementById('quick-stats').style.display = 'none';
+        document.getElementById('games-grid').style.display = 'none';
+        document.getElementById('randomGameBtn').style.display = 'none';
+    }
+
+    hideMedicalStaffSection() {
+        document.getElementById('medicalStaffSection').style.display = 'none';
+        document.getElementById('quick-stats').style.display = 'flex';
+        document.getElementById('games-grid').style.display = 'grid';
+        document.getElementById('randomGameBtn').style.display = 'inline-flex';
+    }
+
+    handleMedicalStaffAction(action) {
+        switch(action) {
+            case 'lab-tests':
+                this.showLabTests();
+                break;
+            case 'drug-interactions':
+                this.showDrugInteractions();
+                break;
+            case 'medical-calculator':
+                this.showMedicalCalculator();
+                break;
+            case 'patient-records':
+                this.showPatientRecords();
+                break;
+            case 'emergency-protocols':
+                this.showEmergencyProtocols();
+                break;
+            case 'medical-education':
+                this.showMedicalEducation();
+                break;
+            case 'diagnostic-tools':
+                this.showDiagnosticTools();
+                break;
+            case 'treatment-guidelines':
+                this.showTreatmentGuidelines();
+                break;
+            case 'medical-imaging':
+                this.showMedicalImaging();
+                break;
+            default:
+                console.log('Unknown medical staff action:', action);
+        }
+    }
+
+    showLabTests() {
+        alert('Lab Tests Portal\n\nAccess laboratory test references and normal ranges:\n\n• Complete Blood Count (CBC)\n• Basic Metabolic Panel (BMP)\n• Liver Function Tests (LFT)\n• Lipid Panel\n• Thyroid Function Tests\n\nThis feature will be implemented in the next update.');
+    }
+
+    showDrugInteractions() {
+        alert('Drug Interactions Checker\n\nCheck drug interactions and contraindications:\n\n• Drug-Drug Interactions\n• Drug-Food Interactions\n• Contraindications\n• Dosage Adjustments\n\nThis feature will be implemented in the next update.');
+    }
+
+    showMedicalCalculator() {
+        alert('Medical Calculator\n\nCalculate various medical parameters:\n\n• BMI (Body Mass Index)\n• GFR (Glomerular Filtration Rate)\n• BSA (Body Surface Area)\n• Ideal Body Weight\n• Creatinine Clearance\n\nThis feature will be implemented in the next update.');
+    }
+
+    showPatientRecords() {
+        alert('Patient Records System\n\nAccess and manage patient information:\n\n• Patient Demographics\n• Medical History\n• Lab Results\n• Medications\n• Allergies\n\nThis feature will be implemented in the next update.');
+    }
+
+    showEmergencyProtocols() {
+        alert('Emergency Protocols\n\nQuick access to emergency procedures:\n\n• ACLS Protocols\n• BLS Guidelines\n• Emergency Medications\n• Critical Care Procedures\n• Disaster Response\n\nThis feature will be implemented in the next update.');
+    }
+
+    showMedicalEducation() {
+        alert('Medical Education Portal\n\nContinuing education and training materials:\n\n• CME Courses\n• Case Studies\n• Medical Journals\n• Training Videos\n• Certification Programs\n\nThis feature will be implemented in the next update.');
+    }
+
+    showDiagnosticTools() {
+        alert('Diagnostic Tools\n\nClinical decision support and diagnostic aids:\n\n• Symptom Checker\n• Differential Diagnosis\n• Clinical Decision Trees\n• Diagnostic Algorithms\n• Risk Assessment Tools\n\nThis feature will be implemented in the next update.');
+    }
+
+    showTreatmentGuidelines() {
+        alert('Treatment Guidelines\n\nEvidence-based treatment protocols and guidelines:\n\n• Clinical Practice Guidelines\n• Treatment Protocols\n• Evidence-Based Medicine\n• Clinical Pathways\n• Quality Indicators\n\nThis feature will be implemented in the next update.');
+    }
+
+    showMedicalImaging() {
+        alert('Medical Imaging Portal\n\nRadiology references and imaging protocols:\n\n• X-Ray Interpretation\n• CT Scan Guidelines\n• MRI Protocols\n• Ultrasound Procedures\n• Nuclear Medicine\n\nThis feature will be implemented in the next update.');
     }
 
     startGame(gameType) {
@@ -880,6 +689,9 @@ class GameManager {
         this.score = 0;
         this.gameStartTime = Date.now();
         this.timeLeft = this.timeLimit;
+        
+        // Reset selected questions for random selection
+        this.selectedQuestions = null;
 
         document.getElementById('mainMenu').style.display = 'none';
         document.getElementById('gameScreen').style.display = 'block';
@@ -1423,11 +1235,30 @@ class GameManager {
         }, 3000);
     }
 
+    getRandomQuestions(questions, count) {
+        const shuffled = [...questions].sort(() => 0.5 - Math.random());
+        return shuffled.slice(0, count);
+    }
+
     showQuestion() {
         const gameData = GAME_DATA[this.currentGame];
-        const question = gameData.questions[this.currentQuestionIndex];
         
-        const progress = ((this.currentQuestionIndex + 1) / gameData.questions.length) * 100;
+        // For Medical & Phlebotomy, select 5 random questions
+        if (this.currentGame === 'medical-phlebotomy') {
+            if (!this.selectedQuestions) {
+                this.selectedQuestions = this.getRandomQuestions(gameData.questions, 5);
+            }
+        }
+        
+        const question = this.currentGame === 'medical-phlebotomy' ? 
+            this.selectedQuestions[this.currentQuestionIndex] : 
+            gameData.questions[this.currentQuestionIndex];
+        
+        const totalQuestions = this.currentGame === 'medical-phlebotomy' ? 
+            this.selectedQuestions.length : 
+            gameData.questions.length;
+        
+        const progress = ((this.currentQuestionIndex + 1) / totalQuestions) * 100;
         
         // Hide all game areas first
         document.getElementById('questionContainer').style.display = 'none';
@@ -1454,7 +1285,7 @@ class GameManager {
                 <div class="progress-bar">
                     <div class="progress-fill" style="width: ${progress}%"></div>
                 </div>
-                <h3>Question ${this.currentQuestionIndex + 1} of ${GAME_DATA[this.currentGame].questions.length}</h3>
+                <h3>Question ${this.currentQuestionIndex + 1} of ${this.currentGame === 'medical-phlebotomy' ? this.selectedQuestions.length : GAME_DATA[this.currentGame].questions.length}</h3>
                 <div class="question-content">
                     <div class="question-text slide-in-right">${question.question}</div>
                 </div>
@@ -1624,7 +1455,10 @@ class GameManager {
             // Show next button
             const nextButton = document.createElement('button');
             nextButton.className = 'btn-primary';
-            nextButton.innerHTML = this.currentQuestionIndex < GAME_DATA[this.currentGame].questions.length - 1 ? 'Next Question' : 'Finish Game';
+            const totalQuestions = this.currentGame === 'medical-phlebotomy' ? 
+                this.selectedQuestions.length : 
+                GAME_DATA[this.currentGame].questions.length;
+            nextButton.innerHTML = this.currentQuestionIndex < totalQuestions - 1 ? 'Next Question' : 'Finish Game';
             nextButton.style.marginTop = '20px';
             
             // Add both click and touch events for mobile support
@@ -1678,7 +1512,10 @@ class GameManager {
             // Show next button
             const nextButton = document.createElement('button');
             nextButton.className = 'btn-primary';
-            nextButton.innerHTML = this.currentQuestionIndex < gameData.questions.length - 1 ? 'Next Question' : 'Finish Game';
+            const totalQuestions = this.currentGame === 'medical-phlebotomy' ? 
+                this.selectedQuestions.length : 
+                gameData.questions.length;
+            nextButton.innerHTML = this.currentQuestionIndex < totalQuestions - 1 ? 'Next Question' : 'Finish Game';
             nextButton.style.marginTop = '20px';
             
             // Add both click and touch events for mobile support
@@ -1697,8 +1534,11 @@ class GameManager {
 
     nextQuestion() {
         const gameData = GAME_DATA[this.currentGame];
+        const totalQuestions = this.currentGame === 'medical-phlebotomy' ? 
+            this.selectedQuestions.length : 
+            gameData.questions.length;
         
-        if (this.currentQuestionIndex < gameData.questions.length - 1) {
+        if (this.currentQuestionIndex < totalQuestions - 1) {
             this.currentQuestionIndex++;
             // Clean up previous question elements
             this.cleanupQuestionElements();
@@ -1752,7 +1592,10 @@ class GameManager {
         const seconds = Math.floor((totalTime % 60000) / 1000);
         const timeString = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
         
-        const accuracy = Math.round((this.score / (GAME_DATA[this.currentGame].questions.length * 10)) * 100);
+        const totalQuestions = this.currentGame === 'medical-phlebotomy' ? 
+            this.selectedQuestions.length : 
+            GAME_DATA[this.currentGame].questions.length;
+        const accuracy = Math.round((this.score / (totalQuestions * 10)) * 100);
         const classification = this.getClassification(accuracy);
         
         // Update final stats
@@ -1942,11 +1785,24 @@ class GameManager {
                     const seconds = Math.floor((bestScore.time % 60000) / 1000);
                     const timeString = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
                     
-                    document.getElementById(`${gameType}Best`).textContent = bestScore.score;
-                    document.getElementById(`${gameType}Time`).textContent = timeString;
+                    // Map game types to their element IDs
+                    const elementIdMap = {
+                        'medical-phlebotomy': 'medicalPhlebotomy',
+                        'lab-processing': 'labProcessing',
+                        'physicians-nurses': 'physiciansNurses',
+                        'transport-safety': 'transportSafety'
+                    };
+                    
+                    const elementId = elementIdMap[gameType] || gameType;
+                    const bestElement = document.getElementById(`${elementId}Best`);
+                    const timeElement = document.getElementById(`${elementId}Time`);
+                    
+                    if (bestElement) bestElement.textContent = bestScore.score;
+                    if (timeElement) timeElement.textContent = timeString;
                 } else {
-                    document.getElementById(`${gameType}Best`).textContent = '0';
-                    document.getElementById(`${gameType}Time`).textContent = '--:--';
+                    const elementId = gameType === 'medical-phlebotomy' ? 'medicalPhlebotomy' : gameType;
+                    document.getElementById(`${elementId}Best`).textContent = '0';
+                    document.getElementById(`${elementId}Time`).textContent = '--:--';
                 }
             } else {
                 // Show best overall scores when no player is logged in
@@ -1956,11 +1812,24 @@ class GameManager {
                     const seconds = Math.floor((bestScore.time % 60000) / 1000);
                     const timeString = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
                     
-                    document.getElementById(`${gameType}Best`).textContent = bestScore.score;
-                    document.getElementById(`${gameType}Time`).textContent = timeString;
+                    // Map game types to their element IDs
+                    const elementIdMap = {
+                        'medical-phlebotomy': 'medicalPhlebotomy',
+                        'lab-processing': 'labProcessing',
+                        'physicians-nurses': 'physiciansNurses',
+                        'transport-safety': 'transportSafety'
+                    };
+                    
+                    const elementId = elementIdMap[gameType] || gameType;
+                    const bestElement = document.getElementById(`${elementId}Best`);
+                    const timeElement = document.getElementById(`${elementId}Time`);
+                    
+                    if (bestElement) bestElement.textContent = bestScore.score;
+                    if (timeElement) timeElement.textContent = timeString;
                 } else {
-                    document.getElementById(`${gameType}Best`).textContent = '0';
-                    document.getElementById(`${gameType}Time`).textContent = '--:--';
+                    const elementId = gameType === 'medical-phlebotomy' ? 'medicalPhlebotomy' : gameType;
+                    document.getElementById(`${elementId}Best`).textContent = '0';
+                    document.getElementById(`${elementId}Time`).textContent = '--:--';
                 }
             }
         });
