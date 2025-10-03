@@ -344,6 +344,9 @@
                 <button class="refresh-btn" onclick="addSampleData()" style="background: #28a745; margin-left: 10px;">
                     <i class="fas fa-plus"></i> Add Sample Data
                 </button>
+                <button class="refresh-btn" onclick="clearSampleData()" style="background: #ffc107; margin-left: 10px;">
+                    <i class="fas fa-trash"></i> Clear Sample Data
+                </button>
             </div>
 
             <div class="leaderboard-table">
@@ -435,33 +438,16 @@
                     this.leaderboards[gameType] = data ? JSON.parse(data) : [];
                 });
                 
-                // Add sample data if no data exists
-                this.addSampleData();
+                // Don't add sample data automatically
+                // Only show real data from Firebase or localStorage
                 
                 this.displayLeaderboard();
             }
 
             addSampleData() {
-                const hasData = Object.values(this.leaderboards).some(entries => entries.length > 0);
-                
-                if (!hasData) {
-                    // Add sample data for demonstration
-                    const sampleData = [
-                        { player: 'Dr. Sarah', score: 95, time: 120000, date: new Date().toISOString() },
-                        { player: 'Nurse Ahmed', score: 88, time: 150000, date: new Date().toISOString() },
-                        { player: 'Lab Tech Fatima', score: 92, time: 135000, date: new Date().toISOString() },
-                        { player: 'Dr. Mohammed', score: 87, time: 180000, date: new Date().toISOString() },
-                        { player: 'Nurse Layla', score: 90, time: 165000, date: new Date().toISOString() }
-                    ];
-
-                    // Add sample data to each game type
-                    Object.keys(this.gameData).forEach(gameType => {
-                        if (this.leaderboards[gameType].length === 0) {
-                            this.leaderboards[gameType] = [...sampleData];
-                            localStorage.setItem(`leaderboard_${gameType}`, JSON.stringify(this.leaderboards[gameType]));
-                        }
-                    });
-                }
+                // Only add sample data if explicitly requested
+                // Don't add automatically
+                console.log('Sample data function available but not auto-triggered');
             }
 
             displayLeaderboard() {
@@ -498,6 +484,9 @@
                             <i class="fas fa-trophy"></i>
                             <h3>No Data Available</h3>
                             <p>Be the first to play and appear on the leaderboard!</p>
+                            <p style="margin-top: 10px; color: #666;">
+                                <small>Play any game to see your results here</small>
+                            </p>
                         </div>
                     `;
                     return;
@@ -677,6 +666,33 @@
             
             leaderboardManager.loadLeaderboards();
             alert('Sample data has been added!');
+        }
+
+        async function clearSampleData() {
+            if (confirm('Are you sure you want to clear all sample data? This will remove fake names and scores.')) {
+                // Clear Firebase data if available
+                if (typeof db !== 'undefined') {
+                    try {
+                        const snapshot = await db.collection('scores').get();
+                        const batch = db.batch();
+                        snapshot.docs.forEach(doc => {
+                            batch.delete(doc.ref);
+                        });
+                        await batch.commit();
+                        console.log('Firebase sample data cleared');
+                    } catch (error) {
+                        console.log('Firebase error:', error);
+                    }
+                }
+
+                // Clear localStorage data
+                Object.keys(leaderboardManager.gameData).forEach(gameType => {
+                    localStorage.removeItem(`leaderboard_${gameType}`);
+                });
+                
+                leaderboardManager.loadLeaderboards();
+                alert('Sample data has been cleared! Now only real game results will show.');
+            }
         }
 
         function goBack() {
