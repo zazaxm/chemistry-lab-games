@@ -398,20 +398,38 @@
 
             async loadLeaderboards() {
                 // Try to load from Firebase first
-                if (typeof cloudLeaderboard !== 'undefined') {
+                if (typeof db !== 'undefined') {
                     try {
-                        const cloudData = await cloudLeaderboard.getAllLeaderboards();
-                        if (Object.keys(cloudData).length > 0) {
-                            this.leaderboards = cloudData;
+                        console.log('Loading from Firebase...');
+                        const snapshot = await db.collection('scores').get();
+                        const allScores = snapshot.docs.map(doc => doc.data());
+                        
+                        // Group scores by game type
+                        const groupedScores = {};
+                        allScores.forEach(score => {
+                            if (!groupedScores[score.gameType]) {
+                                groupedScores[score.gameType] = [];
+                            }
+                            groupedScores[score.gameType].push(score);
+                        });
+                        
+                        // Sort each game type by score
+                        Object.keys(groupedScores).forEach(gameType => {
+                            groupedScores[gameType].sort((a, b) => b.score - a.score);
+                        });
+                        
+                        if (Object.keys(groupedScores).length > 0) {
+                            this.leaderboards = groupedScores;
                             this.displayLeaderboard();
                             return;
                         }
                     } catch (error) {
-                        console.log('Firebase not available, using localStorage');
+                        console.log('Firebase error:', error);
                     }
                 }
                 
                 // Fallback to localStorage
+                console.log('Using localStorage fallback...');
                 Object.keys(this.gameData).forEach(gameType => {
                     const data = localStorage.getItem(`leaderboard_${gameType}`);
                     this.leaderboards[gameType] = data ? JSON.parse(data) : [];
@@ -590,18 +608,34 @@
             leaderboardManager.refreshLeaderboard();
         }
 
-        function resetLeaderboard() {
+        async function resetLeaderboard() {
             if (confirm('Are you sure you want to reset all leaderboard data? This cannot be undone.')) {
-                // Clear all leaderboard data
+                // Clear Firebase data if available
+                if (typeof db !== 'undefined') {
+                    try {
+                        const snapshot = await db.collection('scores').get();
+                        const batch = db.batch();
+                        snapshot.docs.forEach(doc => {
+                            batch.delete(doc.ref);
+                        });
+                        await batch.commit();
+                        console.log('Firebase data cleared');
+                    } catch (error) {
+                        console.log('Firebase error:', error);
+                    }
+                }
+
+                // Clear localStorage data
                 Object.keys(leaderboardManager.gameData).forEach(gameType => {
                     localStorage.removeItem(`leaderboard_${gameType}`);
                 });
+                
                 leaderboardManager.loadLeaderboards();
                 alert('Leaderboard data has been reset!');
             }
         }
 
-        function addSampleData() {
+        async function addSampleData() {
             const sampleData = [
                 { player: 'Dr. Sarah', score: 95, time: 120000, date: new Date().toISOString() },
                 { player: 'Nurse Ahmed', score: 88, time: 150000, date: new Date().toISOString() },
@@ -613,7 +647,28 @@
                 { player: 'Lab Tech Omar', score: 91, time: 155000, date: new Date().toISOString() }
             ];
 
-            // Add sample data to each game type
+            // Add sample data to Firebase if available
+            if (typeof db !== 'undefined') {
+                try {
+                    for (const gameType of Object.keys(leaderboardManager.gameData)) {
+                        for (const score of sampleData) {
+                            await db.collection('scores').add({
+                                gameType: gameType,
+                                player: score.player,
+                                score: score.score,
+                                time: score.time,
+                                accuracy: Math.round((score.score / 5) * 100),
+                                date: score.date
+                            });
+                        }
+                    }
+                    console.log('Sample data added to Firebase');
+                } catch (error) {
+                    console.log('Firebase error:', error);
+                }
+            }
+
+            // Add sample data to localStorage as fallback
             Object.keys(leaderboardManager.gameData).forEach(gameType => {
                 const existingData = JSON.parse(localStorage.getItem(`leaderboard_${gameType}`) || '[]');
                 const newData = [...existingData, ...sampleData];
@@ -632,6 +687,14 @@
         setInterval(() => {
             leaderboardManager.refreshLeaderboard();
         }, 30000);
+
+        // Listen for real-time updates from Firebase
+        if (typeof db !== 'undefined') {
+            db.collection('scores').onSnapshot((snapshot) => {
+                console.log('Firebase data updated, refreshing leaderboard...');
+                leaderboardManager.loadLeaderboards();
+            });
+        }
     </script>
 </body>
 </html>
