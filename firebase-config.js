@@ -1,19 +1,19 @@
 // Firebase Configuration
 const firebaseConfig = {
-    // Paste your actual Firebase config here from console.firebase.google.com
-    apiKey: "AIzaSyC...", // Replace with your actual API key
-    authDomain: "your-project.firebaseapp.com", // Replace with your actual domain
-    projectId: "your-project-id", // Replace with your actual project ID
-    storageBucket: "your-project.appspot.com", // Replace with your actual storage bucket
-    messagingSenderId: "123456789", // Replace with your actual sender ID
-    appId: "1:123456789:web:abcdef..." // Replace with your actual app ID
+    apiKey: "AIzaSyCebzillVHXwCujp3GP5KVavphP_XK28c4",
+    authDomain: "medical-lab-game.firebaseapp.com",
+    projectId: "medical-lab-game",
+    storageBucket: "medical-lab-game.firebasestorage.app",
+    messagingSenderId: "655382296049",
+    appId: "1:655382296049:web:ca1815905e81b05e514050",
+    measurementId: "G-ZR16MWE51G"
 };
 
-    // Initialize Firebase
-    if (typeof firebase !== 'undefined') {
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore();
-    }
+// Initialize Firebase
+if (typeof firebase !== 'undefined') {
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+}
 
     // Cloud-based leaderboard functions
     class CloudLeaderboard {
