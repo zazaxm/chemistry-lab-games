@@ -1,3 +1,70 @@
+// Device Detection and Optimization
+const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+const isTablet = /iPad|Android/i.test(navigator.userAgent) && window.innerWidth >= 768;
+const isDesktop = window.innerWidth >= 1024;
+
+// Optimize for different devices
+if (isTablet) {
+    document.body.classList.add('tablet-optimized');
+} else if (isDesktop) {
+    document.body.classList.add('desktop-optimized');
+} else {
+    document.body.classList.add('mobile-optimized');
+}
+
+// Touch event optimization for iPad
+if (isTablet || isMobile) {
+    // Add touch event listeners for better iPad support
+    document.addEventListener('touchstart', function(e) {
+        // Prevent default touch behavior that might interfere with game
+        if (e.target.classList.contains('game-card') || 
+            e.target.classList.contains('option') || 
+            e.target.classList.contains('btn-primary') || 
+            e.target.classList.contains('btn-secondary')) {
+            e.preventDefault();
+        }
+    }, { passive: false });
+    
+    // Add touch move prevention for drag elements
+    document.addEventListener('touchmove', function(e) {
+        if (e.target.classList.contains('drag-item') || 
+            e.target.classList.contains('puzzle-piece')) {
+            e.preventDefault();
+        }
+    }, { passive: false });
+}
+
+// Resize handler for responsive updates
+window.addEventListener('resize', function() {
+    // Re-detect device type on resize
+    const newIsTablet = /iPad|Android/i.test(navigator.userAgent) && window.innerWidth >= 768;
+    const newIsDesktop = window.innerWidth >= 1024;
+    
+    // Update classes
+    document.body.classList.remove('tablet-optimized', 'desktop-optimized', 'mobile-optimized');
+    
+    if (newIsTablet) {
+        document.body.classList.add('tablet-optimized');
+    } else if (newIsDesktop) {
+        document.body.classList.add('desktop-optimized');
+    } else {
+        document.body.classList.add('mobile-optimized');
+    }
+});
+
+// Register Service Worker for better performance
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+        navigator.serviceWorker.register('/service-worker.js')
+            .then(function(registration) {
+                console.log('ServiceWorker registration successful with scope: ', registration.scope);
+            })
+            .catch(function(err) {
+                console.log('ServiceWorker registration failed: ', err);
+            });
+    });
+}
+
 // Game Data and Configuration
 const GAME_DATA = {
     'medical-phlebotomy': {
