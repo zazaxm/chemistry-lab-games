@@ -77,22 +77,10 @@ const GAME_DATA = {
                 explanation: "Fasting ensures accurate baseline measurements by eliminating the effects of recent food intake, which can significantly alter glucose and lipid levels."
             },
             {
-                question: "What is the purpose of a Quality Control (QC) sample in the lab?",
-                options: ["To test new equipment", "To verify that test results are accurate and reliable", "To save money on reagents"],
-                correct: 1,
-                explanation: "QC samples are used to verify that laboratory equipment and procedures are working correctly, ensuring accurate and reliable test results."
-            },
-            {
                 question: "What does a hemolyzed sample mean, and why is it a problem?",
                 options: ["Red blood cells are intact - no problem", "Red blood cells are broken, releasing contents that can affect test results", "The sample is too old"],
                 correct: 1,
                 explanation: "Hemolysis occurs when red blood cells break down, releasing their contents into the serum/plasma, which can falsely elevate certain test results like potassium and LDH."
-            },
-            {
-                question: "What is the importance of crossmatching before blood transfusion?",
-                options: ["To save time", "To ensure blood compatibility and prevent transfusion reactions", "To reduce costs"],
-                correct: 1,
-                explanation: "Crossmatching tests donor blood against recipient blood to ensure compatibility, preventing potentially fatal transfusion reactions."
             },
             {
                 question: "Why should some blood samples be kept cold or protected from light?",
@@ -117,30 +105,6 @@ const GAME_DATA = {
                 options: ["No risks", "Inaccurate test results due to wrong additives or anticoagulants", "Just takes longer to process"],
                 correct: 1,
                 explanation: "Using wrong tubes can cause inaccurate results due to inappropriate additives, anticoagulants, or tube materials that interfere with specific tests."
-            },
-            {
-                question: "Why does the laboratory need to collect blood in different tubes?",
-                options: ["For organization", "Different tests require different additives, anticoagulants, or tube materials", "To use more tubes"],
-                correct: 1,
-                explanation: "Different tests require specific tube types with appropriate additives (EDTA, heparin, citrate) or no additives (serum tubes) to ensure accurate results."
-            },
-            {
-                question: "True or False: Healthy people do not need to do blood tests unless they feel sick.",
-                options: ["True", "False"],
-                correct: 1,
-                explanation: "False. Regular blood tests are important for preventive care, early disease detection, and monitoring health status even in apparently healthy individuals."
-            },
-            {
-                question: "True or False: Blood donation decreases your hemoglobin.",
-                options: ["True", "False"],
-                correct: 0,
-                explanation: "True. Blood donation temporarily decreases hemoglobin levels as you lose red blood cells, but levels typically return to normal within 4-8 weeks."
-            },
-            {
-                question: "When was King Faisal Specialist Hospital established?",
-                options: ["1975", "1980", "1985"],
-                correct: 0,
-                explanation: "King Faisal Specialist Hospital and Research Centre was established in 1975 in Riyadh, Saudi Arabia, as a leading medical institution."
             }
         ]
     },
@@ -282,9 +246,9 @@ class GameManager {
         this.startTime = Date.now();
         this.selectedQuestions = null;
 
-        // For medical-phlebotomy, select 6 random questions
+        // For medical-phlebotomy, use all 6 questions
         if (gameType === 'medical-phlebotomy') {
-            this.selectedQuestions = getRandomQuestions(GAME_DATA[gameType].questions, 6);
+            this.selectedQuestions = GAME_DATA[gameType].questions;
         }
 
         document.getElementById('mainMenu').style.display = 'none';
